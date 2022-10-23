@@ -9,7 +9,7 @@ namespace DACN.Controllers
 {
     public class HomeController : Controller
     {
-        dbDAChuyenNganhDataContext dataContext = new dbDAChuyenNganhDataContext();
+        DAChuyenNganhDataContext dataContext = new DAChuyenNganhDataContext();
         public ActionResult Index()
         {
             return View();

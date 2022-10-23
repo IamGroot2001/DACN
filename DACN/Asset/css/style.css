@@ -129,7 +129,7 @@ ol {
 }
 
 .spad {
-	padding-top: 100px;
+	padding-top: 50px;
 	padding-bottom: 100px;
 }
 
@@ -1495,8 +1495,8 @@ ol {
 .product__details__pic {
 	text-align: center;
 	background: #f3f2ee;
-	padding: 40px 0 60px;
-	margin-bottom: 100px;
+	padding:20px 20px;
+	margin-bottom: 70px;
 }
 
 .product__details__pic .nav-tabs {
@@ -1549,9 +1549,6 @@ ol {
 	border-color: transparent;
 }
 
-.product__details__breadcrumb {
-	margin-bottom: 30px;
-}
 
 .product__details__breadcrumb a {
 	font-size: 15px;
@@ -2046,7 +2043,7 @@ ol {
 
 .breadcrumb-option {
 	background: #f3f2ee;
-	padding: 40px 0;
+	padding: 10px 0!important;
 }
 
 .breadcrumb__text h4 {

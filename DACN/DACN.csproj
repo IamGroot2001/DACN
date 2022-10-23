@@ -128,10 +128,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\dbDAChuyenNganh.designer.cs">
+    <Compile Include="Models\DAChuyenNganh.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>dbDAChuyenNganh.dbml</DependentUpon>
+      <DependentUpon>DAChuyenNganh.dbml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -395,13 +395,13 @@
     <Content Include="Asset\signin_signup\scss\layouts\main.scss" />
     <Content Include="Asset\signin_signup\scss\layouts\responsive.scss" />
     <Content Include="Asset\signin_signup\scss\style.scss" />
-    <Content Include="Models\dbDAChuyenNganh.dbml">
+    <Content Include="Models\DAChuyenNganh.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>dbDAChuyenNganh.designer.cs</LastGenOutput>
+      <LastGenOutput>DAChuyenNganh.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Models\dbDAChuyenNganh.dbml.layout">
-      <DependentUpon>dbDAChuyenNganh.dbml</DependentUpon>
+    <None Include="Models\DAChuyenNganh.dbml.layout">
+      <DependentUpon>DAChuyenNganh.dbml</DependentUpon>
     </None>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
