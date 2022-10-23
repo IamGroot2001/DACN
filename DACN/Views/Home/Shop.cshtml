@@ -11,8 +11,8 @@
                 <div class="breadcrumb__text">
                     <h4>Shop</h4>
                     <div class="breadcrumb__links">
-                        <a href="@Url.Action("Index","Home")">Home</a>
-                        <span>Shop</span>
+                        <a href="@Url.Action("Index","Home")">Trang Chủ</a>
+                        <span>Cửa Hàng</span>
                     </div>
                 </div>
             </div>
@@ -36,13 +36,14 @@
                         <div class="accordion" id="accordionExample">
                             <div class="card">
                                 <div class="card-heading">
-                                    <a data-toggle="collapse" data-target="#collapseOne">Categories</a>
+                                    <a data-toggle="collapse" data-target="#collapseOne">Phân Loại</a>
                                 </div>
                                 <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="shop__sidebar__categories">
                                             <ul class="nice-scroll">
-                                                <li><a href="#">Men (20)</a></li>
+                                                @Html.Action("ProductCategory","Category")
+                                                @*<li><a href="#">Men (20)</a></li>
                                                 <li><a href="#">Women (20)</a></li>
                                                 <li><a href="#">Bags (20)</a></li>
                                                 <li><a href="#">Clothing (20)</a></li>
@@ -50,7 +51,7 @@
                                                 <li><a href="#">Accessories (20)</a></li>
                                                 <li><a href="#">Kids (20)</a></li>
                                                 <li><a href="#">Kids (20)</a></li>
-                                                <li><a href="#">Kids (20)</a></li>
+                                                <li><a href="#">Kids (20)</a></li>*@
                                             </ul>
                                         </div>
                                     </div>

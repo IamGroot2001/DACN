@@ -6,10 +6,15 @@ using System.Web.Mvc;
 
 namespace DACN.Controllers
 {
-    public class CategoriController : Controller
+    public class UsersController : Controller
     {
-        // GET: Categori
-        public ActionResult Categori()
+        // GET: Users
+        public ActionResult SignIn()
+        {
+            return View();
+        }
+
+        public ActionResult SignUp()
         {
             return View();
         }
