@@ -33,12 +33,12 @@ namespace DACN.Models
     partial void InsertCT_DONHANG(CT_DONHANG instance);
     partial void UpdateCT_DONHANG(CT_DONHANG instance);
     partial void DeleteCT_DONHANG(CT_DONHANG instance);
-    partial void InsertCT_SANPHAM(CT_SANPHAM instance);
-    partial void UpdateCT_SANPHAM(CT_SANPHAM instance);
-    partial void DeleteCT_SANPHAM(CT_SANPHAM instance);
     partial void InsertCHUC_VU(CHUC_VU instance);
     partial void UpdateCHUC_VU(CHUC_VU instance);
     partial void DeleteCHUC_VU(CHUC_VU instance);
+    partial void InsertCT_SANPHAM(CT_SANPHAM instance);
+    partial void UpdateCT_SANPHAM(CT_SANPHAM instance);
+    partial void DeleteCT_SANPHAM(CT_SANPHAM instance);
     partial void InsertDON_HANG(DON_HANG instance);
     partial void UpdateDON_HANG(DON_HANG instance);
     partial void DeleteDON_HANG(DON_HANG instance);
@@ -100,19 +100,19 @@ namespace DACN.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<CT_SANPHAM> CT_SANPHAMs
-		{
-			get
-			{
-				return this.GetTable<CT_SANPHAM>();
-			}
-		}
-		
 		public System.Data.Linq.Table<CHUC_VU> CHUC_VUs
 		{
 			get
 			{
 				return this.GetTable<CHUC_VU>();
+			}
+		}
+		
+		public System.Data.Linq.Table<CT_SANPHAM> CT_SANPHAMs
+		{
+			get
+			{
+				return this.GetTable<CT_SANPHAM>();
 			}
 		}
 		
@@ -419,6 +419,120 @@ namespace DACN.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CHUC_VU")]
+	public partial class CHUC_VU : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _MaCV;
+		
+		private string _TenCV;
+		
+		private EntitySet<NHAN_VIEN> _NHAN_VIENs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMaCVChanging(int value);
+    partial void OnMaCVChanged();
+    partial void OnTenCVChanging(string value);
+    partial void OnTenCVChanged();
+    #endregion
+		
+		public CHUC_VU()
+		{
+			this._NHAN_VIENs = new EntitySet<NHAN_VIEN>(new Action<NHAN_VIEN>(this.attach_NHAN_VIENs), new Action<NHAN_VIEN>(this.detach_NHAN_VIENs));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaCV", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int MaCV
+		{
+			get
+			{
+				return this._MaCV;
+			}
+			set
+			{
+				if ((this._MaCV != value))
+				{
+					this.OnMaCVChanging(value);
+					this.SendPropertyChanging();
+					this._MaCV = value;
+					this.SendPropertyChanged("MaCV");
+					this.OnMaCVChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenCV", DbType="NVarChar(50)")]
+		public string TenCV
+		{
+			get
+			{
+				return this._TenCV;
+			}
+			set
+			{
+				if ((this._TenCV != value))
+				{
+					this.OnTenCVChanging(value);
+					this.SendPropertyChanging();
+					this._TenCV = value;
+					this.SendPropertyChanged("TenCV");
+					this.OnTenCVChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CHUC_VU_NHAN_VIEN", Storage="_NHAN_VIENs", ThisKey="MaCV", OtherKey="MaCV")]
+		public EntitySet<NHAN_VIEN> NHAN_VIENs
+		{
+			get
+			{
+				return this._NHAN_VIENs;
+			}
+			set
+			{
+				this._NHAN_VIENs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_NHAN_VIENs(NHAN_VIEN entity)
+		{
+			this.SendPropertyChanging();
+			entity.CHUC_VU = this;
+		}
+		
+		private void detach_NHAN_VIENs(NHAN_VIEN entity)
+		{
+			this.SendPropertyChanging();
+			entity.CHUC_VU = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CT_SANPHAM")]
 	public partial class CT_SANPHAM : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -639,120 +753,6 @@ namespace DACN.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CHUC_VU")]
-	public partial class CHUC_VU : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _MaCV;
-		
-		private string _TenCV;
-		
-		private EntitySet<NHAN_VIEN> _NHAN_VIENs;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMaCVChanging(int value);
-    partial void OnMaCVChanged();
-    partial void OnTenCVChanging(string value);
-    partial void OnTenCVChanged();
-    #endregion
-		
-		public CHUC_VU()
-		{
-			this._NHAN_VIENs = new EntitySet<NHAN_VIEN>(new Action<NHAN_VIEN>(this.attach_NHAN_VIENs), new Action<NHAN_VIEN>(this.detach_NHAN_VIENs));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaCV", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int MaCV
-		{
-			get
-			{
-				return this._MaCV;
-			}
-			set
-			{
-				if ((this._MaCV != value))
-				{
-					this.OnMaCVChanging(value);
-					this.SendPropertyChanging();
-					this._MaCV = value;
-					this.SendPropertyChanged("MaCV");
-					this.OnMaCVChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenCV", DbType="NVarChar(50)")]
-		public string TenCV
-		{
-			get
-			{
-				return this._TenCV;
-			}
-			set
-			{
-				if ((this._TenCV != value))
-				{
-					this.OnTenCVChanging(value);
-					this.SendPropertyChanging();
-					this._TenCV = value;
-					this.SendPropertyChanged("TenCV");
-					this.OnTenCVChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CHUC_VU_NHAN_VIEN", Storage="_NHAN_VIENs", ThisKey="MaCV", OtherKey="MaCV")]
-		public EntitySet<NHAN_VIEN> NHAN_VIENs
-		{
-			get
-			{
-				return this._NHAN_VIENs;
-			}
-			set
-			{
-				this._NHAN_VIENs.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_NHAN_VIENs(NHAN_VIEN entity)
-		{
-			this.SendPropertyChanging();
-			entity.CHUC_VU = this;
-		}
-		
-		private void detach_NHAN_VIENs(NHAN_VIEN entity)
-		{
-			this.SendPropertyChanging();
-			entity.CHUC_VU = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DON_HANG")]
 	public partial class DON_HANG : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -810,7 +810,7 @@ namespace DACN.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaDH", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaDH", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaDH
 		{
 			get
@@ -1830,7 +1830,7 @@ namespace DACN.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaSP", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaSP", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaSP
 		{
 			get

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DACN.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,7 @@ namespace DACN.Controllers
 {
     public class HomeController : Controller
     {
+        dbDAChuyenNganhDataContext dataContext = new dbDAChuyenNganhDataContext();
         public ActionResult Index()
         {
             return View();
