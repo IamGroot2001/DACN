@@ -221,26 +221,29 @@
                             <div class="product__item__pic set-bg" data-setbg="~/Asset/img/product/product-2.jpg">
                                 <img src="~/Asset/img/product/product-2.jpg"/>
                                 <a herf="#"></a>
-                                <ul class="product__hover">
+                                @*<ul class="product__hover">
                                     <li><a href="#"><img src="~/Asset/img/icon/heart.png" alt=""></a></li>
                                     <li>
                                         <a href="#"><img src="~/Asset/img/icon/compare.png" alt=""> <span>Compare</span></a>
                                     </li>
                                     <li><a href="#"><img src="~/Asset/img/icon/search.png" alt=""></a></li>
-                                </ul>
+                                </ul>*@
                             </div>
                             <div class="product__item__text">
                                 <h6>Piqué Biker Jacket</h6>
-                                <a href="#" class="add-cart">+ Add To Cart</a>
-                                <div class="rating">
+                                <a href="#" class="add-cart">Thêm Vào Giỏ Hàng</a>
+                                @*<div class="rating">
                                     <i class="fa fa-star-o"></i>
                                     <i class="fa fa-star-o"></i>
                                     <i class="fa fa-star-o"></i>
                                     <i class="fa fa-star-o"></i>
                                     <i class="fa fa-star-o"></i>
-                                </div>
+                                </div>*@
                                 <h5>$67.24</h5>
-                                <div class="product__color__select">
+                                <form method="get" action="@Url.Action("ProductDetail","Home")">
+                                    <button type="submit">Xem Chi Tiết</button>
+                                </form>
+                                @*<div class="product__color__select">
                                     <label for="pc-4">
                                         <input type="radio" id="pc-4">
                                     </label>
@@ -250,7 +253,7 @@
                                     <label class="grey" for="pc-6">
                                         <input type="radio" id="pc-6">
                                     </label>
-                                </div>
+                                </div>*@
                             </div>
                         </div>
                     </div>
