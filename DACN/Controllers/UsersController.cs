@@ -6,15 +6,15 @@ using System.Web.Mvc;
 
 namespace DACN.Controllers
 {
-    public class CartController : Controller
+    public class UsersController : Controller
     {
-        // GET: Cart
-        public ActionResult Cart()
+        // GET: Users
+        public ActionResult Login()
         {
             return View();
         }
 
-        public ActionResult CheckOut()
+        public ActionResult SignUp()
         {
             return View();
         }
