@@ -9,7 +9,7 @@ namespace DACN.Controllers
     public class UsersController : Controller
     {
         // GET: Users
-        public ActionResult Login()
+        public ActionResult SignIn()
         {
             return View();
         }
