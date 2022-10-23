@@ -172,6 +172,7 @@
     <Content Include="Asset\img\footer-logo.png" />
     <Content Include="Asset\img\hero\hero-1.jpg" />
     <Content Include="Asset\img\hero\hero-2.jpg" />
+    <Content Include="Asset\img\hero\idex.jpg" />
     <Content Include="Asset\img\icon\calendar.png" />
     <Content Include="Asset\img\icon\cart.png" />
     <Content Include="Asset\img\icon\compare.png" />
