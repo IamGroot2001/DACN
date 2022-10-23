@@ -1,0 +1,63 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LogIn - FTeam</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Assets/css/elegant-icons.css" rel="stylesheet" />
+    <link href="~/Assets/fonts/fontawesome-free-6.1.1-web/css/all.css" rel="stylesheet" />
+    <link href="~/Assets/css/base.css" rel="stylesheet" />
+    <link href="~/Assets/css/style-admin.css" rel="stylesheet" />
+</head>
+<body class="d-flex justify-content-center">
+
+    <div>
+        <label class="Login-label">FTEAM</label>
+    </div>
+
+    <div class="login-container shadow">
+
+            <div class="login-head">
+                <p class="text-center">Login Admin</p>
+            </div>
+            <div class="login-body">
+                @using (Html.BeginForm())
+                {
+                    <div class="row mb-4">
+                        <div class="col-12 col-md-3">
+                            <h6>Email</h6>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <input class="login-input" name="username" placeholder="Nhập email của bạn" type="text"  required>
+                            @ViewData["1"]
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-12 col-md-3">
+                            <h6>Password</h6>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <input class="login-input" name="password" placeholder="Nhập mật khẩu của bạn" type="password" required >
+                            @ViewData["2"]
+                        </div>
+                    </div>
+                    <input type="submit" class=" btn btn-info login-btn" value="LOG IN"/>
+                }
+
+            </div>
+    </div>
+
+    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Assets/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<DoAn_Web_SellClothes.Models.SizeProduct>
+
+
+@{
+    ViewBag.Title = "Size";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="my-4">Quản lý size</h1>
+    <div class="mb-3">
+        <a class="btn btn-success" href="@Url.Action("AddSize","Manage")">Thêm size</a>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table "></i>
+            Size
+        </div>
+        <div class="card-body">
+            <table id="datatablesTypesClothes" class="table-responsive">
+                <thead>
+                    <tr >
+                        <th style="min-width:120px" class="text-center">Mã size</th>
+                        <th style="min-width:120px" class="text-center">Tên size</th>
+                        <th>&nbsp;</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="text-center">
+                            <td >@Html.DisplayFor(modelItem => item.IdSizeProduct)</td>
+                            <td >@Html.DisplayFor(modelItem => item.NameSizeProduct)</td>
+                            <td>
+                                @Html.ActionLink("Delete", "DeleteSize", new { id = item.IdSizeProduct }, new { @class = "btn btn-warning" })
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+

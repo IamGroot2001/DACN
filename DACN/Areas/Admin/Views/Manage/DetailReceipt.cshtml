@@ -1,0 +1,115 @@
+﻿@*@model DoAn_Web_SellClothes.Models.InvoiceDetail*@
+@model IEnumerable<DoAn_Web_SellClothes.Models.InvoiceDetail>
+@{
+    ViewBag.Title = "DetailReceipt";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var hd = ViewBag.ma;
+}
+
+
+<div class="container-fluid px-4 mt-5 row">
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h1>FTeam</h1>
+                    <div>
+                        <h2>Hóa đơn #<span>@hd.IdInvoice</span></h2>
+                        <p>Ngày lập: <span>@hd.InvoiceDate.ToString()</span></p>
+                    </div>
+                </div>
+                <hr />
+                <div class="formto d-flex justify-content-between">
+                    <div>
+                        <h4>Từ:</h4>
+                        <p>FTeam store colthes</p>
+                        <p>Long Thạnh Mỹ, Quận 9</p>
+                        <p>Thành phố Hồ Chí Minh</p>
+                    </div>
+                    <div>
+                        <h4>Đến:</h4>
+                        <p>@hd.InvoiceNameReceiver</p>
+                        <p>@hd.InvoicePhoneReceiver</p>
+                        <p>@hd.InvoiceAddressReceiver</p>
+                    </div>
+                </div>
+                <div>
+                    <h4>Ghi chú:</h4>
+                    <p>@hd.NoteInvoice</p>
+                </div>
+
+                <hr />
+                <table class="table table-borderless">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th> Tên sản phẩm</th>
+                            <th> Size </th>
+                            <th> Số lượng</th>
+                            <th> Giá </th>
+                            <th>Tổng tiền</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.ProductDetail.Product.NameProduct</td>
+                                <td>@item.ProductDetail.SizeProduct.NameSizeProduct</td>
+                                <td>@item.Quantity</td>
+                                <td>@String.Format("{0:0,0 }", item.UnitPrice)<span>VNĐ</span></td>
+                                <td>@String.Format("{0:0,0 }", item.UnitPrice * item.Quantity)<span>VNĐ</span></td>
+                            </tr>
+                        }
+                    <tr>
+                        <td>Phí ship</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>@String.Format("{0:0,0 }", 25000)<span>VNĐ</span></td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" align="right"><b>Tổng tiền</b></td>
+                            <td>@String.Format("{0:0,0 }", @hd.TotalInvoice)<span>VNĐ</span></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <hr />
+                <p>Phương thức thanh toán: <span> @hd.PaymentsInvoice</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4" id="groupBtnStatus">
+        <div class="card">
+            <div class="card-body d-xl-flex flex-column justify-content-between">               
+                @if (@hd.Paid && @hd.StatusInvoice)
+                {
+                    <a class="btn btn-warning mb-xl-2" href="@Url.Action("CloseInvoice","Manage", new {id = @hd.IdInvoice, TrangThai = false})">Hủy đơn hàng</a>
+                    <a class="btn btn-warning mb-xl-2" href="@Url.Action("Chugiao","Manage", new {id = @hd.IdInvoice, TrangThai = false})">Hủy thanh toán</a>
+                }
+                else if (@hd.Paid && @hd.StatusInvoice == false)
+                {
+                    <a class="btn btn-success mb-xl-2" href="@Url.Action("ConfilmInvoice","Manage", new {id = @hd.IdInvoice, TrangThai = true})">Xác nhận đơn hàng</a>
+                    <a class="btn btn-warning mb-xl-2" href="@Url.Action("Chugiao","Manage", new {id = @hd.IdInvoice, TrangThai = false})">Hủy thanh toán</a>
+                }
+                else if (@hd.Paid == false && @hd.StatusInvoice)
+                {
+                    <a class="btn btn-warning mb-xl-2" href="@Url.Action("CloseInvoice","Manage", new {id = @hd.IdInvoice, TrangThai = false})">Hủy đơn hàng</a>
+                    <a class="btn btn-success mb-xl-2" href="@Url.Action("Dagiao","Manage", new {id = @hd.IdInvoice, TrangThai = true})">Thanh toán</a>
+                }
+                else
+                {
+                    <a class="btn btn-success mb-xl-2" href="@Url.Action("ConfilmInvoice","Manage", new {id = @hd.IdInvoice, TrangThai = true})">Xác nhận đơn hàng</a>
+                    <a class="btn btn-success mb-xl-2" href="@Url.Action("Dagiao","Manage", new {id = @hd.IdInvoice, TrangThai = true})">Thanh toán</a>
+                }               
+                <button id="btnPrintBill" class="btn btn-info mb-xl-2">In hóa đơn</button>
+                <a class="btn btn-outline-dark" href="@Url.Action("Receipt","Manage")">Trở về</a>
+            </div>
+        </div>
+    </div>
+</div>
+
