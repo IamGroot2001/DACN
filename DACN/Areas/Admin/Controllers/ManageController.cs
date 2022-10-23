@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using DoAn_Web_SellClothes.Models;
+using DACN.Models;
 using System.IO;
 using System.Text;
 using System.Security.Cryptography;
-using DoAn_Web_SellClothes.Assets.csharp;
+using DACN.Assets.csharp;
 using System.Web.UI.HtmlControls;
 
-namespace DoAn_Web_SellClothes.Areas.Admin.Controllers
+namespace DACN.Areas.Admin.Controllers
 {
     public class ManageController : BaseController
     {
-        DataClasses1DataContext db =new DataClasses1DataContext();
+        dbDAChuyenNganhDataContext db =new dbDAChuyenNganhDataContext();
         // GET: Admin/Manage
         public static string MD5Hash(string input)
         {
