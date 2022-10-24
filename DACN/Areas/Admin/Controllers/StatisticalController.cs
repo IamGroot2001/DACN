@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using DACN.Models;
+using DoAn_Web_SellClothes.Models;
 
-namespace DACN.Areas.Admin.Controllers
+namespace DoAn_Web_SellClothes.Areas.Admin.Controllers
 {
     
     public class StatisticalController : Controller
     {
         // GET: Admin/Statistical
-        dbDAChuyenNganhDataContext db = new dbDAChuyenNganhDataContext();
+        DataClasses1DataContext db = new DataClasses1DataContext();
         public ActionResult Index()
         {
             return View();
