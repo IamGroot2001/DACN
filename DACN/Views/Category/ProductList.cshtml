@@ -1,0 +1,21 @@
+﻿@model IEnumerable<DACN.Models.SAN_PHAM>
+@foreach (var item in Model)
+{
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="product__item">
+            <div class="product__item__pic set-bg" data-setbg="~/Asset/img/product/@item.HinhAnh">
+                <img src="~/Asset/img/product/@item.HinhAnh" />
+                <a herf="#"></a>
+            </div>
+            <div class="product__item__text">
+                <h6>@item.TenSP</h6>
+                <a href="#" class="add-cart">Thêm Vào Giỏ Hàng</a>
+
+                <h5>@item.Gia VNĐ</h5>
+                <form method="get" action="@Url.Action("ProductDetail","Home")">
+                    <button type="submit">Xem Chi Tiết</button>
+                </form>
+            </div>
+        </div>
+    </div>
+}

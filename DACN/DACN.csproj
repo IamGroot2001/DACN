@@ -436,6 +436,8 @@
     <Content Include="Views\Users\SignIn.cshtml" />
     <Content Include="Views\Users\SignUp.cshtml" />
     <Content Include="Views\Category\ProductCategory.cshtml" />
+    <Content Include="Views\Category\ProductList.cshtml" />
+    <Content Include="Views\Category\SizeList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
