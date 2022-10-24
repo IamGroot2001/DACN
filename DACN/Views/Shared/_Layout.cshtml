@@ -34,25 +34,13 @@
                 <a href="@Url.Action("SignIn","Users")">Đăng Nhập</a>
                 <a href="@Url.Action("SignUp","Users")">Đăng Ký</a>
             </div>
-            @*<div class="offcanvas__top__hover">
-                <span>Usd <i class="arrow_carrot-down"></i></span>
-                <ul>
-                    <li>USD</li>
-                    <li>EUR</li>
-                    <li>USD</li>
-                </ul>
-            </div>*@
         </div>
         <div class="offcanvas__nav__option">
             <a href="#" class="search-switch"><img src="~/Asset/img/icon/search.png" alt=""></a>
-            @*<a href="#"><img src="~/Asset/img/icon/heart.png" alt=""></a>*@
             <a href="@Url.Action("Cart","Cart")"><img src="~/Asset/img/icon/cart.png" alt=""> <span>0</span></a>
             <div class="price">$0.00</div>
         </div>
         <div id="mobile-menu-wrap"></div>
-        @*<div class="offcanvas__text">
-            <p>Free shipping, 30-day return or refund guarantee.</p>
-        </div>*@
     </div>
     <!-- Offcanvas Menu End -->
     <!-- Header Section Begin -->
@@ -60,26 +48,21 @@
         <div class="header__top">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-6 col-md-7">
-                        @*<div class="header__top__left">
-                            <p>Free shipping, 30-day return or refund guarantee.</p>
-                        </div>*@
-                    </div>
+                    <div class="col-lg-6 col-md-7"></div>
                     <div class="col-lg-6 col-md-5">
                         <div class="header__top__right">
                             <div class="header__top__links">
-                                <a href="@Url.Action("SignIn","Users")">Đăng Nhập</a>
-                                <a href="@Url.Action("SignUp","Users")">Đăng Ký</a>
-                                @*<a href="#">FAQs</a>*@
+                                @if (Session["user"] == null)
+                                {
+                                    <a href="@Url.Action("SignIn","Users")">Đăng Nhập</a>
+                                    <a href="@Url.Action("SignUp","Users")">Đăng Ký</a>
+                                }@if (Session["user"] != null)
+                                {
+                                    <a @*href="@Url.Action("AccountInformation","Account")"*@>Xin chào! @*, @Html.Action("_User", "Users")*@</a>
+                                    <a href="@Url.Action("History","History")">History</a>
+                                    <a href="@Url.Action("LogOut","Users")">Logout</a>
+                                }
                             </div>
-                            @*<div class="header__top__hover">
-                                <span>Usd <i class="arrow_carrot-down"></i></span>
-                                <ul>
-                                    <li>USD</li>
-                                    <li>EUR</li>
-                                    <li>USD</li>
-                                </ul>
-                            </div>*@
                         </div>
                     </div>
                 </div>
@@ -89,31 +72,19 @@
     
     <!-- Offcanvas Menu End -->
     <!-- Header Section Begin -->
-    <header class="header">
-        
 
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-3">
                     <div class="header__logo">
-                        <a href="@Url.Action("Index","Home")"><img src="~/Asset/img/logo.png" alt=""></a>
+                        <a href="@Url.Action("Index","Home")"><h3 style="font-weight:bold">VTA Shop</h3></a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <nav class="header__menu mobile-menu">
                         <ul>
-                            <li @*class="active"*@><a href="@Url.Action("Index","Home")">Trang Chủ</a></li>
+                            <li><a href="@Url.Action("Index","Home")">Trang Chủ</a></li>
                             <li><a href="@Url.Action("Shop","Home")">Cửa Hàng</a></li>
-                            @*<li>
-                                <a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="./about.html">About Us</a></li>
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shopping-cart.html">Shopping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li>*@
                             <li><a href="@Url.Action("About","Home")">Chúng Tôi</a></li>
                             <li><a href="@Url.Action("Contact","Home")">Liên Hệ</a></li>
                         </ul>
@@ -122,7 +93,6 @@
                 <div class="col-lg-3 col-md-3">
                     <div class="header__nav__option">
                         <a href="#" class="search-switch"><img src="~/Asset/img/icon/search.png" alt=""></a>
-                        @*<a href="#"><img src="~/Asset/img/icon/heart.png" alt=""></a>*@
                         <a href="@Url.Action("Cart","Cart")"><img src="~/Asset/img/icon/cart.png" alt=""> <span>0</span></a>
                         <div class="price">0 VNĐ</div>
                     </div>
@@ -141,34 +111,13 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__logo">
-                            <a href="#"><img src="~/Asset/img/footer-logo.png" alt=""></a>
+                            <h3 style="color: white;font-weight:bold">VTA Shop</h3>
                         </div>
                         <p>The customer is at the heart of our unique business model, which includes design.</p>
-                        <a href="#"><img src="~/Asset/img/payment.png" alt=""></a>
+
                     </div>
                 </div>
-                <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
-                    <div class="footer__widget">
-                        <h6>Shopping</h6>
-                        <ul>
-                            <li><a href="#">Clothing Store</a></li>
-                            <li><a href="#">Trending Shoes</a></li>
-                            <li><a href="#">Accessories</a></li>
-                            <li><a href="#">Sale</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="footer__widget">
-                        <h6>Shopping</h6>
-                        <ul>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Payment Methods</a></li>
-                            <li><a href="#">Delivary</a></li>
-                            <li><a href="#">Return & Exchanges</a></li>
-                        </ul>
-                    </div>
-                </div>
+
                 <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
                     <div class="footer__widget">
                         <h6>NewLetter</h6>
@@ -190,9 +139,8 @@
                             Copyright ©
                             <script>
                                 document.write(new Date().getFullYear());
-                            </script>2020
-                            All rights reserved | This template is made with <i class="fa fa-heart-o"
-                                                                                aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                            </script>2022
+                            All rights reserved | This is the produc of <a style="font-weight:bold; color:red"href="@Url.Action("Index","Home")">VAT Shop</a> 
                         </p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </div>

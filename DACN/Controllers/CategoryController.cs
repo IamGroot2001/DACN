@@ -10,7 +10,7 @@ namespace DACN.Controllers
     public class CategoryController : Controller
     {
         // GET: Category
-        dbDAChuyenNganhDataContext dataContext = new dbDAChuyenNganhDataContext();
+        DAChuyenNganhDataContext dataContext = new DAChuyenNganhDataContext();
         public ActionResult ProductCategory()
         {
             var loaiSanPham = from lsp in dataContext.LOAI_SAN_PHAMs select lsp;
