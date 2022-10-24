@@ -121,11 +121,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
-    <Compile Include="Areas\Admin\Controllers\FeedbackController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ManageController.cs" />
-    <Compile Include="Areas\Admin\Controllers\StatisticalController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -405,29 +400,6 @@
       <LastGenOutput>dbDAChuyenNganh.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Areas\Admin\Views\web.config" />
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\ChangePassword.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\LogIn.cshtml" />
-    <Content Include="Areas\Admin\Views\Feedback\Feedback.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\AddProduct.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\AddProductDetailSize.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\AddSize.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\AddTypesClothes.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\Customer.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\DeleteProduct.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\DeleteProductType.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\DetailProduct.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\DetailProducts.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\DetailReceipt.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\EditProduct.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\EditTypesClothes.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\Product.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\Receipt.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\Size.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\TypesClothes.cshtml" />
-    <Content Include="Areas\Admin\Views\Statistical\Statistical.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <None Include="Models\dbDAChuyenNganh.dbml.layout">
       <DependentUpon>dbDAChuyenNganh.dbml</DependentUpon>
     </None>
