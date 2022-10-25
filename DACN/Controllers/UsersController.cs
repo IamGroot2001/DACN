@@ -57,14 +57,14 @@ namespace DACN.Controllers
             {
                 Session["user"] = user.TaiKhoanKH;
                 Session["name"] = user.HoTenKH;
-                Session["name"] = user.HoTenKH;
+               // Session["name"] = user.HoTenKH;
                 return RedirectToAction("Index", "Home");
             }
         }
-        //public ActionResult _User()
-        //{
-        //    return PartialView();
-        //}
+        public ActionResult _User()
+        {
+            return PartialView();
+        }
         public ActionResult LogOut()
         {
             Session["user"] = null;
@@ -133,9 +133,85 @@ namespace DACN.Controllers
             if (value == 1)
             {
                 var a = data.KHACH_HANGs.FirstOrDefault(p => p.TaiKhoanKH == str);
-                if (a != null) return true;
+                if (a != null) return false;
             }
-            return false;
+            return true;
+        }
+        [HttpGet]
+        public ActionResult AccountInformation()
+        {
+            KHACH_HANG ac = (KHACH_HANG)Session["name"];
+            return View(ac);
+        }
+        [HttpPost]
+        public ActionResult AccountInformation(FormCollection collection)
+        {
+            KHACH_HANG ac = (KHACH_HANG)Session["user"];
+            var User = data.KHACH_HANGs.SingleOrDefault(p => p.TaiKhoanKH == ac.TaiKhoanKH);
+            var fullnameuser = collection["name"];
+            var emailuser = collection["email"];
+            var phoneuser = collection["phone"];
+            var addressuser = collection["address"];
+            var oldpassuser = collection["oldpass"];
+            var newpassuser = collection["newpass"];
+            var renewpassuser = collection["renewpass"];
+            if (String.IsNullOrEmpty(fullnameuser) || String.IsNullOrEmpty(emailuser) || String.IsNullOrEmpty(phoneuser) ||
+                String.IsNullOrEmpty(addressuser))
+            {
+                ViewBag.Error = "Thông tin không được để trống";
+                return this.AccountInformation();
+            }
+            else if (String.IsNullOrEmpty(renewpassuser) && String.IsNullOrEmpty(newpassuser) && String.IsNullOrEmpty(oldpassuser) && !String.IsNullOrEmpty(fullnameuser) && !String.IsNullOrEmpty(emailuser) && !String.IsNullOrEmpty(phoneuser) &&
+                !String.IsNullOrEmpty(addressuser))
+            {
+                User.HoTenKH = fullnameuser;
+                User.EmailKH = emailuser;
+                User.SdtKH = phoneuser;
+                User.DiaChiKH = addressuser;
+                Session["user"] = User;
+                data.SubmitChanges();
+                ViewData["Info"] = "Cập nhật thành công!";
+                return this.AccountInformation();
+            }
+            else if (String.IsNullOrEmpty(renewpassuser) && String.IsNullOrEmpty(newpassuser) && !String.IsNullOrEmpty(oldpassuser) && !String.IsNullOrEmpty(fullnameuser) && !String.IsNullOrEmpty(emailuser) && !String.IsNullOrEmpty(phoneuser) &&
+                !String.IsNullOrEmpty(addressuser))
+            {
+                ViewBag.Error = "Vui lòng nhập mật khẩu mới!";
+                return this.AccountInformation();
+            }
+            else if (String.IsNullOrEmpty(renewpassuser) && !String.IsNullOrEmpty(newpassuser) && !String.IsNullOrEmpty(oldpassuser) && !String.IsNullOrEmpty(fullnameuser) && !String.IsNullOrEmpty(emailuser) && !String.IsNullOrEmpty(phoneuser) &&
+                !String.IsNullOrEmpty(addressuser))
+            {
+                ViewBag.Error = "Vui lòng nhập lại mật khẩu mới";
+                return this.AccountInformation();
+            }
+            else if (!String.IsNullOrEmpty(renewpassuser) && !String.IsNullOrEmpty(newpassuser) && !String.IsNullOrEmpty(oldpassuser) && !String.IsNullOrEmpty(fullnameuser) && !String.IsNullOrEmpty(emailuser) && !String.IsNullOrEmpty(phoneuser) &&
+                !String.IsNullOrEmpty(addressuser))
+            {
+                if (!String.Equals(MD5Hash(oldpassuser), User.MatKhauKH))
+                {
+                    ViewBag.Error = "Mật khẩu không đúng!";
+                    return this.AccountInformation();
+                }
+                else if (!String.Equals(newpassuser, renewpassuser))
+                {
+                    ViewBag.Error = "Mật khẩu mới và mật khẩu cũ không trùng khớp!";
+                    return this.AccountInformation();
+                }
+                else
+                {
+                    User.HoTenKH = fullnameuser;
+                    User.EmailKH = emailuser;
+                    User.SdtKH = phoneuser;
+                    User.DiaChiKH = addressuser;
+                    User.MatKhauKH = MD5Hash(newpassuser);
+                    Session["user"] = User;
+                    data.SubmitChanges();
+                    ViewData["Info"] = "Cập nhật thành công!";
+                    return this.AccountInformation();
+                }
+            }
+            return this.AccountInformation();
         }
     }
 }
