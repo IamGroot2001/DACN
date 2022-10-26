@@ -39,7 +39,7 @@ namespace DACN.Controllers
             return View(sanpham.Single());
         }
 
-        public ActionResult SizeOfProduct()
+        /*public ActionResult SizeOfProduct()
         {
             var sizeSanPham = from size in dataContext.SIZEs
                               join ct_sp in dataContext.CT_SANPHAMs
@@ -48,6 +48,6 @@ namespace DACN.Controllers
                               on ct_sp.MaSP equals sanpham.MaSP
                               select size;
             return PartialView(sizeSanPham);
-        }
+        }*/
     }
 }
