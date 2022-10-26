@@ -1,23 +1,24 @@
-﻿
+﻿@model DACN.Models.KHACH_HANG
 @{
-    ViewBag.Title = "SignUp";
+    ViewBag.Title = "AccountInformation";
     Layout = "~/Views/Shared/Login_Layout.cshtml";
 }
-<!-- Sign up form -->
+
 <section class="signup">
     <div class="container">
         <div class="signup-content">
             <div class="signup-form">
-                <h2 class="form-title">Sign up</h2>
+                <h2 class="form-title">Account Information</h2>
+                @*@{ DACN.Models.KHACH_HANG customer = (DACN.Models.KHACH_HANG)HttpContext.Current.Session["user"]; }*@
                 @using (Html.BeginForm())
                 {
-                    <div class="sub-w3l" style="color:red">
-                        <h6>@ViewData["Error"]</h6>
-                    </div>
                     @Html.ValidationSummary(true)
-                    <div class="form-group">
-                        <label for="name"><i class="zmdi zmdi-key"></i></label>
-                        <input type="text" name="taikhoan" placeholder="Name your account" required />
+                    <br />
+                    <div style="color:green">
+                        <h6>@ViewData["Info"]</h6>
+                    </div>
+                    <div style="color:red">
+                        <h6>@ViewBag.Error</h6>
                     </div>
                     <div class="form-group">
                         <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
@@ -25,7 +26,7 @@
                     </div>
                     <div class="form-group">
                         <label for="email"><i class="zmdi zmdi-email"></i></label>
-                        <input type="email" name="email"placeholder="Your Email" required />
+                        <input type="email" name="email" placeholder="Your Email" required />
                     </div>
                     <div class="form-group">
                         <label for="name"><i class="zmdi zmdi-phone"></i></label>
@@ -33,25 +34,31 @@
                     </div>
                     <div class="form-group">
                         <label for="name"><i class="zmdi zmdi-account-box "></i></label>
-                        <input type="text" name="address"  placeholder="Address" required />
+                        <input type="text" name="address" placeholder="Address" required />
                     </div>
                     <div class="form-group">
                         <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                        <input type="password" name="pass"  placeholder="Password" required />
+                        <input type="password" name="oldpass" placeholder="Password" required />
                     </div>
                     <div class="form-group">
                         <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                        <input type="password" name="re_pass" placeholder="Repeat your password" required />
+                        <input type="password" name="newpass" placeholder="Repeat your password" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                        <input type="password" name="renewpass" placeholder="Repeat your password" required />
                     </div>
                     <div class="form-group form-button">
                         <input type="submit" class="form-submit" value="Sumbit" />
                     </div>
-                } 
+                }
             </div>
             <div class="signup-image">
                 <figure><img src="~/Asset/signin_signup/images/signup-image.jpg" alt="sing up image"></figure>
-                <a href="@Url.Action("SignIn","Users")" class="signup-image-link">I am already member</a>
+                <a href="@Url.Action("Index","Home")" class="signup-image-link">Home</a>
             </div>
         </div>
     </div>
 </section>
+
+

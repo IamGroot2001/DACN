@@ -1,0 +1,83 @@
+﻿@model DoAn_Web_SellClothes.Models.Product
+
+@{
+    ViewBag.Title = "EditProduct";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="my-4">Sửa sản phẩm</h1>
+
+    <div class="card mb-4">
+
+        @using (Html.BeginForm("EditProduct", "Manage", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.IdProduct)
+                            <tr>
+                                <th>Mã sản phẩm</th>
+                                <td>
+                                    <div class="col-md-10">
+                                        <div style="">@Model.IdProduct</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Tên sản phẩm</th>
+                                <td>
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.NameProduct, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.NameProduct, "", new { @class = "text-danger" })
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Hình</th>
+                                <td>
+                                    <div class="col-md-10">
+                                        <input type="file" name="img"/>
+                                        <img src="~/Assets/img/Clothes/@Html.DisplayFor(modelItem => Model.ImageProduct)" class="img-thumbnail"  alt="@Model.NameProduct" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Giá</th>
+                                <td>
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.PriceProduct, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.PriceProduct, "", new { @class = "text-danger" })
+                                    </div>
+                                </td>
+                            </tr>
+                         
+                            <tr>
+                                <th>Mô tả</th>
+                                <td>
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.DescribeProduct, new { htmlAttributes = new { @class = "form-control" } })
+                             
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Loại</th>
+                                <td>
+                                    <div class="col-md-10">
+                                        @Html.DropDownList("Loai")
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <input type="submit" class="btn-fluid btn btn-outline-success" value="Save" />
+        }
+    </div>
+    <a class="btn btn-outline-dark" href="@Url.Action("Product","Manage")">Trở về</a>
+</div>
+

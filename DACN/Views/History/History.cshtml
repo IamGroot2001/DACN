@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <div class="breadcrumb__links">
+                        <a href="@Url.Action("Index","Home")">Trang Chủ</a>
+                        <span>Lịch sử đơn hàng</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class=" history-container " style="margin:10px 70px 100px">
+    <div class="table-content table-responsive">
+        <table class="table text-center">
+            <thead class="border-bottom text-left">
+                <tr>
+                    <th>Mã đơn hàng</th>
+                    <th>Ngày mua</th>
+                    <th>Tên khách hàng</th>
+                    <th>Địa chỉ giao hàng</th>
+                    <th>Số điện thoại</th>
+                    <th>Trạng thái đơn hàng</th>
+                    <th>Hình thức thanh toán</th>
+                    <th>Trạng thái thanh toán</th>
+                    <th>Tổng tiền</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+
+            <tbody class="text-left">
+                @*@foreach (var item in Model)*@
+               
+                    <tr>
+                        <td class="bill-id">
+                        </td>
+                        <td class="bill-date ">
+                        </td>
+                        <td class="bill-nameCustomer">
+                        </td>
+                        <td class="bill-addressCustomer">
+                        </td>
+                        <td class="bill-phone">
+                        </td>
+                        <td class="bill-payment">
+                                <p>Chưa xác nhận</p>
+                            
+                         
+                                <p>Đã xác nhận</p>
+                            
+                        </td>
+                        <td class="bill-payment">
+                           
+                        </td>
+                        <td class="bill-statusPayment">
+                          
+                                <p>Chưa thanh toán</p>
+                            
+                           
+                            
+                                <p>Đã thanh toán</p>
+                            
+                        </td>
+                        <td class="bill-total">
+                           <span> VNĐ</span>
+                        </td>
+                        <td class="bill-details">
+                            <a href="">View details</a>
+                        </td>
+                    </tr>
+                
+            </tbody>
+        </table>
+    </div>
+</div>

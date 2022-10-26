@@ -51,14 +51,14 @@
                     <div class="col-lg-6 col-md-7"></div>
                     <div class="col-lg-6 col-md-5">
                         <div class="header__top__right">
-                            <div class="header__top__links">
+                            <div class="header__top__links" >
                                 @if (Session["user"] == null)
                                 {
                                     <a href="@Url.Action("SignIn","Users")">Đăng Nhập</a>
                                     <a href="@Url.Action("SignUp","Users")">Đăng Ký</a>
                                 }@if (Session["user"] != null)
                                 {
-                                    <a @*href="@Url.Action("AccountInformation","Account")"*@>Xin chào! @*, @Html.Action("_User", "Users")*@</a>
+                                    <a href="@Url.Action("AccountInformation","Users")">Xin chào! , @Html.Action("_User", "Users")</a>
                                     <a href="@Url.Action("History","History")">History</a>
                                     <a href="@Url.Action("LogOut","Users")">Logout</a>
                                 }
@@ -123,10 +123,7 @@
                         <h6>NewLetter</h6>
                         <div class="footer__newslatter">
                             <p>Be the first to know about new arrivals, look books, sales & promos!</p>
-                            <form action="#">
-                                <input type="text" placeholder="Your email">
-                                <button type="submit"><span class="icon_mail_alt"></span></button>
-                            </form>
+
                         </div>
                     </div>
                 </div>

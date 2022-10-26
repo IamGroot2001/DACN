@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "HistoryDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <div class="breadcrumb__links">
+                        <a href="@Url.Action("Index","Home")">Trang Chủ</a>
+                        <a href="@Url.Action("History","History")">Lịch sử đơn hàng</a>
+                        <span>Chi tiết lịch sử đơn hàng</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="history-container d-flex justify-content-center "style="margin-bottom:100px">
+    <div class="table-content">
+        <h2><span>@ViewBag.idInvoice</span></h2>
+        <table class="mt-5 table text-center table-responsive">
+            <thead class="border-bottom text-left">
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Sản phẩm</th>
+                    <th>Size</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody class="text-left">
+               
+                    <tr>
+                        <td class="product-thumbnail">
+                            <img src="@*~/Assets/img/Clothes/@item.ImageProduct*@" />
+                        </td>
+                        <td class="product-name">
+                            <a href="@*@Url.Action("ProductDetails","Product",new {id = item.idProduct})*@">@*@item.NameProduct*@</a>
+                        </td>
+                        <td class="text-center">
+                            @*@item.SizeProduct*@
+                        </td>
+                        <td class="bill-total text-center">
+                            @*@item.Quantity*@
+                        </td>
+                        <td class="product-quantity">
+                            @*@String.Format("{0:0,0}", @item.UnitPrice)*@<span> VNĐ</span>
+                        </td>
+                        <td class="product-total-price">
+                            @*@String.Format("{0:0,0}", @item.ThanhTienInvoiceDetails)*@<span> VNĐ</span>
+                        </td>
+                    </tr>
+                
+
+            </tbody>
+        </table>
+        <p>Phí ship: 25.000 vnđ</p>
+        <a href="@*@Url.Action("History","History")*@" class="btn btn-outline-dark mt-5">Quay lại lịch sử đơn hàng</a>
+    </div>
+</div>
+
+

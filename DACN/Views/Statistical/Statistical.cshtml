@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "Statistical";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="my-4">Thống kê</h1>
+    <div class="row statistical">
+        @*<div class="col-lg-4">
+            <label>Trạng thái đơn hàng</label>
+            <div class="table-statistical">
+                <div class="card bg-success text-white mb-4">
+                    <div class="card-body">Đơn hàng đã xác nhận: <span>@ViewBag.rStatusInvoic</span></div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="@Url.Action("Receipt","Manage")">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+                <div class="card bg-danger text-white mb-4">
+                    <div class="card-body">Đơn hàng chưa xác nhận: <span>@ViewBag.StatusInvoic</span></div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="@Url.Action("Receipt","Manage")">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+                <div class="card bg-success text-white mb-4">
+                    <div class="card-body">Đơn hàng đã thanh toán: <span>@ViewBag.paidr</span></div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="@Url.Action("Receipt","Manage")">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+                <div class="card bg-danger text-white mb-4">
+                    <div class="card-body">Đơn hàng chưa thanh toán: <span> @ViewBag.paidf</span></div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="@Url.Action("Receipt","Manage")">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <label>Doanh thu</label>
+            <div class="table-statistical">
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">Tổng đơn hàng: <span>@ViewBag.Receiptcount</span></div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="@Url.Action("Receipt","Manage")">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">Tổng tiền ước tính: @String.Format("{0:0,0 }", @ViewBag.TongTienUocTinh)<span>VNĐ</span></div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="@Url.Action("Receipt","Manage")">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">Doanh thu: @String.Format("{0:0,0 }", @ViewBag.TotalInvoid)<span>VNĐ</span></div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="@Url.Action("Receipt","Manage")">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <label>Quản lý</label>
+            <div class="table-statistical">
+                <div class="card bg-info text-white mb-4">
+                    <div class="card-body">Tổng khách hàng: <span>@ViewBag.Customercount</span></div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="@Url.Action("Customer","Manage")">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+                <div class="card bg-info text-white mb-4">
+                    <div class="card-body">Tổng sản phẩm: <span>@ViewBag.Productcount</span></div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="@Url.Action("Product","Manage")">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+                <div class="card bg-info text-white mb-4">
+                    <div class="card-body">Loại đồ: <span>@ViewBag.SexMen</span></div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="@Url.Action("TypesClothes","Manage")">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    </div>
+</div>
+

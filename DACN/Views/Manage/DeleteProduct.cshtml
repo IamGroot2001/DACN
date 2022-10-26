@@ -1,0 +1,88 @@
+﻿@model DoAn_Web_SellClothes.Models.Product
+
+@{
+    ViewBag.Title = "DeleteProduct";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="my-4">Xóa sản phẩm</h1>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="table-Edit table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Tên sản phẩm</th>
+                            <td>
+                                @Html.DisplayFor(model => model.NameProduct)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Giá sản phẩm</th>
+                            <td>
+                                @Html.DisplayFor(model => model.PriceProduct)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Hình</th>
+                            <td>
+                            
+                                <img class="img-thumbnail" src="~/Assets/img/Clothes/@Html.DisplayFor(modelItem => Model.ImageProduct)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Ngày tạo</th>
+                            <td>
+                                @Html.DisplayFor(model => model.CreateDate)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Ngày cập nhật</th>
+                            <td>
+                                @Html.DisplayFor(model => model.UpdateDate)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Mô tả</th>
+                            <td>
+                                @Html.DisplayFor(model => model.DescribeProduct)
+                            </td>
+                        </tr>
+                      
+                        <tr>
+                            <th>Trạng thái</th>
+                            @if (Model.StatusProduct == 1)
+                            {
+                                <td>Còn hhàng</td>
+                            }
+                            else if (Model.StatusProduct == 0)
+                            {
+                                <td>Hết hàng</td>
+                            }
+
+
+                        </tr>
+                        <tr>
+                            <th>Loại</th>
+                            <td>
+                                @Html.DisplayFor(model => model.ProductType.NameProductType)
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <input type="submit" class="btn-fluid btn btn-outline-success" value="Xác nhận"/>
+        }
+    </div>
+    <a class="btn btn-outline-dark" href="@Url.Action("Product","Manage")">Trở về</a>
+
+
+</div>
