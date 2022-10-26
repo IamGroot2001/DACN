@@ -475,6 +475,8 @@
     <Content Include="Views\Users\_User.cshtml" />
     <Content Include="Views\History\History.cshtml" />
     <Content Include="Views\History\HistoryDetail.cshtml" />
+    <Content Include="Views\Category\ProductList.cshtml" />
+    <Content Include="Views\Category\SizeList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

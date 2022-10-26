@@ -81,12 +81,11 @@
                                     <div class="card-body">
                                         <div class="shop__sidebar__price">
                                             <ul>
-                                                <li><a href="#">$0.00 - $50.00</a></li>
-                                                <li><a href="#">$50.00 - $100.00</a></li>
-                                                <li><a href="#">$100.00 - $150.00</a></li>
-                                                <li><a href="#">$150.00 - $200.00</a></li>
-                                                <li><a href="#">$200.00 - $250.00</a></li>
-                                                <li><a href="#">250.00+</a></li>
+                                                <li><a href="#">0 VNĐ - 100.000 VNĐ</a></li>
+                                                <li><a href="#">100.000 VNĐ - 250.000 VNĐ</a></li>
+                                                <li><a href="#">250.000 VNĐ - 500.000 VNĐ</a></li>
+                                                <li><a href="#">500.000 VNĐ - 750.000 VNĐ</a></li>
+                                                <li><a href="#">750.000 VNĐ Trở Lên</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -99,7 +98,8 @@
                                 <div id="collapseFour" class="collapse show" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="shop__sidebar__size">
-                                            <label for="xs">
+                                            @Html.Action("SizeList", "Category")
+                                            @*<label for="xs">
                                                 xs
                                                 <input type="radio" id="xs">
                                             </label>
@@ -130,7 +130,7 @@
                                             <label for="4xl">
                                                 4xl
                                                 <input type="radio" id="4xl">
-                                            </label>
+                                            </label>*@
                                         </div>
                                     </div>
                                 </div>
@@ -216,10 +216,11 @@
                     </div>
                 </div>
                 <div class="row">
+                    @Html.Action("ProductList", "Category")
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="product__item">
                             <div class="product__item__pic set-bg" data-setbg="~/Asset/img/product/product-2.jpg">
-                                <img src="~/Asset/img/product/product-2.jpg"/>
+                                <img src="~/Asset/img/product/product-2.jpg" />
                                 <a herf="#"></a>
                             </div>
                             <div class="product__item__text">
@@ -233,7 +234,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
                 </div>
                 @*cuon trang*@
                 <div class="row">

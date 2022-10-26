@@ -14,7 +14,6 @@
       <Column Name="MaSize" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="SoLuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ThanhTien" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="DON_HANG_CT_DONHANG" Member="DON_HANG" ThisKey="MaDH" OtherKey="MaDH" Type="DON_HANG" IsForeignKey="true" />
       <Association Name="CT_SANPHAM_CT_DONHANG" Member="CT_SANPHAM" ThisKey="MaSP,MaSize" OtherKey="MaSP,MaSize" Type="CT_SANPHAM" IsForeignKey="true" />
     </Type>
   </Table>
@@ -70,6 +69,13 @@
       <Column Name="MaCV" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="NHAN_VIEN_DON_HANG" Member="DON_HANGs" ThisKey="TaiKhoanNV" OtherKey="TaiKhoanNV" Type="DON_HANG" />
       <Association Name="CHUC_VU_NHAN_VIEN" Member="CHUC_VU" ThisKey="MaCV" OtherKey="MaCV" Type="CHUC_VU" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LOAI_SAN_PHAM" Member="LOAI_SAN_PHAMs">
+    <Type Name="LOAI_SAN_PHAM">
+      <Column Name="MaLSP" Type="System.String" DbType="NChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenLSP" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="LOAI_SAN_PHAM_SAN_PHAM" Member="SAN_PHAMs" ThisKey="MaLSP" OtherKey="MaLSP" Type="SAN_PHAM" />
     </Type>
   </Table>
   <Table Name="dbo.PHUONG_THUC_THANH_TOAN" Member="PHUONG_THUC_THANH_TOANs">
