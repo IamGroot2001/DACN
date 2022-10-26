@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<DACN.Models.LOAI_SAN_PHAM>
 @foreach (var item in Model)
 {
-    <li><a href="#">@item.TenLSP</a></li>
+    <li><a href="@Url.Action("FilteredProductTypeList", "Category", new {id = item.MaLSP})">@item.TenLSP</a></li>
 }

@@ -27,7 +27,8 @@ namespace DACN.Controllers
 
         public ActionResult Shop()
         {
-            return View();
+            var dsSanPham = from dssp in dataContext.SAN_PHAMs select dssp;
+            return View(dsSanPham);
         }
 
         public ActionResult ProductDetail()

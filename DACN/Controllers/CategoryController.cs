@@ -29,6 +29,43 @@ namespace DACN.Controllers
             return PartialView(dsSize);
         }
 
+        public ActionResult FilteredProductTypeList(string id)
+        {
+            var product = from pd in dataContext.SAN_PHAMs where pd.MaLSP == id select pd;
+            return View(product);
+        }
+
+        public ActionResult FilteredProductPriceList0To100()
+        {
+            int gia = 100000;
+            var product = from pd in dataContext.SAN_PHAMs where pd.Gia <= gia select pd;
+            return View(product);
+        }
+
+        public ActionResult FilteredProductPriceList100To250()
+        {
+            int giabatdau = 100000;
+            int giaketthuc = 250000;
+            var product = from pd in dataContext.SAN_PHAMs where pd.Gia > giabatdau && pd.Gia <= giaketthuc select pd;
+            return View(product);
+        }
+
+        public ActionResult FilteredProductPriceList250To500()
+        {
+            int giabatdau = 250000;
+            int giaketthuc = 500000;
+            var product = from pd in dataContext.SAN_PHAMs where pd.Gia > giabatdau && pd.Gia <= giaketthuc select pd;
+            return View(product);
+        }
+
+        public ActionResult FilteredProductPriceListOver500()
+        {
+            var product = from pd in dataContext.SAN_PHAMs where pd.Gia > 500000 select pd;
+            return View(product);
+        }
+
+
+
         /*public ActionResult ProductCount()
         {
             var slSanPham = (from slsp in dataContext.SAN_PHAMs select slsp).Count();
