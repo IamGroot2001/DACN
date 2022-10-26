@@ -31,9 +31,12 @@ namespace DACN.Controllers
             return View(dsSanPham);
         }
 
-        public ActionResult ProductDetail()
+        public ActionResult ProductDetail(int id)
         {
-            return View();
+            var sanpham = from s in dataContext.SAN_PHAMs
+                          where s.MaSP == id
+                          select s;
+            return View(sanpham.Single());
         }
     }
 }

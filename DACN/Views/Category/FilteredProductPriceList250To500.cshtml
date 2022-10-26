@@ -16,7 +16,7 @@
                 <a href="#" class="add-cart">Thêm Vào Giỏ Hàng</a>
 
                 <h5>@item.Gia VNĐ</h5>
-                <form method="get" action="@Url.Action("ProductDetail","Home")">
+                <form method="get" action="@Url.Action("ProductDetail","Home", new { id = item.MaSP })">
                     <button type="submit">Xem Chi Tiết</button>
                 </form>
             </div>

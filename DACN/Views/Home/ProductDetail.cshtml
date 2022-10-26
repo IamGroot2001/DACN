@@ -24,19 +24,17 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="tabs-1" role="tabpanel">
                     <div class="product__details__pic__item">
-                        <img src="~/Asset/img/shop-details/product-big-2.png" alt="">
+                        <img src="~/Asset/img/product/@Model.HinhAnh" alt="">
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-4 mx-auto">
             <div class="product__details__text">
-                <h4>Hooded thermal anorak</h4>
-                <h3>$270.00</h3>
+                <h4>@Model.TenSP</h4>
+                <h3>@Model.Gia VNĐ</h3>
                 <p>
-                    Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable
-                    cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening
-                    with placket.
+                    @Model.MoTa
                 </p>
                 <div class="product__details__option">
                     <div class="product__details__option__size">
@@ -65,7 +63,7 @@
                             <input type="text" value="1">
                         </div>
                     </div>
-                    <a href="@Url.Action("Cart","Cart")" class="primary-btn">add to cart</a>
+                    <a href="@Url.Action("Cart","Cart")" class="primary-btn">Thêm Vào Giỏ Hàng</a>
                 </div>
             </div>
         </div>
