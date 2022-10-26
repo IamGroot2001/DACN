@@ -1,0 +1,9 @@
+﻿@model IEnumerable<DACN.Models.SIZE>
+@foreach (var item in Model)
+{
+    <label @*for="xs"*@>
+        @item.TenSize
+        <input type="radio" @*id="xs"*@>
+    </label>
+    
+}
