@@ -4,6 +4,7 @@
     <Type Name="CHUC_VU">
       <Column Name="MaCV" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="TenCV" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="CHUC_VU_NHAN_VIEN" Member="NHAN_VIENs" ThisKey="MaCV" OtherKey="MaCV" Type="NHAN_VIEN" />
     </Type>
   </Table>
   <Table Name="dbo.CT_DONHANG" Member="CT_DONHANGs">
@@ -13,18 +14,8 @@
       <Column Name="MaSize" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="SoLuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ThanhTien" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="CT_SANPHAM_CT_DONHANG" Member="CT_SANPHAM" ThisKey="MaSP,MaSize" OtherKey="MaSP,MaSize" Type="CT_SANPHAM" IsForeignKey="true" />
       <Association Name="DON_HANG_CT_DONHANG" Member="DON_HANG" ThisKey="MaDH" OtherKey="MaDH" Type="DON_HANG" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.CT_SANPHAM" Member="CT_SANPHAMs">
-    <Type Name="CT_SANPHAM">
-      <Column Name="MaSP" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="MaSize" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="SoLuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="CT_SANPHAM_CT_DONHANG" Member="CT_DONHANGs" ThisKey="MaSP,MaSize" OtherKey="MaSP,MaSize" Type="CT_DONHANG" />
-      <Association Name="SAN_PHAM_CT_SANPHAM" Member="SAN_PHAM" ThisKey="MaSP" OtherKey="MaSP" Type="SAN_PHAM" IsForeignKey="true" />
-      <Association Name="SIZE_CT_SANPHAM" Member="SIZE" ThisKey="MaSize" OtherKey="MaSize" Type="SIZE" IsForeignKey="true" />
+      <Association Name="CT_SANPHAM_CT_DONHANG" Member="CT_SANPHAM" ThisKey="MaSP,MaSize" OtherKey="MaSP,MaSize" Type="CT_SANPHAM" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.DON_HANG" Member="DON_HANGs">
@@ -36,11 +27,21 @@
       <Column Name="TrangThaiVanChuyen" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="TaiKhoanKH" Type="System.String" DbType="Char(25) NOT NULL" CanBeNull="false" />
       <Column Name="MaPTTT" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="TaiKhoanNV" Type="System.String" DbType="NChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="TaiKhoanNV" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Association Name="DON_HANG_CT_DONHANG" Member="CT_DONHANGs" ThisKey="MaDH" OtherKey="MaDH" Type="CT_DONHANG" />
       <Association Name="KHACH_HANG_DON_HANG" Member="KHACH_HANG" ThisKey="TaiKhoanKH" OtherKey="TaiKhoanKH" Type="KHACH_HANG" IsForeignKey="true" />
       <Association Name="NHAN_VIEN_DON_HANG" Member="NHAN_VIEN" ThisKey="TaiKhoanNV" OtherKey="TaiKhoanNV" Type="NHAN_VIEN" IsForeignKey="true" />
       <Association Name="PHUONG_THUC_THANH_TOAN_DON_HANG" Member="PHUONG_THUC_THANH_TOAN" ThisKey="MaPTTT" OtherKey="MaPTTT" Type="PHUONG_THUC_THANH_TOAN" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CT_SANPHAM" Member="CT_SANPHAMs">
+    <Type Name="CT_SANPHAM">
+      <Column Name="MaSP" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MaSize" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SoLuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="CT_SANPHAM_CT_DONHANG" Member="CT_DONHANGs" ThisKey="MaSP,MaSize" OtherKey="MaSP,MaSize" Type="CT_DONHANG" />
+      <Association Name="SIZE_CT_SANPHAM" Member="SIZE" ThisKey="MaSize" OtherKey="MaSize" Type="SIZE" IsForeignKey="true" />
+      <Association Name="SAN_PHAM_CT_SANPHAM" Member="SAN_PHAM" ThisKey="MaSP" OtherKey="MaSP" Type="SAN_PHAM" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.KHACH_HANG" Member="KHACH_HANGs">
@@ -63,11 +64,12 @@
   </Table>
   <Table Name="dbo.NHAN_VIEN" Member="NHAN_VIENs">
     <Type Name="NHAN_VIEN">
-      <Column Name="TaiKhoanNV" Type="System.String" DbType="NChar(25) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="MatKhau" Type="System.String" DbType="NChar(25)" CanBeNull="true" />
+      <Column Name="TaiKhoanNV" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MatKhau" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="HoTenNV" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="MaCV" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="NHAN_VIEN_DON_HANG" Member="DON_HANGs" ThisKey="TaiKhoanNV" OtherKey="TaiKhoanNV" Type="DON_HANG" />
+      <Association Name="CHUC_VU_NHAN_VIEN" Member="CHUC_VU" ThisKey="MaCV" OtherKey="MaCV" Type="CHUC_VU" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.PHUONG_THUC_THANH_TOAN" Member="PHUONG_THUC_THANH_TOANs">
@@ -75,6 +77,13 @@
       <Column Name="MaPTTT" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="TenPTTT" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="PHUONG_THUC_THANH_TOAN_DON_HANG" Member="DON_HANGs" ThisKey="MaPTTT" OtherKey="MaPTTT" Type="DON_HANG" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIZE" Member="SIZEs">
+    <Type Name="SIZE">
+      <Column Name="MaSize" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenSize" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Association Name="SIZE_CT_SANPHAM" Member="CT_SANPHAMs" ThisKey="MaSize" OtherKey="MaSize" Type="CT_SANPHAM" />
     </Type>
   </Table>
   <Table Name="dbo.SAN_PHAM" Member="SAN_PHAMs">
@@ -89,13 +98,6 @@
       <Column Name="MaLSP" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
       <Association Name="SAN_PHAM_CT_SANPHAM" Member="CT_SANPHAMs" ThisKey="MaSP" OtherKey="MaSP" Type="CT_SANPHAM" />
       <Association Name="LOAI_SAN_PHAM_SAN_PHAM" Member="LOAI_SAN_PHAM" ThisKey="MaLSP" OtherKey="MaLSP" Type="LOAI_SAN_PHAM" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SIZE" Member="SIZEs">
-    <Type Name="SIZE">
-      <Column Name="MaSize" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="TenSize" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Association Name="SIZE_CT_SANPHAM" Member="CT_SANPHAMs" ThisKey="MaSize" OtherKey="MaSize" Type="CT_SANPHAM" />
     </Type>
   </Table>
 </Database>

@@ -211,7 +211,7 @@ lớp phủ đen khi nhấn nút sổ thanh dọc*/
 }
 
 .login-head {
-    background-color: #17a2b8;
+    background-color: dimgray;
     padding: .5rem 0;
     letter-spacing: 2.5px;
     border-top-left-radius: 1rem;

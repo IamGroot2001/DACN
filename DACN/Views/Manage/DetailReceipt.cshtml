@@ -1,5 +1,5 @@
 ﻿@*@model DoAn_Web_SellClothes.Models.InvoiceDetail*@
-@model IEnumerable<DoAn_Web_SellClothes.Models.InvoiceDetail>
+@model IEnumerable<DACN.Models.DON_HANG>
 @{
     ViewBag.Title = "DetailReceipt";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -12,7 +12,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
-                    <h1>FTeam</h1>
+                    <h1>VTA SHop</h1>
                     <div>
                         <h2>Hóa đơn #<span>@hd.IdInvoice</span></h2>
                         <p>Ngày lập: <span>@hd.InvoiceDate.ToString()</span></p>
