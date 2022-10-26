@@ -1,0 +1,48 @@
+﻿@model DoAn_Web_SellClothes.Models.ProductDetail
+
+@{
+    ViewBag.Title = "AddProductDetailSize";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="my-4">Thêm size cho sản phẩm</h1>
+
+    <div class="card mb-4">
+        @using (Html.BeginForm("AddProductDetailSize", "Manage", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            <div class="card-body">
+                <div class="table-Edit table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>                                    
+                                <th>Mã sản phẩm</th>
+                                <td>
+                                    @ViewBag.IdProduct
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Số lượng</th>
+                                <td>
+                                    <input type="number" min="1" name="Sl" required />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Kích thước</th>
+                                <td>
+                                    <div class="col-md-10">
+                                        @Html.DropDownList("Size")
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <input type="submit" class="mybtn btn btn-outline-success" value="Xác nhận" />
+        }
+    </div>
+    <button class="btn btn-outline-dark" onclick="history.back()">Trở về</button>
+</div>
+
+

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<DoAn_Web_SellClothes.Models.Invoice>
+@{
+    ViewBag.Title = "Receipt";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="my-4">Quản lý hóa đơn</h1>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Hóa đơn
+        </div>
+        <div class="card-body">
+            <table id="datatablesInvoice" class="table-responsive">
+                <thead>
+                    <tr>
+                        <th>Mã hóa đơn</th>
+                        <th>Khách hàng</th>
+                        <th>Địa chỉ nhận hàng</th>
+                        <th>Số điện thoại người nhận</th>
+                        <th>Ngày lập</th>
+                        <th>Tổng hóa đơn</th>
+                        <th>Phương thức thanh toán</th>
+                        <th>Trạng thái hóa đơn</th>
+                        <th>Trạng thái thanh toán</th>
+                        <th>Lưu ý</th>
+                        <th>&nbsp;</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.IdInvoice)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Account.FullName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.InvoiceAddressReceiver)</td>
+                            <td>@Html.DisplayFor(modelItem => item.InvoicePhoneReceiver)</td>
+                            <td>@String.Format("{0:dd/MM/yyyy}", item.InvoiceDate)</td>
+                            <td>@String.Format("{0:0,0 }", item.TotalInvoice)<span>VNĐ</span></td>
+                            <td>@Html.DisplayFor(modelItem => item.PaymentsInvoice)</td>
+                            @if (@item.StatusInvoice)
+                            {
+                                <td>Đã xác nhận</td>
+                            }
+                            else
+                            {
+                                <td>Chưa xác nhận</td>
+                            }
+                            @if (@item.Paid)
+                            {
+                                <td>Đã thanh toán</td>
+                            }
+                            else
+                            {
+                                <td>Chưa thanh toán</td>
+                            }
+                            <td>@Html.DisplayFor(modelItem => item.NoteInvoice)</td>
+                            <td>
+                                @Html.ActionLink("Detail", "DetailReceipt", new { id = item.IdInvoice }, new { @class = "btn btn-info" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+

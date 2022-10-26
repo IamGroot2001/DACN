@@ -6,6 +6,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using DACN.Models;
 
 namespace DACN.Controllers
@@ -38,6 +39,7 @@ namespace DACN.Controllers
             var tendangnhap = collection["username"];
             var matkhau = collection["password"];
             var user = data.KHACH_HANGs.SingleOrDefault(p => p.TaiKhoanKH == tendangnhap);
+           //var a= MD5Hash(matkhau).ToString();
             if (String.IsNullOrEmpty(tendangnhap) || String.IsNullOrEmpty(matkhau))
             {
                 ViewData["Error"] = "Vui lòng điền đầy đủ nội dung";
@@ -133,9 +135,9 @@ namespace DACN.Controllers
             if (value == 1)
             {
                 var a = data.KHACH_HANGs.FirstOrDefault(p => p.TaiKhoanKH == str);
-                if (a != null) return false;
+                if (a != null) return true;
             }
-            return true;
+            return false;
         }
         [HttpGet]
         public ActionResult AccountInformation()

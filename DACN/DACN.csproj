@@ -118,9 +118,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FeedbackController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\StatisticalController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Asset\csharp\BaseController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HistoryController.cs" />
@@ -137,6 +142,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Asset\css\all.css" />
+    <Content Include="Asset\css\base.css" />
     <Content Include="Asset\css\bootstrap.min.css" />
     <Content Include="Asset\css\elegant-icons.css" />
     <Content Include="Asset\css\font-awesome.min.css" />
@@ -144,6 +151,7 @@
     <Content Include="Asset\css\nice-select.css" />
     <Content Include="Asset\css\owl.carousel.min.css" />
     <Content Include="Asset\css\slicknav.min.css" />
+    <Content Include="Asset\css\style-admin.css" />
     <Content Include="Asset\css\style.css" />
     <Content Include="Asset\fonts\ElegantIcons.svg" />
     <Content Include="Asset\fonts\fontawesome-webfont.svg" />
@@ -225,6 +233,8 @@
     <Content Include="Asset\img\shopping-cart\cart-2.jpg" />
     <Content Include="Asset\img\shopping-cart\cart-3.jpg" />
     <Content Include="Asset\img\shopping-cart\cart-4.jpg" />
+    <Content Include="Asset\js\admin.js" />
+    <Content Include="Asset\js\base.js" />
     <Content Include="Asset\js\bootstrap.min.js" />
     <Content Include="Asset\js\jquery-3.3.1.min.js" />
     <Content Include="Asset\js\jquery.countdown.min.js" />
@@ -399,6 +409,27 @@
     <Content Include="Asset\signin_signup\scss\layouts\main.scss" />
     <Content Include="Asset\signin_signup\scss\layouts\responsive.scss" />
     <Content Include="Asset\signin_signup\scss\style.scss" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\LogIn.cshtml" />
+    <Content Include="Views\Feedback\Feedback.cshtml" />
+    <Content Include="Views\Manage\AddProduct.cshtml" />
+    <Content Include="Views\Manage\AddProductDetailSize.cshtml" />
+    <Content Include="Views\Manage\AddSize.cshtml" />
+    <Content Include="Views\Manage\AddTypesClothes.cshtml" />
+    <Content Include="Views\Manage\Customer.cshtml" />
+    <Content Include="Views\Manage\DeleteProduct.cshtml" />
+    <Content Include="Views\Manage\DeleteProductType.cshtml" />
+    <Content Include="Views\Manage\DetailProduct.cshtml" />
+    <Content Include="Views\Manage\DetailProducts.cshtml" />
+    <Content Include="Views\Manage\DetailReceipt.cshtml" />
+    <Content Include="Views\Manage\EditProduct.cshtml" />
+    <Content Include="Views\Manage\EditTypesClothes.cshtml" />
+    <Content Include="Views\Manage\Product.cshtml" />
+    <Content Include="Views\Manage\Receipt.cshtml" />
+    <Content Include="Views\Manage\Size.cshtml" />
+    <Content Include="Views\Manage\TypesClothes.cshtml" />
+    <Content Include="Views\Shared\_Layoutadmin.cshtml" />
+    <Content Include="Views\Statistical\Statistical.cshtml" />
     <Content Include="Models\DAChuyenNganh.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>DAChuyenNganh.designer.cs</LastGenOutput>

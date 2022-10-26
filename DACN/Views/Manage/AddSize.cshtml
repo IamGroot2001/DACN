@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "AddSize";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="px-4">
+    <h1 class="my-4">Thêm size</h1>
+    <div class="card mb-4 mx-auto" style="max-width:70vh">
+        <div class="card-header">
+            <i class="fas fa-shirt"></i>
+            Thêm size
+        </div>
+        @using (Html.BeginForm())
+        {
+            <div class="card-body d-flex flex-column justify-content-center" style="min-height:10rem">
+                <div class="d-flex flex-column flex-md-row justify-content-around">
+                    <label><b>Mời bạn nhập size:</b> </label>
+                    <input type="text" name="name" />
+                </div>
+               
+            </div>
+            <input type="submit" class="btn btn-outline-success btn-fluid" value="Thêm" />
+        }
+    </div>
+    <a class="btn btn-outline-dark" href="@Url.Action("Size","Manage")">Trở về</a>
+</div>
+
+
+
