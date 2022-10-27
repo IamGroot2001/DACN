@@ -19,10 +19,31 @@ namespace DACN.Controllers
         {
             return View();
         }
-
+        [HttpGet]
         public ActionResult Contact()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult Contact(FormCollection collection, FEEDBACK fb)
+        {
+            var namefeedback = collection["fullnamefeedback"];
+            var emailfeedback = collection["emailfeedback"];
+            var describefeedback = collection["textfeedback"];
+            if (String.IsNullOrEmpty(namefeedback) || String.IsNullOrEmpty(emailfeedback) || String.IsNullOrEmpty(describefeedback))
+            {
+                ViewData["Error"] = "Vui lòng điền đầy đủ nội dung";
+                return this.Contact();
+            }
+            else
+            {
+                fb.Ten = namefeedback;
+                fb.Email = emailfeedback;
+                fb.NoiDung = describefeedback;
+                dataContext.FEEDBACKs.InsertOnSubmit(fb);
+                dataContext.SubmitChanges();
+                return RedirectToAction("Contact");
+            }
         }
 
         public ActionResult Shop()

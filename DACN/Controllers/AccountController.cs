@@ -55,8 +55,14 @@ namespace DACN.Controllers
             else
             {
                 Session["admin"] = user;
+                Session["loai"] = user.MaCV.ToString();
+                Session["ten"] = user.HoTenNV.ToString();
                 return RedirectToAction("Statistical", "Statistical");
             }
+        }
+        public ActionResult id()
+        {
+            return PartialView();
         }
         public ActionResult LogOut()
         {
@@ -68,46 +74,46 @@ namespace DACN.Controllers
         {
             return View();
         }
-        //[HttpPost]
-        //public ActionResult ChangePassword(FormCollection collection)
-        //{
-        //    NHAN_VIEN ac = (NHAN_VIEN)Session["admin"];
-           
-        //    var admin = db.NHAN_VIENs.SingleOrDefault(p => p.IdAdminAccount == ac.IdAdminAccount);           
-        //    var po = collection["passold"];
-        //    var pn = collection["passnew"];
-        //    var pa = collection["passagain"];
-        //    if (String.IsNullOrEmpty(po) || String.IsNullOrEmpty(pn) || String.IsNullOrEmpty(pa))
-        //    {
-        //        ViewData["1"] = "Thông tin không được để trống";
-        //    }
-        //    else if (!String.IsNullOrEmpty(po) && String.IsNullOrEmpty(pn) && !String.IsNullOrEmpty(pa))
-        //    {
-        //        ViewData["3"] = "Vui lòng nhập mật khẩu mới!";
-        //        return this.ChangePassword();
-        //    }            
-        //    else if (!String.IsNullOrEmpty(po) && !String.IsNullOrEmpty(pn) && !String.IsNullOrEmpty(pa))
-        //    {
-        //        if (!String.Equals(MD5Hash(po), admin.PasswordAdmin))
-        //        {
-        //            ViewData["1"] = "Mật khẩu không đúng!";
-        //            return this.ChangePassword();
-        //        }
-        //        else if (!String.Equals(pn, pa))
-        //        {
-        //            ViewData["3"] = "Mật khẩu nhập lại không trùng khớp!";
-        //            return this.ChangePassword();
-        //        }
-        //        else
-        //        {
-        //            admin.PasswordAdmin = MD5Hash(pn);
-        //            Session["admin"] = admin;
-        //            db.SubmitChanges();
-        //            ViewData["3"] = "Cập nhật thành công!";
-        //            return RedirectToAction("Statistical", "Statistical");
-        //        }
-        //    }
-        //    return this.ChangePassword();
-        //}
+        [HttpPost]
+        public ActionResult ChangePassword(FormCollection collection)
+        {
+            NHAN_VIEN ac = (NHAN_VIEN)Session["admin"];
+
+            var admin = db.NHAN_VIENs.SingleOrDefault(p => p.TaiKhoanNV == ac.TaiKhoanNV);
+            var po = collection["passold"];
+            var pn = collection["passnew"];
+            var pa = collection["passagain"];
+            if (String.IsNullOrEmpty(po) || String.IsNullOrEmpty(pn) || String.IsNullOrEmpty(pa))
+            {
+                ViewData["1"] = "Thông tin không được để trống";
+            }
+            else if (!String.IsNullOrEmpty(po) && String.IsNullOrEmpty(pn) && !String.IsNullOrEmpty(pa))
+            {
+                ViewData["3"] = "Vui lòng nhập mật khẩu mới!";
+                return this.ChangePassword();
+            }
+            else if (!String.IsNullOrEmpty(po) && !String.IsNullOrEmpty(pn) && !String.IsNullOrEmpty(pa))
+            {
+                if (!String.Equals(MD5Hash(po), admin.MatKhau))
+                {
+                    ViewData["1"] = "Mật khẩu không đúng!";
+                    return this.ChangePassword();
+                }
+                else if (!String.Equals(pn, pa))
+                {
+                    ViewData["3"] = "Mật khẩu nhập lại không trùng khớp!";
+                    return this.ChangePassword();
+                }
+                else
+                {
+                    admin.MatKhau = MD5Hash(pn);
+                    Session["admin"] = admin;
+                    db.SubmitChanges();
+                    ViewData["3"] = "Cập nhật thành công!";
+                    return RedirectToAction("Statistical", "Statistical");
+                }
+            }
+            return this.ChangePassword();
+        }
     }
 }

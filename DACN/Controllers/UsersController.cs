@@ -57,7 +57,7 @@ namespace DACN.Controllers
             }
             else
             {
-                Session["user"] = user.TaiKhoanKH;
+                Session["user"] = user;
                 Session["name"] = user.HoTenKH;
                // Session["name"] = user.HoTenKH;
                 return RedirectToAction("Index", "Home");

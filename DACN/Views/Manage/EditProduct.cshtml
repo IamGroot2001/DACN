@@ -1,8 +1,8 @@
-﻿@model DoAn_Web_SellClothes.Models.Product
+﻿@model DACN.Models.SAN_PHAM
 
 @{
     ViewBag.Title = "EditProduct";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
 }
 
 <div class="container-fluid px-4">
@@ -17,12 +17,12 @@
                     <table class="table">
                         <tbody>
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            @Html.HiddenFor(model => model.IdProduct)
+                            @Html.HiddenFor(model => model.MaSP)
                             <tr>
                                 <th>Mã sản phẩm</th>
                                 <td>
                                     <div class="col-md-10">
-                                        <div style="">@Model.IdProduct</div>
+                                        <div style="">@Model.MaSP</div>
                                     </div>
                                 </td>
                             </tr>
@@ -30,8 +30,8 @@
                                 <th>Tên sản phẩm</th>
                                 <td>
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.NameProduct, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.NameProduct, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.TenSP, "", new { @class = "text-danger" })
                                     </div>
                                 </td>
                             </tr>
@@ -40,7 +40,7 @@
                                 <td>
                                     <div class="col-md-10">
                                         <input type="file" name="img"/>
-                                        <img src="~/Assets/img/Clothes/@Html.DisplayFor(modelItem => Model.ImageProduct)" class="img-thumbnail"  alt="@Model.NameProduct" />
+                                        <img src="~/Assets/img/Clothes/@Html.DisplayFor(modelItem => Model.HinhAnh)" class="img-thumbnail"  alt="@Model.TenSP" />
                                     </div>
                                 </td>
                             </tr>
@@ -48,8 +48,8 @@
                                 <th>Giá</th>
                                 <td>
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.PriceProduct, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.PriceProduct, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.Gia, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Gia, "", new { @class = "text-danger" })
                                     </div>
                                 </td>
                             </tr>
@@ -58,7 +58,7 @@
                                 <th>Mô tả</th>
                                 <td>
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.DescribeProduct, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(model => model.MoTa, new { htmlAttributes = new { @class = "form-control" } })
                              
                                     </div>
                                 </td>

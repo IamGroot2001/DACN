@@ -1,9 +1,9 @@
-﻿@model IEnumerable<DoAn_Web_SellClothes.Models.SizeProduct>
+﻿@model IEnumerable<DACN.Models.SIZE>
 
 
 @{
     ViewBag.Title = "Size";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
 }
 
 <div class="container-fluid px-4">
@@ -30,10 +30,10 @@
                     @foreach (var item in Model)
                     {
                         <tr class="text-center">
-                            <td >@Html.DisplayFor(modelItem => item.IdSizeProduct)</td>
-                            <td >@Html.DisplayFor(modelItem => item.NameSizeProduct)</td>
+                            <td >@Html.DisplayFor(modelItem => item.MaSize)</td>
+                            <td >@Html.DisplayFor(modelItem => item.TenSize)</td>
                             <td>
-                                @Html.ActionLink("Delete", "DeleteSize", new { id = item.IdSizeProduct }, new { @class = "btn btn-warning" })
+                                @Html.ActionLink("Delete", "DeleteSize", new { id = item.MaSize }, new { @class = "btn btn-warning" })
 
                             </td>
                         </tr>
