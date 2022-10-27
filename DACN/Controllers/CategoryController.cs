@@ -29,7 +29,7 @@ namespace DACN.Controllers
             return PartialView(dsSize);
         }
 
-        public ActionResult FilteredProductTypeList(string id)
+        public ActionResult FilteredProductTypeList(int id)
         {
             var product = from pd in dataContext.SAN_PHAMs where pd.MaLSP == id select pd;
             return View(product);
