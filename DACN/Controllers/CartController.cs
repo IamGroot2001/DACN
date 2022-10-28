@@ -91,7 +91,33 @@ namespace DACN.Controllers
             return PartialView();
         }
 
+        public ActionResult XoaGioHang(int id)
+        {
+            List<GioHang> gioHangs = LayGioHang();
+            GioHang sessiongiohang = gioHangs.SingleOrDefault(n => n.maSP == id);
+            if (sessiongiohang != null)
+            {
+                gioHangs.RemoveAll(n => n.maSP == id);
+                return RedirectToAction("Cart");
+            }
+            if (gioHangs.Count == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("Cart");
+        }
 
+        public ActionResult CapNhatGioHang(int id, FormCollection f)
+        {
+            List<GioHang> gioHangs = LayGioHang();
+            GioHang sessiongiohang = gioHangs.SingleOrDefault(n => n.maSP == id);
+            if (sessiongiohang != null)
+            {
+                sessiongiohang.soLuong = int.Parse(f["SoLuong"].ToString());
+
+            }
+            return RedirectToAction("Cart");
+        }
 
     }
 }
