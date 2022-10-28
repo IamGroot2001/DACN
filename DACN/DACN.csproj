@@ -142,6 +142,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DAChuyenNganh.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\GioHang.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
