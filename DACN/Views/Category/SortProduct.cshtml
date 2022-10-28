@@ -1,10 +1,15 @@
-﻿@model IEnumerable<DACN.Models.SAN_PHAM>
+﻿@using PagedList.Mvc;
+@using DACN.Models;
+@model PagedList.PagedList<SAN_PHAM>
+
 @{
-    ViewBag.Title = "Shop";
+    ViewBag.Title = "FilteredProductPriceListOver500";
     Layout = "~/Views/Shared/Shop_Layout.cshtml";
 }
-@foreach(var item in Model)
+<h2 class=" text-center mb-4">@ViewBag.SapXepSanPham</h2>
+@foreach (var item in Model)
 {
+    @*<h2 class=" text-center mb-4">@ViewBag.SapXepSanPham</h2>*@
     <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="product__item">
             <div class="product__item__pic set-bg" data-setbg="~/Asset/img/product/@item.HinhAnh">
@@ -23,5 +28,7 @@
         </div>
     </div>
 }
-
+<div class="page">
+    @Html.PagedListPager(Model, page => Url.Action("SortProduct", new { page = page, @KieuSapXep = Session["KieuSapXep"] }))
+</div>
 
