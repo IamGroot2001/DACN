@@ -255,6 +255,7 @@ namespace DACN.Controllers
             });
 
             var accessToken = result.access_token;
+            Session["AccessToken"] = accessToken;
             if (!string.IsNullOrEmpty(accessToken))
             {
                 fb.AccessToken = accessToken;
@@ -265,6 +266,7 @@ namespace DACN.Controllers
                 string firstName = me.first_name;
                 string middlename = me.middle_name;
                 string lastname = me.last_name;
+                FormsAuthentication.SetAuthCookie(email, false);
                 //neu chay dc hãy thử thêm sđt và địa chỉ
 
                 var khachhang = new KHACH_HANG();
