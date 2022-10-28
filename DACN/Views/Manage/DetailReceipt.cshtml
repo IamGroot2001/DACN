@@ -30,13 +30,13 @@
                     <div>
                         <h4>Đến:</h4>
                         <p>@hd.TenNguoiNhan</p>
-                        @*<p>@hd.InvoicePhoneReceiver</p>*@
+                        <p>@hd.SdtNguoiNhan</p>
                         <p>@hd.DiaChiNhanHang</p>
                     </div>
                 </div>
                 <div>
                     <h4>Ghi chú:</h4>
-                    @*<p>@hd.NoteInvoice</p>*@
+                    <p>@hd.GhiChu</p>
                 </div>
 
                 <hr />
@@ -74,7 +74,7 @@
                     <tfoot>
                         <tr>
                             <td colspan="4" align="right"><b>Tổng tiền</b></td>
-                            <td>@*@String.Format("{0:0,0 }", @hd.TotalInvoice)*@<span>VNĐ</span></td>
+                            <td>@String.Format("{0:0,0 }", @hd.TongTien)<span>VNĐ</span></td>
                         </tr>
                     </tfoot>
                 </table>
@@ -101,17 +101,17 @@
     <div class="col-xl-4" id="groupBtnStatus">
         <div class="card">
             <div class="card-body d-xl-flex flex-column justify-content-between">
-                @if (@hd.TrangThaiGiaoHang == true && @hd.TrangThaiDonHang == true)
+                @if (@hd.TrangThaiGiaoHang && @hd.TrangThaiDonHang)
                 {
                     <a class="btn btn-warning mb-xl-2" href="@Url.Action("CloseInvoice","Manage", new {id = @hd.MaDH, TrangThai = false})">Hủy đơn hàng</a>
                     <a class="btn btn-warning mb-xl-2" href="@Url.Action("Chugiao","Manage", new {id = @hd.MaDH, TrangThai = false})">Hủy thanh toán</a>
                 }
-                else if (@hd.TrangThaiGiaoHang ==true && @hd.TrangThaiDonHang == false)
+                else if (@hd.TrangThaiGiaoHang && @hd.TrangThaiDonHang == false)
                 {
                     <a class="btn btn-success mb-xl-2" href="@Url.Action("ConfilmInvoice","Manage", new {id = @hd.MaDH, TrangThai = true})">Xác nhận đơn hàng</a>
                     <a class="btn btn-warning mb-xl-2" href="@Url.Action("Chugiao","Manage", new {id = @hd.MaDH, TrangThai = false})">Hủy thanh toán</a>
                 }
-                else if (@hd.TrangThaiGiaoHang == false && @hd.TrangThaiDonHang ==true)
+                else if (@hd.TrangThaiGiaoHang == false && @hd.TrangThaiDonHang)
                 {
                     <a class="btn btn-warning mb-xl-2" href="@Url.Action("CloseInvoice","Manage", new {id = @hd.MaDH, TrangThai = false})">Hủy đơn hàng</a>
                     <a class="btn btn-success mb-xl-2" href="@Url.Action("Dagiao","Manage", new {id = @hd.MaDH, TrangThai = true})">Thanh toán</a>

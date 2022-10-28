@@ -1,8 +1,8 @@
-﻿@model DoAn_Web_SellClothes.Models.ProductType
+﻿@model DACN.Models.LOAI_SAN_PHAM
 
 @{
     ViewBag.Title = "DeleteProductType";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
 }
 
 <div class="container-fluid px-4">
@@ -15,10 +15,10 @@
                         <tr>
                             <th>Tên loại sản phẩm</th>
                             <td>
-                                @Html.DisplayFor(model => model.NameProductType)
+                                @Html.DisplayFor(model => model.TenLSP)
                             </td>
                         </tr>        
-                        <tr>
+                        @*<tr>
                             <th>Giới tính</th>
                            @if (Model.IdSex == 1)
                             {
@@ -28,7 +28,7 @@
                             {
                                 <td>Nữ</td>
                             }
-                        </tr>
+                        </tr>*@
                     </tbody>
                 </table>
             </div>

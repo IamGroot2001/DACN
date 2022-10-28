@@ -54,18 +54,18 @@
                                 @Html.DisplayFor(model => model.LOAI_SAN_PHAM.TenLSP)
                             </td>
                         </tr>
-                        @*<tr>
-                            <th>Trạng thái</th>                       
-                                @if (@Model.StatusProduct == 1)
-                                {
-                                    <td>Còn hàng</td>
-                                }
-                                else if (Model.StatusProduct == 0)
-                                {
-                                    <td>Hết hàng</td>
-                                }
-                             
-                        </tr>*@
+                        <tr>
+                            <th>Trạng thái</th>
+                            @if (@Model.TrangThai == true)
+                            {
+                                <td>Còn hàng</td>
+                            }
+                            else if (Model.TrangThai == false)
+                            {
+                                <td>Hết hàng</td>
+                            }
+
+                        </tr>
                     </tbody>
                 </table>
             </div>

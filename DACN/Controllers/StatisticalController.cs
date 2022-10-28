@@ -29,7 +29,20 @@ namespace DACN.Controllers
             ViewBag.rStatusInvoic = rStatusInvoic();
             ViewBag.paidf = paidInvoic();
             ViewBag.paidr = rpaidInvoic();
+            ViewBag.nhanvien = nhanvien();
+            ViewBag.nhanviendaxoa = nvdaxoa();          
             return View();
+        }
+        private int nhanvien()
+        {
+            var count = (from s in db.NHAN_VIENs where s.MaCV == 2 && s.MaCV ==3 select s).Count();
+            //var count = db.KHACH_HANGs.OrderByDescending(s => s.TaiKhoanKH).Count();
+            return count;
+        }
+        private int nvdaxoa()
+        {
+            var count = (from s in db.NHAN_VIENs where s.MaCV == 4 select s).Count();
+            return count;
         }
         private int Customercount()
         {
@@ -54,8 +67,8 @@ namespace DACN.Controllers
         private int TotalInvoid()
         {
             int tongTien = 0;
-            var hd = db.DON_HANGs.Select(p => p.TenNguoiNhan).Count();
-            var tt = db.DON_HANGs.Where(p => p.TrangThaiGiaoHang == true).Select(p => p.MaDH).Count();
+            var hd = db.DON_HANGs.Select(p => p.TongTien).Count();
+            var tt = db.DON_HANGs.Where(p => p.TrangThaiGiaoHang == true).Select(p => p.TongTien).Count();
             if (hd == 0)
             {
                 return tongTien;
@@ -68,7 +81,7 @@ namespace DACN.Controllers
                 }
                 else
                 {
-                    tongTien = db.DON_HANGs.Where(p => p.TrangThaiGiaoHang == true).Select(p => p.MaDH).Sum();
+                    tongTien = (int)db.DON_HANGs.Where(p => p.TrangThaiGiaoHang == true).Select(p => p.TongTien).Sum();
                 }
             }
             return tongTien;
@@ -77,14 +90,14 @@ namespace DACN.Controllers
         private int TongTienUocTinh()
         {
             int tongTien = 0;
-            var hd = db.DON_HANGs.Select(p => p.MaDH).Count();
+            var hd = db.DON_HANGs.Select(p => p.TongTien).Count();
             if (hd == 0)
             {
                 return tongTien;
             }
             else
             {
-                tongTien = db.DON_HANGs.Select(p => p.MaDH).Sum();
+                tongTien =(int) db.DON_HANGs.Select(p => p.TongTien).Sum();
             }
             return tongTien;
         }

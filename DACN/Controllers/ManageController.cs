@@ -9,12 +9,16 @@ using System.Text;
 using System.Security.Cryptography;
 using DACN.Asset.csharp;
 using System.Web.UI.HtmlControls;
+using System.Drawing;
+using System.Net;
+using System.Web.Helpers;
 
 namespace DACN.Controllers
 {
     public class ManageController : BaseController
     {
         DAChuyenNganhDataContext db = new DAChuyenNganhDataContext();
+        private static readonly int checktk = 1;
         // GET: Admin/Manage
         public static string MD5Hash(string input)
         {
@@ -52,12 +56,13 @@ namespace DACN.Controllers
         public ActionResult ConfilmInvoice(int id, string TrangThai)
         {
             //bool a = true;
+            string cv = Session["nv"].ToString();
             bool a = bool.Parse(TrangThai);
             var ct = db.DON_HANGs.SingleOrDefault(n => n.MaDH == id);
             //var ct = from c in db.Invoices where c.IdInvoice == id select c;
             int idp = (from i in db.CT_DONHANGs where i.MaDH == id select i.MaDH).FirstOrDefault();
             Session["idp"] = id;
-
+            ct.TaiKhoanNV =cv;
             ct.TrangThaiDonHang = a;
             UpdateModel(ct);
             db.SubmitChanges();
@@ -66,6 +71,8 @@ namespace DACN.Controllers
         public ActionResult CloseInvoice(int id, string TrangThai)
         {
             //bool a = true;
+            //int? tencuanv;
+            String tencuanv = "null" ;
             bool a = bool.Parse(TrangThai);
             var ct = db.DON_HANGs.SingleOrDefault(n => n.MaDH == id);
             //var ct = from c in db.Invoices where c.IdInvoice == id select c;
@@ -73,6 +80,7 @@ namespace DACN.Controllers
             Session["idp"] = id;
 
             ct.TrangThaiDonHang = a;
+            ct.TaiKhoanNV = tencuanv;
             UpdateModel(ct);
             db.SubmitChanges();
             return RedirectToAction("DetailReceipt", "Manage", new { id = idp });
@@ -86,7 +94,7 @@ namespace DACN.Controllers
             int idp = (from i in db.CT_DONHANGs where i.MaDH == id select i.MaDH).FirstOrDefault();
             Session["idp"] = id;
 
-            //ct.Paid = a;  lick
+            ct.TrangThaiGiaoHang = a; 
             UpdateModel(ct);
             db.SubmitChanges();
             return RedirectToAction("DetailReceipt", "Manage", new { id = idp });
@@ -100,7 +108,7 @@ namespace DACN.Controllers
             int idp = (from i in db.CT_DONHANGs where i.MaDH == id select i.MaDH).FirstOrDefault();
             Session["idp"] = id;
 
-            //ct.Paid = a;
+            ct.TrangThaiGiaoHang = a;
             UpdateModel(ct);
             db.SubmitChanges();
             return RedirectToAction("DetailReceipt", "Manage", new { id = idp });
@@ -139,52 +147,52 @@ namespace DACN.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //[ValidateInput(false)]
-        //public ActionResult AddSize(SIZE pr, FormCollection collection)
-        //{
-        //    if (Session["admin"] == null)
-        //    {
-        //        return RedirectToAction("LogIn", "Account");
-        //    }
-        //    var ten = collection["name"];
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult AddSize(SIZE pr, FormCollection collection)
+        {
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+            var ten = collection["name"];
 
-        //    pr.TenSize = ten;
-        //    db.SIZEs.InsertOnSubmit(pr);
-        //    db.SubmitChanges();
-        //    SetAlert("Thêm size thành công", "success");
-        //    return RedirectToAction("Size", "Manage");
-        //}
+            pr.TenSize = ten;
+            db.SIZEs.InsertOnSubmit(pr);
+            db.SubmitChanges();
+            SetAlert("Thêm size thành công", "success");
+            return RedirectToAction("Size", "Manage");
+        }
 
 
-        //public ActionResult DeleteSize(int id)
-        //{
-        //    if (Session["admin"] == null)
-        //    {
-        //        return RedirectToAction("Product", "Manage");
-        //    }
-        //    else
-        //    {
-        //        var sex = db.SIZEs.SingleOrDefault(n => n.MaSize = id);
-        //        if (sex == null)
-        //        {
-        //            Response.StatusCode = 404;
-        //            return null;
-        //        }
-        //        try
-        //        {
-        //            db.SIZEs.DeleteOnSubmit(sex);
-        //            db.SubmitChanges();
-        //            SetAlert("Xóa size thành công", "success");
-        //        }
-        //        catch
-        //        {
-        //            SetAlert("Không xóa được size", "error");
-        //        }
+        public ActionResult DeleteSize(int id)
+        {
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("Product", "Manage");
+            }
+            else
+            {
+                var sex = db.SIZEs.SingleOrDefault(n => n.MaSize == id);
+                if (sex == null)
+                {
+                    Response.StatusCode = 404;
+                    return null;
+                }
+                try
+                {
+                    db.SIZEs.DeleteOnSubmit(sex);
+                    db.SubmitChanges();
+                    SetAlert("Xóa size thành công", "success");
+                }
+                catch
+                {
+                    SetAlert("Không xóa được size", "error");
+                }
 
-        //        return RedirectToAction("Size");
-        //    }
-        //}
+                return RedirectToAction("Size");
+            }
+        }
         ////========================================================================================
         public ActionResult TypesClothes()
         {
@@ -229,97 +237,97 @@ namespace DACN.Controllers
             return RedirectToAction("TypesClothes", "Manage");
         }
 
-        //[HttpGet]
-        //public ActionResult EditTypesClothes(int id)
-        //{
+        [HttpGet]
+        public ActionResult EditTypesClothes(int id)
+        {
 
-        //    if (Session["admin"] == null)
-        //    {
-        //        return RedirectToAction("Product", "Manage");
-        //    }
-        //    else
-        //    {
-        //        LOAI_SAN_PHAM type = db.LOAI_SAN_PHAMs.SingleOrDefault(n => n.MaLSP = id);
-        //        if (type == null)
-        //        {
-        //            Response.StatusCode = 404;
-        //            return null;
-        //        }
-        //        return View(type);
-        //    }
-        //}
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("Product", "Manage");
+            }
+            else
+            {
+                LOAI_SAN_PHAM type = db.LOAI_SAN_PHAMs.SingleOrDefault(n => n.MaLSP == id);
+                if (type == null)
+                {
+                    Response.StatusCode = 404;
+                    return null;
+                }
+                return View(type);
+            }
+        }
 
-        //[HttpPost]
-        //public ActionResult EditTypesClothes(FormCollection collection, int id)
-        //{
-        //    if (Session["admin"] == null)
-        //    {
-        //        return RedirectToAction("Product", "Manage");
-        //    }
-        //    else
-        //    {
-        //        var s = collection["sex"];
-        //        LOAI_SAN_PHAM type = db.LOAI_SAN_PHAMs.SingleOrDefault(n => n.MaLSP = id);
-        //        if (type == null)
-        //        {
-        //            Response.StatusCode = 404;
-        //            return null;
-        //        }
-        //        //type.IdSex = Int32.Parse(s); click
-        //        UpdateModel(type);
-        //        db.SubmitChanges();
-        //        return RedirectToAction("TypesClothes");
-        //    }
-        //}
+        [HttpPost]
+        public ActionResult EditTypesClothes(FormCollection collection, int id)
+        {
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("Product", "Manage");
+            }
+            else
+            {
+                var s = collection["sex"];
+                LOAI_SAN_PHAM type = db.LOAI_SAN_PHAMs.SingleOrDefault(n => n.MaLSP == id);
+                if (type == null)
+                {
+                    Response.StatusCode = 404;
+                    return null;
+                }
+                //type.IdSex = Int32.Parse(s); click
+                UpdateModel(type);
+                db.SubmitChanges();
+                return RedirectToAction("TypesClothes");
+            }
+        }
 
-        ////[HttpGet]
-        ////public ActionResult DeleteProductType(int id)
-        ////{
-        ////    if (Session["admin"] == null)
-        ////    {
-        ////        return RedirectToAction("Product", "Manage");
-        ////    }
-        ////    else
-        ////    {
-        ////        LOAI_SAN_PHAM type = db.LOAI_SAN_PHAMs.SingleOrDefault(n => n.MaLSP == id);
-        ////        if (type == null)
-        ////        {
-        ////            Response.StatusCode = 404;
-        ////            return null;
-        ////        }
-        ////        return View(type);
-        ////    }
-        ////}
+        [HttpGet]
+        public ActionResult DeleteProductType(int id)
+        {
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("Product", "Manage");
+            }
+            else
+            {
+                LOAI_SAN_PHAM type = db.LOAI_SAN_PHAMs.SingleOrDefault(n => n.MaLSP == id);
+                if (type == null)
+                {
+                    Response.StatusCode = 404;
+                    return null;
+                }
+                return View(type);
+            }
+        }
 
-        //[HttpPost, ActionName("DeleteProductType")]
-        //public ActionResult dDeleteProductType(int id)
-        //{
-        //    if (Session["admin"] == null)
-        //    {
-        //        return RedirectToAction("Product", "Manage");
-        //    }
-        //    else
-        //    {
-        //        LOAI_SAN_PHAM type = db.LOAI_SAN_PHAMs.SingleOrDefault(n => n.MaLSP == id);
-        //        if (type == null)
-        //        {
-        //            Response.StatusCode = 404;
-        //            return null;
-        //        }
-        //        try
-        //        {
-        //            db.LOAI_SAN_PHAMs.DeleteOnSubmit(type);
-        //            db.SubmitChanges();
-        //            SetAlert("Xóa loại sản phẩm thành công", "success");
-        //        }
-        //        catch
-        //        {
-        //            SetAlert("Không xóa được loại sản phẩm", "error");
-        //        }
+        [HttpPost, ActionName("DeleteProductType")]
+        public ActionResult dDeleteProductType(int id)
+        {
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("Product", "Manage");
+            }
+            else
+            {
+                LOAI_SAN_PHAM type = db.LOAI_SAN_PHAMs.SingleOrDefault(n => n.MaLSP == id);
+                if (type == null)
+                {
+                    Response.StatusCode = 404;
+                    return null;
+                }
+                try
+                {
+                    db.LOAI_SAN_PHAMs.DeleteOnSubmit(type);
+                    db.SubmitChanges();
+                    SetAlert("Xóa loại sản phẩm thành công", "success");
+                }
+                catch
+                {
+                    SetAlert("Không xóa được loại sản phẩm", "error");
+                }
 
-        //        return RedirectToAction("TypesClothes");
-        //    }
-        //}
+                return RedirectToAction("TypesClothes");
+            }
+        }
         //============================================================================================
 
         public ActionResult Product()
@@ -329,20 +337,18 @@ namespace DACN.Controllers
                 return RedirectToAction("LogIn", "Account");
             }
             var list = db.SAN_PHAMs.OrderByDescending(s => s.MaSP).ToList();
-            var a =0;
             foreach (var item in list)
             {
                 var soLuongTon = db.CT_SANPHAMs.Where(p => p.MaSP == item.MaSP).Select(p => p.SoLuong).ToList();
                 var demsanpham = soLuongTon.Sum(p => p.Value);
                 if (demsanpham > 0)
                 {
-                    a = 1;
+                    item.TrangThai = true;
                 }
                 else
                 {
-                    a = 0;
+                    item.TrangThai = false;
                 }
-
             }
             UpdateModel(list);
             db.SubmitChanges();
@@ -384,15 +390,15 @@ namespace DACN.Controllers
             var loai = collection["Loai"];
             var size = collection["Size"];
             var sl = collection["quality"];
-            //int status;
-            //if (int.Parse(sl) > 0)
-            //{
-            //    status = 1;
-            //}
-            //else
-            //{
-            //    status = 0;
-            //}
+            bool status;
+            if (int.Parse(sl) > 0)
+            {
+                status = true;
+            }
+            else
+            {
+                status = false;
+            }
 
             var filename = Path.GetFileName(img.FileName);
             var path = Path.Combine(Server.MapPath("~/Asset/img/product"), filename);
@@ -404,13 +410,13 @@ namespace DACN.Controllers
             pr.MoTa = mota;
             pr.NgayThem = date;
             pr.NgayCapNhat = date;
-            //pr.MaLSP = Int32.Parse(loai);
-            //pr.StatusProduct = status;
+            pr.MaLSP = Int32.Parse(loai);
+            pr.TrangThai = status;
 
             db.SAN_PHAMs.InsertOnSubmit(pr);
             db.SubmitChanges();
 
-            //dt.MaSize = Int32.Parse(size);
+            dt.MaSize = Int32.Parse(size);
             dt.MaSP = pr.MaSP;
             dt.SoLuong = int.Parse(sl);
             db.CT_SANPHAMs.InsertOnSubmit(dt);
@@ -522,70 +528,188 @@ namespace DACN.Controllers
             Session["idp"] = id;
             return View(ct);
         }
-        //[HttpGet]
-        //public ActionResult AddProductDetailSize()
-        //{
-        //    ViewBag.Size = new SelectList(db.SIZEs.ToList().OrderBy(n => n.TenSize), "MaLSP", "TenLSP");
-        //    ViewBag.IdProduct = Session["idp"];
-        //    return View();
-        //}
+        [HttpGet]
+        public ActionResult AddProductDetailSize()
+        {
+            ViewBag.Size = new SelectList(db.SIZEs.ToList().OrderBy(n => n.TenSize), "MaSize", "TenSize");
+            ViewBag.IdProduct = Session["idp"];
+            return View();
+        }
 
-        //[HttpPost]
-        //[ValidateInput(false)]
-        ////public ActionResult AddProductDetailSize( CT_SANPHAM pr, FormCollection collection, string url)
-        ////{
-        ////    ViewBag.Size = new SelectList(db.SIZEs.ToList().OrderBy(n => n.TenSize), "MaLSP", "TenLSP");
-        ////    var sl = collection["Sl"];
-        ////    var size = collection["Size"];
-        ////    int idpd = (int)Session["idp"];
-        ////    int idsize = Int32.Parse(size);
-        ////    var idsizeProduct = (from s in db.CT_SANPHAMs where s.MaSP == idpd select s).ToList();
-        ////    foreach(var item in idsizeProduct)
-        ////    {
-        ////        if (idsize == item.MaSize)
-        ////        {
-        ////            pr.IdProduct = idpd;
-        ////            pr.IdSizeProduct = idsize;
-        ////            item.SoLuongTon += int.Parse(sl);
-        ////            pr.SoLuongTon = item.SoLuongTon;
-        ////            db.SubmitChanges();
-        ////            return RedirectToAction("DetailProduct", new {id = idpd});
-        ////        }
-        ////    }
-        ////    pr.IdProduct = idpd;
-        ////    pr.IdSizeProduct = idsize;
-        ////    pr.SoLuongTon = int.Parse(sl);
-        ////    db.ProductDetails.InsertOnSubmit(pr);
-        ////    db.SubmitChanges();
-        ////    return RedirectToAction("DetailProduct", new { id = idpd});
-        ////}
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult AddProductDetailSize(CT_SANPHAM pr, FormCollection collection, string url)
+        {
+            ViewBag.Size = new SelectList(db.SIZEs.ToList().OrderBy(n => n.TenSize), "MaSize", "TenSize");
+            var sl = collection["Sl"];
+            var size = collection["Size"];
+            int idpd = (int)Session["idp"];
+            int idsize = Int32.Parse(size);
+            var idsizeProduct = (from s in db.CT_SANPHAMs where s.MaSP == idpd select s).ToList();
+            foreach (var item in idsizeProduct)
+            {
+                if (idsize == item.MaSize)
+                {
+                    pr.MaSP = idpd;
+                    pr.MaSize = idsize;
+                    item.SoLuong += int.Parse(sl);
+                    pr.SoLuong = item.SoLuong;
+                    db.SubmitChanges();
+                    return RedirectToAction("DetailProduct", new { id = idpd });
+                }
+            }
+            pr.MaSP = idpd;
+            pr.MaSize= idsize;
+            pr.SoLuong = int.Parse(sl);
+            db.CT_SANPHAMs.InsertOnSubmit(pr);
+            db.SubmitChanges();
+            return RedirectToAction("DetailProduct", new { id = idpd });
+        }
 
-        ////public ActionResult DeleteProductDetail(int id)
-        ////{
-        ////    int size = int.Parse(Request.QueryString["size"]);
-        ////    ViewBag.IdProduct = Session["idp"];
-        ////    int idpd = (int)Session["idp"];
-        ////    ProductDetail sp = db.ProductDetails.Where(n => n.IdProduct == id && n.IdSizeProduct == size).SingleOrDefault();
+        public ActionResult DeleteProductDetail(int id)
+        {
+            int size = int.Parse(Request.QueryString["size"]);
+            ViewBag.IdProduct = Session["idp"];
+            int idpd = (int)Session["idp"];
+            CT_SANPHAM sp = db.CT_SANPHAMs.Where(n => n.MaSP == id && n.MaSize == size).SingleOrDefault();
 
-        ////    try
-        ////    {
-        ////        db.ProductDetails.DeleteOnSubmit(sp);
-        ////        db.SubmitChanges();
-        ////        SetAlert("Xóa size thành công", "success");
-        ////    }
-        ////    catch
-        ////    {
-        ////        SetAlert("Không xóa được size", "error");
-        ////    }
+            try
+            {
+                db.CT_SANPHAMs.DeleteOnSubmit(sp);
+                db.SubmitChanges();
+                SetAlert("Xóa size thành công", "success");
+            }
+            catch
+            {
+                SetAlert("Không xóa được size", "error");
+            }
 
-        ////    return RedirectToAction("DetailProduct", new { id = idpd });
-        ////}
+            return RedirectToAction("DetailProduct", new { id = idpd });
+        }
 
-        ////public ActionResult DetailProducts(int id)
-        ////{
-        ////    Product ct = db.Products.SingleOrDefault(n => n.IdProduct == id);
-        ////    return View(ct);
-        ////}
+        public ActionResult DetailProducts(int id)
+        {
+            SAN_PHAM ct = db.SAN_PHAMs.SingleOrDefault(n => n.MaSP == id);
+            return View(ct);
+        }
+        public ActionResult nhanvien()
+        {
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+            //var list = db.NHAN_VIENs.OrderByDescending(n => n.MaCV == 2).ToList();
+            var list = (from s in db.NHAN_VIENs where s.MaCV == 2 select s).ToList();
+            //var nv = db.NHAN_VIENs.Where(n => n.MaCV == 2 && n.MaCV == 3 && n.MaCV != 1).ToList();
+            return View(list);
+        }
 
+        [HttpGet]
+        public ActionResult addnhanvien()
+        {
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult addnhanvien(NHAN_VIEN pr, FormCollection collection)
+        {
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+            int a = 2;
+            var taikhoan = collection["tk"];
+            var ten = collection["ten"];
+            var matkhau = collection["mk"];
+            var date = DateTime.UtcNow.Date;
+            if (String.IsNullOrEmpty(taikhoan) || String.IsNullOrEmpty(ten)
+               || String.IsNullOrEmpty(matkhau))
+            {
+                ViewData["Error"] = "Vui lòng điền đầy đủ nội dung";
+                return this.addnhanvien();
+            }
+            else if (accout(taikhoan, checktk))
+            {
+                ViewData["Error"] = "Tài khoản đã tồn tại";
+                return this.addnhanvien();
+            }
+            else if (matkhau.ToString().Length >= 24 || matkhau.ToString().Length <= 5)
+            {
+                ViewData["Error"] = "Độ dài mật khẩu nhiều hơn 5 và ít hơn 24";
+                return this.addnhanvien();
+            }
+            else
+            {
+
+                pr.TaiKhoanNV = taikhoan;
+                pr.MatKhau = MD5Hash(matkhau);
+                pr.HoTenNV = ten;
+                pr.MaCV = a;
+                pr.NgayVaoLam = date;
+                db.NHAN_VIENs.InsertOnSubmit(pr);
+                db.SubmitChanges();
+                SetAlert("Thêm nhân viên thành công", "success");
+                return RedirectToAction("nhanvien", "Manage");
+            }
+            
+        }
+        private bool accout(string str, int value)
+        {
+            if (value == 1)
+            {
+                var a = db.NHAN_VIENs.FirstOrDefault(p => p.TaiKhoanNV == str);
+                if (a != null) return true;
+            }
+            return false;
+        }
+        public ActionResult DeleteNhanVien(String id)
+        {
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("nhanvien", "Manage");
+            }
+            else
+            {
+                NHAN_VIEN type = db.NHAN_VIENs.SingleOrDefault(n => n.TaiKhoanNV == id);
+                var date = DateTime.UtcNow.Date;
+                var a = 4;
+                if (type == null)
+                {
+                    Response.StatusCode = 404;
+                    return null;
+                }
+                try
+                {
+                    type.NgayXoa = date;
+                    type.MaCV = a;
+                    UpdateModel(type);
+                    db.SubmitChanges();
+                    SetAlert("Xóa nhân viên thành công", "success");
+                }
+                catch
+                {
+                    SetAlert("Không xóa được nhân viên", "error");
+                }
+
+                return RedirectToAction("nhanvien");
+            }
+        }
+        public ActionResult nhanviendaxoa()
+        {
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+            //var list = db.NHAN_VIENs.OrderByDescending(n => n.MaCV == 2).ToList();
+            var list = (from s in db.NHAN_VIENs where s.MaCV == 4 select s).ToList();
+            //var nv = db.NHAN_VIENs.Where(n => n.MaCV == 2 && n.MaCV == 3 && n.MaCV != 1).ToList();
+            return View(list);
+        }
     }
 }

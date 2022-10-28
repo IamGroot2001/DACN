@@ -36,7 +36,7 @@
                         <th>Ngày cập nhật</th>
                         <th>Mô tả</th>
                         <th>Loại</th>
-                        @*<th>Trạng thái</th>*@
+                        <th>Trạng thái</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
@@ -53,14 +53,18 @@
                             <td>@String.Format("{0:dd/MM/yyyy}", item.NgayCapNhat)</td>
                             <td style="max-width:200px">@trumcate(item.MoTa, 40)</td>
                             <td>@Html.DisplayFor(modelItem => item.LOAI_SAN_PHAM.TenLSP)</td>
-                            @*@if (item.StatusProduct == 1)
+                            @if (item.TrangThai == true)
                             {
                                 <td>Còn hàng</td>
                             }
-                            else if (item.StatusProduct == 0)
+                            else if (item.TrangThai == false)
                             {
                                 <td>Hết hàng</td>
-                            }*@
+                            }
+                            else if (item.TrangThai == null)
+                            {
+                                <td>Hết hàng</td>
+                            }
                             <td>
                                 @Html.ActionLink("Detail", "DetailProducts", new { id = item.MaSP }, new { @class = "btn btn-info btn-fluid mb-1" })
                                 @Html.ActionLink("Edit", "EditProduct", new { id = item.MaSP }, new { @class = "btn btn-primary btn-fluid mb-1" })

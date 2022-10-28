@@ -39,42 +39,8 @@
         <div id="layoutSidenav_nav">
             <nav class="sidenav">
                 <div class="sidenav-menu">
-                    <div class="nav">
-                        <div class="sidenav-menu-heading">Thống kê</div>
-                        <a class="nav-link" href="@Url.Action("Statistical","Statistical")">
-                            <div class=""><i class="fa-solid fa-chart-simple"></i></div>
-                            Thống kê
-                        </a>
-                        <div class="sidenav-menu-heading">Quản lý</div>
-                        <a class="nav-link collapsed" data-toggle="collapse" href="#collapseLayouts" role="button" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="nav-link-icon"><i class="fa-solid fa-box"></i></div>
-                            Loại sản phẩm
-                            <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                            <nav class="sidenav-menu-nested nav">
-                                <a class="nav-link" href="@Url.Action("Size","Manage")">Size</a>
-                                <a class="nav-link" href="@Url.Action("TypesClothes","Manage")">Loại đồ</a>
-                            </nav>
-                        </div>
-                        <a class="nav-link" href="@Url.Action("Product","Manage")">
-                            <div class="nav-link-icon"><i class="fa-solid fa-shirt"></i></div>
-                            Sản phẩm
-                        </a>
-                        <a class="nav-link" href="@Url.Action("Customer","Manage")">
-                            <div class="nav-link-icon"><i class="fa-solid fa-users"></i></div>
-                            Khách hàng
-                        </a>
-                        <a class="nav-link" href="@Url.Action("Receipt","Manage")">
-                            <div class="nav-link-icon"><i class="fa-solid fa-file-invoice"></i></div>
-                            Hóa đơn
-                        </a>
-                        <div class="sidenav-menu-heading">Xử lý</div>
-                        <a class="nav-link" href="@Url.Action("Feedback","Feedback")">
-                            <div class="nav-link-icon"><i class="fas fa-table"></i></div>
-                            Feedback
-                        </a>
-                        @*@if (Session["loai"] == 1)
+                    <div class="nav">                     
+                        @if (@Session["admin1"] == null && @Session["sale"] != null && @Session["quanly"] != null)
                         {
                             <div class="sidenav-menu-heading">Thống kê</div>
                             <a class="nav-link" href="@Url.Action("Statistical","Statistical")">
@@ -111,7 +77,7 @@
                                 Feedback
                             </a>
                         }
-                        else if (Session["loai"] == 2)
+                        @if (@Session["sale1"] == null && @Session["admin1"] != null &&  @Session["quanly"] != null )
                         {
                             <div class="sidenav-menu-heading">Quản lý</div>
                             <a class="nav-link collapsed" data-toggle="collapse" href="#collapseLayouts" role="button" aria-expanded="false" aria-controls="collapseLayouts">
@@ -138,7 +104,7 @@
                                 Hóa đơn
                             </a>
                         }
-                        else
+                        @if (@Session["sale"] != null && @Session["admin1"] != null && @Session["quanly"] == null )
                         {
                             <div class="sidenav-menu-heading">Thống kê</div>
                             <a class="nav-link" href="@Url.Action("Statistical","Statistical")">
@@ -165,7 +131,7 @@
                                 <div class="nav-link-icon"><i class="fa-solid fa-file-invoice"></i></div>
                                 Hóa đơn
                             </a>
-                            <a class="nav-link" href="@Url.Action("Receipt","Manage")">
+                            <a class="nav-link" href="@Url.Action("nhanvien","Manage")">
                                 <div class="nav-link-icon"><i class="fa-solid fa-file-invoice"></i></div>
                                 Nhân viên
                             </a>
@@ -174,7 +140,7 @@
                                 <div class="nav-link-icon"><i class="fas fa-table"></i></div>
                                 Feedback
                             </a>
-                        }*@
+                        }
                     </div>
                 </div>
                 <div class="sidenav-footer">

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<DACN.Models.NHAN_VIEN>
+@{
+    ViewBag.Title = "nhanviendaxoa";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="my-4">Nhân viên đã bị xóa</h1>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Nhân viên
+        </div>
+        <div class="card-body">
+            <table id="datatablesInvoice" class="table-responsive">
+                <thead>
+                    <tr>
+                        <th>Tài khoản nhân viên</th>
+                        <th>Họ tên nhân viên</th>
+                        <th>Mật khẩu</th>
+                        <th>Ngày lập</th>
+                        <th>Ngày xóa</th>
+                
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.TaiKhoanNV)</td>
+                            <td>@Html.DisplayFor(modelItem => item.HoTenNV)</td>
+                            <td>@Html.DisplayFor(modelItem => item.MatKhau)</td>
+                            <td>@String.Format("{0:dd/MM/yyyy}", item.NgayVaoLam)</td>
+                            <td>@String.Format("{0:dd/MM/yyyy}", item.NgayXoa)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

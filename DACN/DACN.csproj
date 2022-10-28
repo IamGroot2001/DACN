@@ -515,6 +515,9 @@
     <Content Include="Views\Category\ProductList.cshtml" />
     <Content Include="Views\Category\SizeList.cshtml" />
     <Content Include="Views\Account\id.cshtml" />
+    <Content Include="Views\Manage\nhanvien.cshtml" />
+    <Content Include="Views\Manage\addnhanvien.cshtml" />
+    <Content Include="Views\Manage\nhanviendaxoa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
