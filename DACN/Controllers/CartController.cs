@@ -61,9 +61,9 @@ namespace DACN.Controllers
         }
 
         // Tính tổng tiền
-        private double TongTien()
+        private int TongTien()
         {
-            double tongtien = 0;
+            int tongtien = 0;
             List<GioHang> gioHangs = Session["GioHang"] as List<GioHang>;
             if (gioHangs != null)
             {
@@ -81,8 +81,17 @@ namespace DACN.Controllers
             }
             ViewBag.TongSoLuong = TongSoLuong();
             ViewBag.TongTien = TongTien();
-            return View();
+            return View(lstGioHang);
         }
+
+        public ActionResult SoLuongGioHang()
+        {
+            ViewBag.TongSoLuong = TongSoLuong();
+            ViewBag.TongTien = TongTien();
+            return PartialView();
+        }
+
+
 
     }
 }
