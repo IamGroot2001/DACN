@@ -19,8 +19,8 @@ namespace DACN.Controllers
                 return RedirectToAction("LogIn", "Account");
             }
 
-            //var list = db.Feedbacks.OrderByDescending(s => s.IdFeedback).ToList();
-            return View(/*list*/);
+            var list = db.FEEDBACKs.OrderByDescending(s => s.Id).ToList();
+            return View(list);
         }
          
     }

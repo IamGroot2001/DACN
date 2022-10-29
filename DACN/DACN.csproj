@@ -134,15 +134,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DAChuyenNganh.cs">
-      <DependentUpon>DAChuyenNganh.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Models\DAChuyenNganh.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DAChuyenNganh.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Models\GioHang.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -280,6 +276,10 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\HELP-US-OUT.txt" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
@@ -439,6 +439,39 @@
       <LastGenOutput>DAChuyenNganh.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\core.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\list.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\path.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_variables.scss" />
     <None Include="Models\DAChuyenNganh.dbml.layout">
       <DependentUpon>DAChuyenNganh.dbml</DependentUpon>
     </None>
@@ -479,13 +512,12 @@
     <Content Include="Views\Users\_User.cshtml" />
     <Content Include="Views\History\History.cshtml" />
     <Content Include="Views\History\HistoryDetail.cshtml" />
-    <Content Include="Views\Shared\Shop_Layout.cshtml" />
-    <Content Include="Views\Category\FilteredProductTypeList.cshtml" />
-    <Content Include="Views\Category\FilteredProductPriceList0To100.cshtml" />
-    <Content Include="Views\Category\FilteredProductPriceList100To250.cshtml" />
-    <Content Include="Views\Category\FilteredProductPriceList250To500.cshtml" />
-    <Content Include="Views\Category\FilteredProductPriceListOver500.cshtml" />
-    <Content Include="Views\Cart\SoLuongGioHang.cshtml" />
+    <Content Include="Views\Category\ProductList.cshtml" />
+    <Content Include="Views\Category\SizeList.cshtml" />
+    <Content Include="Views\Account\id.cshtml" />
+    <Content Include="Views\Manage\nhanvien.cshtml" />
+    <Content Include="Views\Manage\addnhanvien.cshtml" />
+    <Content Include="Views\Manage\nhanviendaxoa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

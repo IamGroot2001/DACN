@@ -12,22 +12,22 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Asset/css/elegant-icons.css" rel="stylesheet" />
-    <link href="~/Asset/fonts/all.css" rel="stylesheet" />
+    <link href="~/Asset/css/all.css" rel="stylesheet" />
     <link href="~/Asset/css/base.css" rel="stylesheet" />
     <link href="~/Asset/css/style-admin.css" rel="stylesheet" />
 </head>
-<body class="d-flex justify-content-center">
+<body class="d-flex justify-content-center" >
 
-    <div>
+    <center>
         <label class="Login-label">VTA Shop</label>
-    </div>
+    </center>
 
-    <div class="login-container shadow">
+    <div class="login-container shadow" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #F8F8F8 ">
 
-            <div class="login-head">
+            <div class="login-head" style="background-color: dimgray;">
                 <p class="text-center">Login Admin</p>
-            </div>
-            <div class="login-body">
+            </div> 
+            <div class="login-body" style="padding: 70px;">
                 @using (Html.BeginForm())
                 {
                     <div class="row mb-4">
@@ -40,7 +40,7 @@
                         </div>
                     </div>
 
-                    <div class="row mb-4">
+                    <div class="row mb-4" style="margin:15px 0">
                         <div class="col-12 col-md-3">
                             <h6>Password</h6>
                         </div>
@@ -49,7 +49,7 @@
                             @ViewData["2"]
                         </div>
                     </div>
-                    <input type="submit" class=" btn btn-info login-btn" value="LOG IN"/>
+                    <input type="submit" class="btn btn-secondary login-btn" value="LOG IN"/>
                 }
 
             </div>

@@ -1,7 +1,7 @@
-﻿@model DoAn_Web_SellClothes.Models.Product
+﻿@model DACN.Models.SAN_PHAM
 @{
     ViewBag.Title = "DetailProducts";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
 }
 
 <div class="container-fluid px-4">
@@ -17,54 +17,54 @@
                         <tr>
                             <th>Tên sản phẩm</th>
                             <td>
-                                @Html.DisplayFor(model => model.NameProduct)
+                                @Html.DisplayFor(model => model.TenSP)
                             </td>
                         </tr>
                         <tr>
                             <th>Hình</th>
                             <td>
-                                <img src="~/Assets/img/Clothes/@Html.DisplayFor(model => model.ImageProduct)" class="img-thumbnail" alt="Alternate Text" />
+                                <img src="~/Asset/img/product/@Html.DisplayFor(model => model.HinhAnh)" class="img-thumbnail" alt="Alternate Text" />
                             </td>
                         </tr>
                         <tr>
                             <th>Giá</th>
                             <td>
-                                @String.Format("{0:0,0 }", Model.PriceProduct)<span>VNĐ</span>
+                                @String.Format("{0:0,0 }", Model.Gia)<span>VNĐ</span>
                             </td>
                         </tr>
                         <tr>
                             <th>Ngày tạo</th>                            
-                            <td>@String.Format("{0:dd/MM/yyyy}", @Html.DisplayFor(model => model.CreateDate))</td>
+                            <td>@String.Format("{0:dd/MM/yyyy}", @Html.DisplayFor(model => model.NgayThem))</td>
                         </tr>
                         <tr>
                             <th>Ngày cập nhật</th>
                             <td>
-                                @Html.DisplayFor(model => model.UpdateDate)
+                                @Html.DisplayFor(model => model.NgayCapNhat)
                             </td>
                         </tr>
                         <tr>
                             <th>Mô tả</th>
                             <td>
-                                <p>@Html.DisplayFor(model => model.DescribeProduct)</p>
+                                <p>@Html.DisplayFor(model => model.MoTa)</p>
                             </td>
                         </tr>
                         <tr>
                             <th>Loại</th>
                             <td>
-                                @Html.DisplayFor(model => model.ProductType.NameProductType)
+                                @Html.DisplayFor(model => model.LOAI_SAN_PHAM.TenLSP)
                             </td>
                         </tr>
                         <tr>
-                            <th>Trạng thái</th>                       
-                                @if (@Model.StatusProduct == 1)
-                                {
-                                    <td>Còn hàng</td>
-                                }
-                                else if (Model.StatusProduct == 0)
-                                {
-                                    <td>Hết hàng</td>
-                                }
-                             
+                            <th>Trạng thái</th>
+                            @if (@Model.TrangThai == true)
+                            {
+                                <td>Còn hàng</td>
+                            }
+                            else if (Model.TrangThai == false)
+                            {
+                                <td>Hết hàng</td>
+                            }
+
                         </tr>
                     </tbody>
                 </table>

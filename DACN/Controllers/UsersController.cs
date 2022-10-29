@@ -57,7 +57,7 @@ namespace DACN.Controllers
             }
             else
             {
-                Session["user"] = user.TaiKhoanKH;
+                Session["user"] = user;
                 Session["name"] = user.HoTenKH;
                // Session["name"] = user.HoTenKH;
                 return RedirectToAction("Index", "Home");
@@ -107,9 +107,9 @@ namespace DACN.Controllers
                 ViewData["Error"] = "Số điện thoại phải 10 số";
                 return this.SignUp();
             }
-            else if (matkhau.ToString().Length >= 24 || matkhau.ToString().Length <= 8)
+            else if (matkhau.ToString().Length >= 24 || matkhau.ToString().Length <= 5)
             {
-                ViewData["Error"] = "Độ dài mật khẩu nhiều hơn 8 và ít hơn 24";
+                ViewData["Error"] = "Độ dài mật khẩu nhiều hơn 5 và ít hơn 24";
                 return this.SignUp();
             }
             else if (!String.Equals(matkhau.ToString(), matkhaunhaplai.ToString()))
@@ -142,7 +142,7 @@ namespace DACN.Controllers
         [HttpGet]
         public ActionResult AccountInformation()
         {
-            KHACH_HANG ac = (KHACH_HANG)Session["name"];
+            KHACH_HANG ac = (KHACH_HANG)Session["user"];
             return View(ac);
         }
         [HttpPost]

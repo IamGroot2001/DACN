@@ -1,4 +1,5 @@
-﻿
+﻿@using DACN.Models
+@model IEnumerable<DACN.Models.DON_HANG>
 @{
     ViewBag.Title = "History";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -17,7 +18,7 @@
         </div>
     </div>
 </section>
-<div class=" history-container " style="margin:10px 70px 100px">
+<div class=" history-container " style="margin:30px 70px 180px">
     <div class="table-content table-responsive">
         <table class="table text-center">
             <thead class="border-bottom text-left">
@@ -36,46 +37,55 @@
             </thead>
 
             <tbody class="text-left">
-                @*@foreach (var item in Model)*@
-               
+                @foreach (var item in Model)
+                {
                     <tr>
                         <td class="bill-id">
+                            @item.MaDH
                         </td>
                         <td class="bill-date ">
+                            @item.NgayLap
                         </td>
                         <td class="bill-nameCustomer">
+                            @item.TenNguoiNhan
                         </td>
                         <td class="bill-addressCustomer">
+                            @item.DiaChiNhanHang
                         </td>
                         <td class="bill-phone">
+                            @item.SdtNguoiNhan
                         </td>
                         <td class="bill-payment">
+                            @if (item.TrangThaiDonHang == false)
+                            {
                                 <p>Chưa xác nhận</p>
-                            
-                         
+                            }
+                            else if (item.TrangThaiDonHang == true)
+                            {
                                 <p>Đã xác nhận</p>
-                            
+                            }
                         </td>
                         <td class="bill-payment">
-                           
+                            @item.PHUONG_THUC_THANH_TOAN.TenPTTT
                         </td>
                         <td class="bill-statusPayment">
-                          
+                            @if (item.TrangThaiGiaoHang == false)
+                            {
                                 <p>Chưa thanh toán</p>
-                            
-                           
-                            
+                            }
+                            else if (item.TrangThaiGiaoHang == true)
+                            {
                                 <p>Đã thanh toán</p>
-                            
+                            }
                         </td>
                         <td class="bill-total">
-                           <span> VNĐ</span>
+                            @String.Format("{0:0,0}", @item.TongTien)<span> VNĐ</span>
                         </td>
-                        <td class="bill-details">
-                            <a href="">View details</a>
-                        </td>
+                        @*<td class="bill-details">
+                            <a href="@Url.Action("HistoryDetails", "History",new {idInvoice=item.MaDH })">View details</a>
+                        </td>*@
                     </tr>
-                
+                }
             </tbody>
         </table>
     </div>

@@ -1,8 +1,8 @@
-﻿@model DoAn_Web_SellClothes.Models.Product
+﻿@model DACN.Models.SAN_PHAM
 
 @{
     ViewBag.Title = "DeleteProduct";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
 }
 
 <div class="container-fluid px-4">
@@ -16,42 +16,42 @@
                         <tr>
                             <th>Tên sản phẩm</th>
                             <td>
-                                @Html.DisplayFor(model => model.NameProduct)
+                                @Html.DisplayFor(model => model.TenSP)
                             </td>
                         </tr>
                         <tr>
                             <th>Giá sản phẩm</th>
                             <td>
-                                @Html.DisplayFor(model => model.PriceProduct)
+                                @Html.DisplayFor(model => model.Gia)
                             </td>
                         </tr>
                         <tr>
                             <th>Hình</th>
                             <td>
                             
-                                <img class="img-thumbnail" src="~/Assets/img/Clothes/@Html.DisplayFor(modelItem => Model.ImageProduct)"/>
+                                <img class="img-thumbnail" src="~/Asset/img/product/@Html.DisplayFor(modelItem => Model.HinhAnh)"/>
                             </td>
                         </tr>
                         <tr>
                             <th>Ngày tạo</th>
                             <td>
-                                @Html.DisplayFor(model => model.CreateDate)
+                                @Html.DisplayFor(model => model.NgayThem)
                             </td>
                         </tr>
                         <tr>
                             <th>Ngày cập nhật</th>
                             <td>
-                                @Html.DisplayFor(model => model.UpdateDate)
+                                @Html.DisplayFor(model => model.NgayCapNhat)
                             </td>
                         </tr>
                         <tr>
                             <th>Mô tả</th>
                             <td>
-                                @Html.DisplayFor(model => model.DescribeProduct)
+                                @Html.DisplayFor(model => model.MoTa)
                             </td>
                         </tr>
                       
-                        <tr>
+                        @*<tr>
                             <th>Trạng thái</th>
                             @if (Model.StatusProduct == 1)
                             {
@@ -61,13 +61,11 @@
                             {
                                 <td>Hết hàng</td>
                             }
-
-
-                        </tr>
+                        </tr>*@
                         <tr>
                             <th>Loại</th>
                             <td>
-                                @Html.DisplayFor(model => model.ProductType.NameProductType)
+                                @Html.DisplayFor(model => model.LOAI_SAN_PHAM.TenLSP)
                             </td>
                         </tr>
 
