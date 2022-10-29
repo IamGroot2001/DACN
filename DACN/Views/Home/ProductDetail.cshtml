@@ -1,7 +1,8 @@
-﻿
+﻿@model DACN.Models.SAN_PHAM
 @{
     ViewBag.Title = "ProductDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var item = Model;
 }
 <!-- Shop Details Section Begin -->
 <section class="shop-details" style="margin-bottom:80px">
@@ -18,56 +19,201 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-2 col-lg-1 col-4"></div>
-        <div class="col-md-5 col-lg-4 mx-auto">
-            <div class="tab-content">
-                <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                    <div class="product__details__pic__item">
-                        <img src="~/Asset/img/product/@Model.HinhAnh" alt="">
+    @if (Model.TrangThai == false)
+    {
+
+        <div class="product-details">
+            <div class="row">
+                <div class="col-md-5 col-lg-4 mx-auto">
+                    <div class="imgBox">
+                        <img src="~/Asset/img/product/@Model.HinhAnh" />
                     </div>
+                </div>
+                <div class="col-md-4 mx-auto">
+                    <h1 class="name-product" style="word-wrap: break-word; white-space:normal" title="@Model.TenSP">@Model.TenSP</h1>
+                    <h2 class="price-product">@String.Format("{0:0,0}", @Model.Gia) <span>&nbsp;VND</span></h2>
+                    <hr class="light" />
+                    <h5>Describe</h5>
+                    <p> @Model.MoTa</p>
+                    <br />
+                    <input disabled class="btn btn-addtocart my-4" value="Hết hàng" />
+                    <br />
+                    <button class="btn btn-light" onclick="history.back()">Trở về</button>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 mx-auto">
-            <div class="product__details__text">
-                <h4>@Model.TenSP</h4>
-                <h3>@Model.Gia VNĐ</h3>
-                <p>
-                    @Model.MoTa
-                </p>
-                <div class="product__details__option">
-                    <div class="product__details__option__size">
-                        <span>Size:</span>
-                        <label for="s">
-                            s
-                            <input type="radio" id="s">
-                        </label>
-                        <label class="active" for="m">
-                            m
-                            <input type="radio" id="m">
-                        </label>
-                        <label for="l">
-                            l
-                            <input type="radio" id="l">
-                        </label>
-                        <label for="xl">
-                            xl
-                            <input type="radio" id="xl">
-                        </label>
-                    </div>
-                </div>
-                <div class="product__details__cart__option">
-                    <div class="quantity">
-                        <div class="pro-qty">
-                            <input type="text" value="1" max="3">
+    }
+    else
+    {
+        using (Html.BeginForm("ThemGioHang", "Cart", new { @idProduct = Model.MaSP, strURL = Request.Url.ToString() }))
+        {
+            <form>
+                <div class="product-details">
+                    <div class="row">
+                        <div class="col-md-5 col-lg-4 mx-auto">
+                            <div class="imgBox">
+                                <img src="~/Asset/img/product/@Model.HinhAnh" />
+                            </div>
+                        </div>
+                        <div class="col-md-4 mx-auto">
+
+                            <h1 class="name-product" style="word-wrap: break-word; white-space:normal" title="@Model.TenSP">@Model.TenSP</h1>
+                            <h2 class="price-product">@String.Format("{0:0,0}", @Model.Gia)<span>&nbsp;VND</span></h2>
+                            <hr class="light" />
+                            <h5>Describe</h5>
+                            @Model.MoTa
+                            <div class=" card-TableSize mt-3">
+                                <div class="title">Choose Product Size</div>
+                                @{
+                                    for (int i = 0; i < Model.idSize.Count(); i++)
+                                    {
+                                        if (Model.soluongton[i] != 0 && Model.soluongton[i] > 0)
+                                        {
+                                            <div class="GroupBtnSizecontent  d-flex justify-content-between">
+                                                <input type="radio" name="nameSize" value="@Model.idSize[i]">
+                                                <div class="size d-flex justify-content-between">
+                                                    <span>@Model.sizeProduct[i]</span>
+                                                    <span>@Model.soluongton[i] Sản phẩm</span>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            </div>
+                            <br />
+                            <h5>quantity</h5>
+                            <div class="product__details__cart__option">
+                                <div class="quantity">
+                                    <div class="pro-qty">
+                                        <input type="text" value="1"  name="quantity">
+                                 
+                                    </div>
+                                </div>
+                            </div>
+                            @if (Session["sl"] != null)
+                            {
+                                <div class="sub-w3l" style="color:red">
+                                    <h6> @Session["Error1"]</h6>
+                                </div>
+                            }
+                            @if (Session["size"] == null)
+                            {
+                                <div class="sub-w3l" style="color:red">
+                                    <h6> @Session["Error"]</h6>
+                                </div>
+                            }
+                            <div>
+                                <h3>@ViewData["Error"]</h3>
+                            </div>
+                                <input class="btn btn-addtocart my-4" id="ThemGioHang" type="submit" value="Add to cart" />
+                                <br />
+                                <button class="btn btn-light" onclick="history.back()">Trở về</button>
                         </div>
                     </div>
-                    <a href="@Url.Action("ThemGioHang","Cart", new {maSP = Model.MaSP, strURL = Request.Url.ToString()})" class="primary-btn">Thêm Vào Giỏ Hàng</a>
                 </div>
+            </form>
+        }
+    }
+    @*@if (Model.TrangThai == true)
+        {
+            <div class="row">
+                <div class="col-md-2 col-lg-1 col-4"></div>
+                <div class="col-md-5 col-lg-4 mx-auto">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                            <div class="product__details__pic__item">
+                                <img src="~/Asset/img/product/@Model.HinhAnh" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mx-auto">
+                    <div class="product__details__text">
+                        <h4>@Model.TenSP</h4>
+                        <h3>@Model.Gia VNĐ</h3>
+                        <p>
+                            @Model.MoTa
+                        </p>
+                        <div class=" card-TableSize mt-3">
+                            <div class="title">Choose Product Size</div>
+                            @{
+                                for (int i = 0; i < Model..Count(); i++)
+                                {
+                                    if (Model.soluongton[i] != 0 && Model.soluongton[i] > 0)
+                                    {
+                                        <div class="GroupBtnSizecontent  d-flex justify-content-between">
+                                            <input type="radio" name="nameSize" value="@Model.idSize[i]">
+                                            <div class="size d-flex justify-content-between">
+                                                <span>@Model.sizeProduct[i]</span>
+                                                <span>@Model.soluongton[i] Sản phẩm</span>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
+                        <div class="product__details__option">
+                            <div class="product__details__option__size">
+                                <span>Size:</span>
+                                <label for="s">
+                                    s
+                                    <input type="radio" id="s">
+                                </label>
+                                <label class="active" for="m">
+                                    m
+                                    <input type="radio" id="m">
+                                </label>
+                                <label for="l">
+                                    l
+                                    <input type="radio" id="l">
+                                </label>
+                                <label for="xl">
+                                    xl
+                                    <input type="radio" id="xl">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="product__details__cart__option">
+                            <div class="quantity">
+                                <div class="pro-qty">
+                                    <input type="text" value="1" max="3">
+                                </div>
+                            </div>
+                            <a href="@Url.Action("ThemGioHang","Cart", new {maSP = Model.MaSP, strURL = Request.Url.ToString()})" class="primary-btn">Thêm Vào Giỏ Hàng</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-lg-1 col-4"></div>
             </div>
-        </div>
-        <div class="col-md-2 col-lg-1 col-4"></div>
-    </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-md-2 col-lg-1 col-4"></div>
+                <div class="col-md-5 col-lg-4 mx-auto">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                            <div class="product__details__pic__item">
+                                <img src="~/Asset/img/product/@Model.HinhAnh" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mx-auto">
+                    <div class="product__details__text">
+                        <h4>@Model.TenSP</h4>
+                        <h3>@Model.Gia VNĐ</h3>
+                        <p>
+                            @Model.MoTa
+                        </p>
+                        <br />
+                        <input disabled class="btn btn-addtocart my-4" value="Hết hàng" />
+                        <br />
+                        <button class="btn btn-light" onclick="history.back()">Trở về</button>
+                    </div>
+                </div>
+                <div class="col-md-2 col-lg-1 col-4"></div>
+            </div>
+        }*@
 </section>
 

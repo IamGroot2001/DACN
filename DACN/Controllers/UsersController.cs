@@ -97,7 +97,7 @@ namespace DACN.Controllers
                 ViewData["Error"] = "Vui lòng điền đầy đủ nội dung";
                 return this.SignUp();
             }
-            else if (checkUser(email, CHECK_EMAIL))
+            else if (checkUser(taikhoan, CHECK_EMAIL))
             {
                 ViewData["Error"] = "Tài khoản đã tồn tại";
                 return this.SignUp();

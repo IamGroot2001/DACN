@@ -62,7 +62,7 @@ namespace DACN.Controllers
             //var ct = from c in db.Invoices where c.IdInvoice == id select c;
             int idp = (from i in db.CT_DONHANGs where i.MaDH == id select i.MaDH).FirstOrDefault();
             Session["idp"] = id;
-            ct.TaiKhoanNV =cv;
+            //ct.TaiKhoanNV =cv;
             ct.TrangThaiDonHang = a;
             UpdateModel(ct);
             db.SubmitChanges();
@@ -80,7 +80,7 @@ namespace DACN.Controllers
             Session["idp"] = id;
 
             ct.TrangThaiDonHang = a;
-            ct.TaiKhoanNV = tencuanv;
+            //ct.TaiKhoanNV = tencuanv;
             UpdateModel(ct);
             db.SubmitChanges();
             return RedirectToAction("DetailReceipt", "Manage", new { id = idp });

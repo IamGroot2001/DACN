@@ -39,42 +39,42 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach(var item in Model)
+                            @foreach (var item in Model)
                             {
                                 <tr>
                                     <td class="product__cart__item">
                                         <div class="product__cart__item__pic">
-                                            <img style="width: 70px; height: 70px"src="~/Asset/img/product/@item.anhBia" alt="Hình Ảnh Sản Phẩm">
+                                            <img style="width: 70px; height: 70px" src="~/Asset/img/product/@item.iImageProduct" alt="Hình Ảnh Sản Phẩm">
                                         </div>
                                         <div class="product__cart__item__text">
-                                            <h6>@item.tenSP</h6>
-                                            <h5>@String.Format("{0:0,0}", item.donGia) VNĐ</h5>
+                                            <h6>@item.iNameProduct</h6>
+                                            <h5>@String.Format("{0:0,0}", item.iPriceProduct) VNĐ</h5>
                                         </div>
                                     </td>
-                                    @using (Html.BeginForm("CapNhatGioHang", "Cart", new { @id = item.maSP }))
+                                    @using (Html.BeginForm("UpdateItemInCart", "Cart", new { @id = item.iIdProduct }))
                                     {
+                                        @*<td class="product-quantity">
+                                    <input type="number" name="quantity1" class="quantity-input" value="@item.iQuantityProduct" min="1" max="@item.iMaxAmount">
+                                </td>*@
                                         <td class="quantity__item">
-                                        <div class="quantity">
-                                            <div class="pro-qty-2">
-                                                <input id="SoLuong" name="SoLuong" type="text" value="@item.soLuong">
+                                            <div class="quantity">
+                                                <div class="pro-qty-2">
+                                                    <input id="SoLuong" type="number" name="quantity1" value="@item.iQuantityProduct">
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="quantity__item">
-                                        <div class="quantity">
-                                            <div class="pro-qty-2">
-                                                <input type="text" value="XL">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">@String.Format("{0:0,0}", item.thanhTien) VNĐ</td>
-                                    @*<td class="cart__close"><i class="fa fa-close"></i></td>*@
-                                    <td>
-                                        <button style="border-radius: 12px; background-color: gray; border: 2px solid gray;" type="submit"><span style="color: white">Cập Nhật</span></button>
-                                    </td>
+                                        </td>
+                                        <td class="quantity__item">
+                                            @item.iSizeProduct
+                                        </td>
+                                        <td class="cart__price">@String.Format("{0:0,0}", item.iThanhTien) VNĐ</td>
+                                        <td>
+                                            <form action="@Url.Action("UpdateItemInCart","Cart", new {id = @item.iIdProduct})">
+                                                <button style="border-radius: 12px; background-color: gray; border: 2px solid gray;" type="submit"><span style="color: white">Cập nhật</span></button>
+                                            </form>
+                                        </td>
                                     }
                                     <td>
-                                        <form action="@Url.Action("XoaGioHang","Cart", new {id = @item.maSP})">
+                                        <form action="@Url.Action("RemoveItemInCart","Cart", new {id = @item.iIdProduct})">
                                             <button style="border-radius: 12px; background-color: gray; border: 2px solid gray;" type="submit"><span style="color: white">Xóa</span></button>
                                         </form>
                                     </td>
@@ -85,15 +85,18 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="continue__btn">
+                        <div class="btn btn-outline-danger">
                             <a href="@Url.Action("Shop","Home")">Tiếp Tục Mua Sắm</a>
                         </div>
                     </div>
                     @*<div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="continue__btn update__btn">
-                            <a href="#"><i class="fa fa-spinner"></i>Cập Nhật Giỏ Hàng</a>
-                        </div>
-                    </div>*@
+                <div class="continue__btn update__btn">
+                    <a href="#"><i class="fa fa-spinner"></i>Cập Nhật Giỏ Hàng</a>
+                </div>
+            </div>*@
+                </div>
+                <div class="my-4 px-3">
+                    <a href="@Url.Action("RemoveCart","Cart")">Clear Cart</a>
                 </div>
             </div>
             <div class="col-lg-4">
