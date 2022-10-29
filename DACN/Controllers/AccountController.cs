@@ -45,7 +45,7 @@ namespace DACN.Controllers
                 ViewData["1"] = "Vui lòng điền đầy đủ nội dung";
                 return this.LogIn();
             }
-            else if (user != null)
+            else if (sp != null)
             {
                 ViewData["1"] = "Tài khoản đã bị xóa";
                 return this.LogIn();
