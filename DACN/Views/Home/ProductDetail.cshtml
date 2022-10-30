@@ -36,7 +36,7 @@
                     <h5>Describe</h5>
                     <p> @Model.MoTa</p>
                     <br />
-                    <input disabled class="btn btn-addtocart my-4" value="Hết hàng" />
+                    <input disabled class="btn btn-dark my-4" value="Hết hàng" />
                     <br />
                     <button class="btn btn-light" onclick="history.back()">Trở về</button>
                 </div>
@@ -62,50 +62,52 @@
                             <hr class="light" />
                             <h5>Describe</h5>
                             @Model.MoTa
-                            <div class=" card-TableSize mt-3">
-                                <div class="title">Choose Product Size</div>
-                                @{
-                                    for (int i = 0; i < Model.idSize.Count(); i++)
-                                    {
-                                        if (Model.soluongton[i] != 0 && Model.soluongton[i] > 0)
+                            <div class="mt-3" style="background-color:moccasin;border-radius:50px;">
+                            
+                                    <center class="title" style="font-weight:bold">Choose Product Size</center>
+                                    @{
+                                        for (int i = 0; i < Model.idSize.Count(); i++)
                                         {
-                                            <div class="GroupBtnSizecontent  d-flex justify-content-between">
-                                                <input type="radio" name="nameSize" value="@Model.idSize[i]">
-                                                <div class="size d-flex justify-content-between">
-                                                    <span>@Model.sizeProduct[i]</span>
-                                                    <span>@Model.soluongton[i] Sản phẩm</span>
-                                                </div>
-                                            </div>
+                                            if (Model.soluongton[i] != 0 && Model.soluongton[i] > 0)
+                                            {
+                                                <center class="d-flex ">
+                                                    <input type="radio"style="margin-left:130px" name="nameSize" value="@Model.idSize[i]">
+                                                    <div class="size d-flex justify-content-between">
+                                                        <span>@Model.sizeProduct[i]</span>
+                                                        <span style="margin-left:100px">@Model.soluongton[i] Sản phẩm</span>
+                                                    </div>
+                                                </center>
+                                            }
                                         }
                                     }
-                                }
+                          
                             </div>
                             <br />
-                            <h5>quantity</h5>
+                            <h5 style="font-weight:bold">Quantity</h5>
                             <div class="product__details__cart__option">
                                 <div class="quantity">
                                     <div class="pro-qty">
-                                        <input type="text" value="1"  name="quantity">
-                                 
+                                        <input type="text" value="1"  name="quantity">                               
                                     </div>
                                 </div>
+                                <input class="btn btn-success my-4" id="ThemGioHang" type="submit" value="Add to cart" />
                             </div>
                             @if (Session["sl"] != null)
                             {
                                 <div class="sub-w3l" style="color:red">
-                                    <h6> @Session["Error1"]</h6>
+                                    <h6 style="color:red"> @Session["Error1"]</h6>
                                 </div>
                             }
                             @if (Session["size"] == null)
                             {
                                 <div class="sub-w3l" style="color:red">
-                                    <h6> @Session["Error"]</h6>
+                                    <h6 style="color:red"> @Session["Error"]</h6>
                                 </div>
                             }
                             <div>
-                                <h3>@ViewData["Error"]</h3>
+                                <h3 style="color:red">@ViewData["Error"]</h3>
                             </div>
-                                <input class="btn btn-addtocart my-4" id="ThemGioHang" type="submit" value="Add to cart" />
+                                
                                 <br />
                                 <button class="btn btn-light" onclick="history.back()">Trở về</button>
                         </div>

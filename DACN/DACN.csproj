@@ -519,6 +519,7 @@
     <Content Include="Views\Manage\nhanvien.cshtml" />
     <Content Include="Views\Manage\addnhanvien.cshtml" />
     <Content Include="Views\Manage\nhanviendaxoa.cshtml" />
+    <Content Include="Views\Cart\Thanks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

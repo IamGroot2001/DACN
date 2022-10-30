@@ -34,31 +34,20 @@
                             <h6 class="checkout__title">Billing Details</h6>
                             @if (Session["user"] == null)
                             {
-
-
                                 <div class="checkout__input">
                                     <p>Name<span>*</span></p>
-                                    <input type="text">
+                                    <input type="text" name="ten" required>
                                 </div><div class="checkout__input">
                                     <p>Address<span>*</span></p>
-                                    <input type="text" placeholder="Street Address" class="checkout__input__add">
-
-                                </div><div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="checkout__input">
-                                            <p>Phone<span>*</span></p>
-                                            <input type="text">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="checkout__input">
-                                            <p>Email<span>*</span></p>
-                                            <input type="text">
-                                        </div>
-                                    </div>
-                                </div><div class="checkout__input">
-                                    <p>Order notes<span>*</span></p>
-                                    <input type="text"
+                                    <input type="text" name="diachi" placeholder="Street Address" class="checkout__input__add" required>
+                                </div>
+                                <div class="checkout__input">
+                                    <p>Phone<span>*</span></p>
+                                    <input type="number" name="sdt" maxlength="10" required>
+                                </div>
+                                <div class="checkout__input">
+                                    <p>Order notes<span></span></p>
+                                    <input type="text" name="ghichu"
                                            placeholder="Notes">
                                 </div>
 
@@ -71,7 +60,7 @@
                                             Tên khách hàng
                                             <span class="required">*</span>
                                         </label>
-                                        <input type="text" name="billing_name" id="billing_name" value="@Session["name"]">
+                                        <input type="text" name="billing_name" id="billing_name" value="@Session["name"]" required>
                                     </div>
                                 </div>
                                 <!--Địa chỉ-->
@@ -81,7 +70,7 @@
                                             Địa chỉ
                                             <span class="required">*</span>
                                         </label>
-                                        <input type="text" name="billing_address" id="billing_address" value="@Session["address"]">
+                                        <input type="text" name="billing_address" id="billing_address" value="@Session["address"]" required>
                                     </div>
                                 </div>
                                 <!--Phone-->
@@ -90,7 +79,7 @@
                                         <label for="billing_phone">
                                             Số điện thoại <span class="required">*</span>
                                         </label>
-                                        <input type="text" name="billing_phone" id="billing_phone" value="@Session["phone"]">
+                                        <input type="text" name="billing_phone" id="billing_phone" value="@Session["phone"]" required>
                                     </div>
                                 </div>
                                 <!--Ghi chú cho đơn hàng-->
@@ -108,43 +97,20 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="checkout__order">
                                 <h4 class="order__title">Your order</h4>
-                                <div class="checkout__order__products">Product <span>Total</span></div>
+                                <div class="checkout__order__products">Product<span>Total</span> <span style="margin-right:100px">Quality</span></div>
                                 @foreach (var item in Model)
                                 {
                                     <ul class="checkout__total__products">
-                                        <li>@item.iNameProduct <span>@String.Format("{0:0,0}", @item.iPriceProduct) VND</span></li>
-                                    </ul>
-                                    <ul class="checkout__total__all">
-                     
-                                        <li>Total <span>@String.Format("{0:0,0}", @item.iThanhTien) VND</span></li>
+                                        <li>@item.iNameProduct<b style="margin-left:20px">@item.iQuantityProduct</b> <span> @String.Format("{0:0,0}", @item.iThanhTien) VND</span></li>
                                     </ul>
                                 }
-
-                                @*<div class="checkout__input__checkbox">
-            <label for="payment">
-                Check Payment
-                <input type="checkbox" id="payment">
-                <span class="checkmark"></span>
-            </label>
-        </div>
-        <div class="checkout__input__checkbox">
-            <label for="paypal">
-                Paypal
-                <input type="checkbox" id="paypal">
-                <span class="checkmark"></span>
-            </label>
-        </div>*@
+                                <ul class="checkout__total__all">                 
+                                    <li>Total <span>@String.Format("{0:0,0}", ViewBag.TongTien) VND</span></li>
+                                </ul>
                                 <h6> @Html.RadioButton("Payment", "Thanh toán khi nhận hàng", checked(true))  Thanh toán khi nhận hàng !</h6>
                                 <h6> @Html.RadioButton("Payment", "Momo", checked(true))  Thanh toán qua Momo !</h6>
                                 <br />
                                 <div style="padding:0 40px 10px"> <button type="submit" class="btn btn-light">Thanh toán </button></div>
-                                @*<div style="padding:0 40px 10px">
-
-            <button type="submit" class="btn btn-secondary">MoMo</button>
-
-            <button type="submit" class="btn btn-info">VNPay</button>
-        </div>*@
-
                             </div>
                         </div>
 

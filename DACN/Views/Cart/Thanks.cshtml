@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Thanks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container thanks-container text-center mt-5" style="margin-bottom:130px">
+    <h2>Cảm ơn bạn đã mua sản phẩm!</h2>
+    <h4>Mã đơn hàng của bạn là: <span><h2>@Session["idInvoice"]</h2></span></h4>
+    <p>Đơn hàng sẽ được giao tới bạn trong thời gian sớm nhất</p>
+    <div class="row mt-5">
+        <div class="col-md-4 col-xl-3 col-12 mx-auto mb-3">
+            <a href="@Url.Action("Index","Home")" class="btn btn-outline-dark py-2">
+                Quay lại trang chủ
+            </a>
+        </div>
+        <div class="col-md-4 col-xl-3 col-12 mx-auto">
+            <a href="@Url.Action("Shop","Home")" class="btn btn-outline-dark py-2">
+                Tiếp tục mua sắm
+            </a>
+        </div>
+    </div>
+</div>
+
+
