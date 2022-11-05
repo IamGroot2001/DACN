@@ -1,8 +1,8 @@
-﻿@model IEnumerable<DoAn_Web_SellClothes.Models.ProductDetail>
+﻿@model IEnumerable<DACN.Models.CT_SANPHAM>
 
 @{
     ViewBag.Title = "DetailProduct";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
 
 }
 
@@ -14,7 +14,7 @@
     <div class="row">       
         <div class="col-xl-12">
             <table class="table">
-                <thead class="thead-light">
+                <thead class="thead-light"> 
                     <tr>
                         <th scope="col">Mã sản phẩm</th>
                         <th scope="col">Loại sản phẩm</th>
@@ -26,11 +26,11 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@item.IdProduct</td>
-                            <td>@item.SizeProduct.NameSizeProduct</td>
-                            <td>@item.SoLuongTon</td>
+                            <td>@item.MaSP</td>
+                            <td>@item.SIZE.TenSize</td>
+                            <td>@item.SoLuong</td>
                             <td>
-                                @Html.ActionLink("Delete", "DeleteProductDetail", new { id = item.IdProduct, size = item.IdSizeProduct }, new { @class = "btn btn-warning w-75" })
+                                @Html.ActionLink("Delete", "DeleteProductDetail", new { id = item.MaSP, size = item.MaSize }, new { @class = "btn btn-warning w-75" })
                             </td>
                         </tr>
                     }

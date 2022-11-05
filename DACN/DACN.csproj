@@ -45,16 +45,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
-      <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
-      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
-    </Reference>
-    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
-      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
@@ -142,9 +133,6 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DAChuyenNganh.cs">
-      <DependentUpon>DAChuyenNganh.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\DAChuyenNganh.designer.cs">
       <AutoGen>True</AutoGen>
@@ -287,9 +275,12 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\HELP-US-OUT.txt" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
@@ -444,6 +435,39 @@
     <Content Include="Views\Manage\TypesClothes.cshtml" />
     <Content Include="Views\Shared\_Layoutadmin.cshtml" />
     <Content Include="Views\Statistical\Statistical.cshtml" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\core.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\list.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\path.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\scss\_variables.scss" />
     <Content Include="Models\DAChuyenNganh.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>DAChuyenNganh.designer.cs</LastGenOutput>
@@ -489,14 +513,13 @@
     <Content Include="Views\Users\_User.cshtml" />
     <Content Include="Views\History\History.cshtml" />
     <Content Include="Views\History\HistoryDetail.cshtml" />
-    <Content Include="Views\Shared\Shop_Layout.cshtml" />
-    <Content Include="Views\Category\FilteredProductTypeList.cshtml" />
-    <Content Include="Views\Category\FilteredProductPriceList0To100.cshtml" />
-    <Content Include="Views\Category\FilteredProductPriceList100To250.cshtml" />
-    <Content Include="Views\Category\FilteredProductPriceList250To500.cshtml" />
-    <Content Include="Views\Category\FilteredProductPriceListOver500.cshtml" />
-    <Content Include="Views\Category\SortProduct.cshtml" />
-    <Content Include="Views\Category\SearchingProduct.cshtml" />
+    <Content Include="Views\Category\ProductList.cshtml" />
+    <Content Include="Views\Category\SizeList.cshtml" />
+    <Content Include="Views\Account\id.cshtml" />
+    <Content Include="Views\Manage\nhanvien.cshtml" />
+    <Content Include="Views\Manage\addnhanvien.cshtml" />
+    <Content Include="Views\Manage\nhanviendaxoa.cshtml" />
+    <Content Include="Views\Cart\Thanks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

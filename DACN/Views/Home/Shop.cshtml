@@ -11,7 +11,14 @@
                 <img src="~/Asset/img/product/@item.HinhAnh" />
                 <a herf="#"></a>
             </div>
-            <div class="product__item__text">
+            <div>
+                <h6><span style="color: lightslategray"><b>@item.TenSP</b></span></h6>
+                <h5>@item.Gia <span style="color: lightsalmon">VNĐ</span></h5>
+                <form method="get" action="@Url.Action("ProductDetail","Home", new { id = item.MaSP })">
+                    <button style="border-radius: 12px; background-color: gray; border: 2px solid gray;" type="submit"><span style="color: white">Xem Chi Tiết</span></button>
+                </form>
+            </div>
+            @*<div class="product__item__text">
                 <h6>@item.TenSP</h6>
                 <a href="#" class="add-cart">Thêm Vào Giỏ Hàng</a>
 
@@ -19,7 +26,7 @@
                 <form method="get" action="@Url.Action("ProductDetail","Home", new { id = item.MaSP })">
                     <button type="submit">Xem Chi Tiết</button>
                 </form>
-            </div>
+            </div>*@
         </div>
     </div>
 }

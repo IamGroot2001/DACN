@@ -8,25 +8,32 @@ namespace DACN.Models
     public class GioHang
     {
         DAChuyenNganhDataContext dataContext = new DAChuyenNganhDataContext();
-        public int maSP { set; get; }
-        public string tenSP { set; get; }
-        /*public int sizeSP { set; get; }*/
-        public string anhBia { set; get; }
-        public int donGia { set; get; }
-        public int soLuong { set; get; }
-        public int thanhTien
+        public int? iIdProduct { get; set; }
+        public int? iSize { get; set; }
+        public string iImageProduct { get; set; }
+        public string iNameProduct { get; set; }
+        public int iPriceProduct { get; set; }
+        public int iQuantityProduct { get; set; }
+        public string iSizeProduct { get; set; }
+        public int? iMaxAmount { get; set; }//Số lượng tồn
+        public int iThanhTien
         {
-            get { return soLuong * donGia; }
+            get { return (int)(iQuantityProduct * iPriceProduct); }
         }
-
-        public GioHang(int MaSP)
+        //Khởi tạo giỏ hành theo Mã sản phẩm truyền vào với số lượng mạc định là 1
+        public GioHang(int? idProduct, int? sizeProduct, int quantity)
         {
-            maSP = MaSP;
-            SAN_PHAM sanPham = dataContext.SAN_PHAMs.Single(n => n.MaSP == maSP);
-            tenSP = sanPham.TenSP;
-            anhBia = sanPham.HinhAnh;
-            donGia = int.Parse(sanPham.Gia.ToString());
-            soLuong = 1;
+            iIdProduct = idProduct;
+            iSize = sizeProduct;
+            iQuantityProduct = quantity;
+            SAN_PHAM product = dataContext.SAN_PHAMs.Single(n => n.MaSP == iIdProduct);
+            iImageProduct = product.HinhAnh;
+            iNameProduct = product.TenSP;
+            iPriceProduct = (int)product.Gia;
+            var sizeproduct = dataContext.SIZEs.FirstOrDefault(p => p.MaSize == iSize);
+            iSizeProduct = sizeproduct.TenSize;
+            var maxAmount = dataContext.CT_SANPHAMs.FirstOrDefault(p => p.MaSP == idProduct && p.SIZE == sizeproduct);
+            iMaxAmount = maxAmount.SoLuong;
         }
     }
 }

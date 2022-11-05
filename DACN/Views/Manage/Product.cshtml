@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DoAn_Web_SellClothes.Models.Product>
+﻿@model IEnumerable<DACN.Models.SAN_PHAM>
 
 @helper trumcate(string input, int lenght)
 {
@@ -13,7 +13,7 @@
 }
 @{
     ViewBag.Title = "Product";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
 }
 <div class="container-fluid px-4">
     <h1 class="my-4">Quản lý sản phẩm</h1>
@@ -44,28 +44,32 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => item.NameProduct)</td>
+                            <td>@Html.DisplayFor(modelItem => item.TenSP)</td>
                             <td>
-                                <img src="~/Assets/img/Clothes/@Html.DisplayFor(modelItem => item.ImageProduct)" class="img-thumbnail" alt="Alternate Text" />
+                                <img src="~/Assets/img/Clothes/@Html.DisplayFor(modelItem => item.HinhAnh)" class="img-thumbnail" alt="Alternate Text" />
                             </td>
-                            <td>@String.Format("{0:0,0 }", item.PriceProduct)<span>VNĐ</span></td>
-                            <td>@String.Format("{0:dd/MM/yyyy}", item.CreateDate)</td>
-                            <td>@String.Format("{0:dd/MM/yyyy}", item.UpdateDate)</td>
-                            <td style="max-width:200px">@trumcate(item.DescribeProduct, 40)</td>
-                            <td>@Html.DisplayFor(modelItem => item.ProductType.NameProductType)</td>
-                            @if (item.StatusProduct == 1)
+                            <td>@String.Format("{0:0,0 }", item.Gia)<span>VNĐ</span></td>
+                            <td>@String.Format("{0:dd/MM/yyyy}", item.NgayThem)</td>
+                            <td>@String.Format("{0:dd/MM/yyyy}", item.NgayCapNhat)</td>
+                            <td style="max-width:200px">@trumcate(item.MoTa, 40)</td>
+                            <td>@Html.DisplayFor(modelItem => item.LOAI_SAN_PHAM.TenLSP)</td>
+                            @if (item.TrangThai == true)
                             {
                                 <td>Còn hàng</td>
                             }
-                            else if (item.StatusProduct == 0)
+                            else if (item.TrangThai == false)
+                            {
+                                <td>Hết hàng</td>
+                            }
+                            else if (item.TrangThai == null)
                             {
                                 <td>Hết hàng</td>
                             }
                             <td>
-                                @Html.ActionLink("Detail", "DetailProducts", new { id = item.IdProduct }, new { @class = "btn btn-info btn-fluid mb-1" })
-                                @Html.ActionLink("Edit", "EditProduct", new { id = item.IdProduct }, new { @class = "btn btn-primary btn-fluid mb-1" })
-                                @Html.ActionLink("Size", "DetailProduct", new { id = item.IdProduct }, new { @class = "btn btn-primary btn-fluid mb-1" })
-                                @Html.ActionLink("Delete", "DeleteProduct", new { id = item.IdProduct }, new { @class = "btn btn-warning btn-fluid" })
+                                @Html.ActionLink("Detail", "DetailProducts", new { id = item.MaSP }, new { @class = "btn btn-info btn-fluid mb-1" })
+                                @Html.ActionLink("Edit", "EditProduct", new { id = item.MaSP }, new { @class = "btn btn-primary btn-fluid mb-1" })
+                                @Html.ActionLink("Size", "DetailProduct", new { id = item.MaSP }, new { @class = "btn btn-primary btn-fluid mb-1" })
+                                @Html.ActionLink("Delete", "DeleteProduct", new { id = item.MaSP }, new { @class = "btn btn-warning btn-fluid" })
                             </td>
                         </tr>
                     }
