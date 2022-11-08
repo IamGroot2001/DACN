@@ -33,7 +33,7 @@
                     </div>
                     <div class="banner__item__text">
                         <h2>Shoes Spring 2022</h2>
-                        <a href="#">Shop now</a>
+                        <a href="@Url.Action("Shop","Home")">Shop now</a>
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
 </section>
 <!-- Banner Section End -->
 <!-- Product Section Begin -->
-<section class="product spad">
+@*<section class="product spad">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -55,7 +55,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
                 <div class="product__item">
                     <div class="product__item__pic set-bg" data-setbg="~/Asset/img/product/product-1.jpg">
-                        <img src="~/Asset/img/product/product-1.jpg"/>
+                        <img src="~/Asset/img/product/product-1.jpg" />
                         <span class="label">New</span>
                     </div>
                     <div class="product__item__text">
@@ -67,7 +67,21 @@
                         </form>
                     </div>
                 </div>
-            </div>        
+            </div>
+        </div>
+    </div>
+</section>*@
+<!-- Related Section Begin -->
+<section class="related spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="related-title">Hàng Mới Về</h3>
+            </div>
+        </div>
+        <div class="row">
+            @Html.Action("NewProduct", "Category")
         </div>
     </div>
 </section>
+<!-- Related Section End -->
