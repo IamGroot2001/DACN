@@ -218,6 +218,38 @@
             </div>
         }*@
 </section>
+
+<h1 style="text-align: center"><strong>Gợi Ý Sản Phẩm</strong></h1>
+
+<section class="related spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="related-title">Hàng Cùng Loại</h3>
+            </div>
+        </div>
+        <div class="row">
+            @Html.Action("SanPhamCungLoai", "Category", new { id = Model.MaLSP })
+        </div>
+    </div>
+</section>
+<!-- Related Section End -->
+
+<!-- Related Section Begin -->
+<section class="related spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="related-title">Bán Chạy</h3>
+            </div>
+        </div>
+        <div class="row">
+            @Html.Action("SanPhamBanChay", "Category")
+        </div>
+    </div>
+</section>
+<!-- Related Section End -->
+
 <!-- Related Section Begin -->
 <section class="related spad">
     <div class="container">

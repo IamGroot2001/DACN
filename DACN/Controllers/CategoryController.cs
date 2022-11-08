@@ -75,6 +75,44 @@ namespace DACN.Controllers
             return PartialView(newProduct);
         }
 
+        public ActionResult SanPhamCungLoai(int id)
+        {
+            var product = from sp in dataContext.SAN_PHAMs
+                          where sp.MaLSP == id
+                          select sp;
+            return PartialView(product);
+        }
+
+        public ActionResult SanPhamBanChay()
+        {
+            var product = (from sp in dataContext.SAN_PHAMs
+                           join ctdh in dataContext.CT_DONHANGs on sp.MaSP equals ctdh.MaSP
+                           where sp.MaSP == ctdh.MaSP
+                           select sp);
+
+            /*var product = (from sp in dataContext.SAN_PHAMs
+                           join ctdh in dataContext.CT_DONHANGs on sp.MaSP equals ctdh.MaSP
+                           group sp by sp.MaSP into g
+                           orderby g descending
+                           select g).Take(8).Distinct().Count();*/
+
+            /*var product = dataContext.SAN_PHAMs
+                .Join(dataContext.CT_DONHANGs, 
+                sanpham => sanpham.MaSP,
+                ctdh => ctdh.MaSP,
+                (sanpham, ctdh) => new {Sanpham = sanpham, Ctdh = ctdh})
+                .Where(sp => sp.Sanpham.MaSP == )*/
+
+            /*var product = from sp in dataContext.SAN_PHAMs
+                          join ctdh in dataContext.CT_DONHANGs on sp.MaSP equals ctdh.MaSP
+                          group sp by ctdh.MaSP into g
+                          select new
+                          {
+                              g = g.Key,
+                          };*/
+            return PartialView(product);
+        }
+
         /*public ActionResult ProductCount()
         {
             var slSanPham = (from slsp in dataContext.SAN_PHAMs select slsp).Count();

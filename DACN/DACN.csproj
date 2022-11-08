@@ -522,6 +522,8 @@
     <Content Include="Views\Manage\nhanviendaxoa.cshtml" />
     <Content Include="Views\Cart\Thanks.cshtml" />
     <Content Include="Views\Category\NewProduct.cshtml" />
+    <Content Include="Views\Category\SanPhamCungLoai.cshtml" />
+    <Content Include="Views\Category\SanPhamBanChay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
