@@ -29,7 +29,7 @@ namespace DACN.Controllers
             return listgiohang;
         }
         //Tổng số lượng
-        private int TongSoLuong()
+        public int TongSoLuong()
         {
             int tong = 0;
             List<GioHang> listgiohang = Session["Giohang"] as List<GioHang>;

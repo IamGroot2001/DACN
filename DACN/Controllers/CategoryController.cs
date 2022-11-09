@@ -85,10 +85,10 @@ namespace DACN.Controllers
 
         public ActionResult SanPhamBanChay()
         {
-            var product = (from sp in dataContext.SAN_PHAMs
+            /*var product = (from sp in dataContext.SAN_PHAMs
                            join ctdh in dataContext.CT_DONHANGs on sp.MaSP equals ctdh.MaSP
-                           where sp.MaSP == ctdh.MaSP
-                           select sp);
+                           where sp.MaSP == ctdh.MaSP 
+                           select sp);*/
 
             /*var product = (from sp in dataContext.SAN_PHAMs
                            join ctdh in dataContext.CT_DONHANGs on sp.MaSP equals ctdh.MaSP
@@ -110,6 +110,16 @@ namespace DACN.Controllers
                           {
                               g = g.Key,
                           };*/
+
+            var product = (from p in dataContext.SAN_PHAMs
+                           let totalQuantify = (from ctdh in dataContext.CT_DONHANGs
+                                                join dh in dataContext.DON_HANGs on ctdh.MaDH equals dh.MaDH
+                                                where ctdh.MaDH == dh.MaDH
+                                                select ctdh.SoLuong).Sum()
+                           where totalQuantify > 0
+                           orderby totalQuantify descending
+                           select p);
+
             return PartialView(product);
         }
 
