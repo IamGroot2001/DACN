@@ -104,11 +104,12 @@
                                         <li>@item.iNameProduct<b style="margin-left:20px">@item.iQuantityProduct</b> <span> @String.Format("{0:0,0}", @item.iThanhTien) VND</span></li>
                                     </ul>
                                 }
-                                <ul class="checkout__total__all">                 
+                                <ul class="checkout__total__all">
                                     <li>Total <span>@String.Format("{0:0,0}", ViewBag.TongTien) VND</span></li>
                                 </ul>
                                 <h6> @Html.RadioButton("Payment", "Thanh toán khi nhận hàng", checked(true))  Thanh toán khi nhận hàng !</h6>
                                 <h6> @Html.RadioButton("Payment", "Momo", checked(true))  Thanh toán qua Momo !</h6>
+                                <h6> @Html.RadioButton("Payment", "Ví VNPAY", checked(true))  Thanh toán qua ví VNPAY!</h6>
                                 <br />
                                 <div style="padding:0 40px 10px"> <button type="submit" class="btn btn-light">Thanh toán </button></div>
                             </div>
