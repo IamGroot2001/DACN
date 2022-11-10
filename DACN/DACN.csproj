@@ -213,6 +213,7 @@
     <Content Include="Asset\img\product\product-12.jpg" />
     <Content Include="Asset\img\product\product-13.jpg" />
     <Content Include="Asset\img\product\product-14.jpg" />
+    <Content Include="Asset\img\product\product-16.jpg" />
     <Content Include="Asset\img\product\product-2.jpg" />
     <Content Include="Asset\img\product\product-3.jpg" />
     <Content Include="Asset\img\product\product-4.jpg" />
@@ -520,6 +521,9 @@
     <Content Include="Views\Manage\addnhanvien.cshtml" />
     <Content Include="Views\Manage\nhanviendaxoa.cshtml" />
     <Content Include="Views\Cart\Thanks.cshtml" />
+    <Content Include="Views\Category\NewProduct.cshtml" />
+    <Content Include="Views\Category\SanPhamCungLoai.cshtml" />
+    <Content Include="Views\Category\SanPhamBanChay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
