@@ -72,7 +72,7 @@ namespace DACN.Controllers
         {
             //bool a = true;
             //int? tencuanv;
-            String tencuanv = "null" ;
+            //String tencuanv = "null" ;
             bool a = bool.Parse(TrangThai);
             var ct = db.DON_HANGs.SingleOrDefault(n => n.MaDH == id);
             //var ct = from c in db.Invoices where c.IdInvoice == id select c;
