@@ -10,6 +10,9 @@ using System.Web.Security;
 using DACN.Models;
 using Facebook;
 using System.Configuration;
+using System.Net;
+using System.Net.Mail;
+using System.ComponentModel.DataAnnotations;
 
 namespace DACN.Controllers
 {
@@ -39,6 +42,47 @@ namespace DACN.Controllers
                 hash.Append(bytes[i].ToString("x2"));
             }
             return hash.ToString();
+        }
+        //Gửi Mail
+        public static void SendEmail(string address, string subject, string message)
+        {
+            if (new EmailAddressAttribute().IsValid(address)) // check có đúng mail khách hàng
+            {
+                string email = "buivanty15@gmail.com";
+                var senderEmail = new MailAddress(email, "VAT Shop (tin nhắn tự động)");
+                var receiverEmail = new MailAddress(address, "Receiver");
+                var password = "dpukaghhwhgrokpo";
+                var sub = subject;
+                var body = message;
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(senderEmail.Address, password)
+                };
+                using (var mess = new MailMessage(senderEmail, receiverEmail)
+                {
+                    Subject = sub,
+                    Body = body
+                })
+                {
+                    smtp.Send(mess);
+                }
+            }
+        }
+        private string CreatePassword(int length)
+        {
+            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            StringBuilder res = new StringBuilder();
+            Random rnd = new Random();
+            while (0 < length--)
+            {
+                res.Append(valid[rnd.Next(valid.Length)]);
+            }
+            return res.ToString();
         }
         // GET: Users
         [HttpGet]
