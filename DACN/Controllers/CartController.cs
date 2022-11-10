@@ -126,7 +126,7 @@ namespace DACN.Controllers
             }
             if (listProductInCart.Count == 0)
             {
-                return RedirectToAction("ProductPage", "Product");
+                return RedirectToAction("Shop", "Home");
             }
             return RedirectToAction("Cart");
         }

@@ -121,8 +121,11 @@ namespace DACN.Controllers
             {
                 return RedirectToAction("LogIn", "Account");
             }
-            var list = db.KHACH_HANGs.OrderByDescending(s => s.TaiKhoanKH).ToList();
+            var list = (from s in db.KHACH_HANGs where s.TaiKhoanKH != "khachhangvanglai" select s).ToList();
+            //var nv = db.NHAN_VIENs.Where(n => n.MaCV == 2 && n.MaCV == 3 && n.MaCV != 1).ToList();
             return View(list);
+            //var list = db.KHACH_HANGs.OrderByDescending(s => s.TaiKhoanKH).ToList();
+            //return View(list);
         }
         //========================================================================================
         public ActionResult Size()
@@ -548,7 +551,7 @@ namespace DACN.Controllers
             var idsizeProduct = (from s in db.CT_SANPHAMs where s.MaSP == idpd select s).ToList();
             foreach (var item in idsizeProduct)
             {
-                if (idsize == item.MaSize)
+                if (idsize == 1 || idsize==2|| idsize == 3|| idsize == 4)
                 {
                     pr.MaSP = idpd;
                     pr.MaSize = idsize;
@@ -639,11 +642,11 @@ namespace DACN.Controllers
                 ViewData["Error"] = "Tài khoản đã tồn tại";
                 return this.addnhanvien();
             }
-            else if (matkhau.ToString().Length >= 24 || matkhau.ToString().Length <= 5)
-            {
-                ViewData["Error"] = "Độ dài mật khẩu nhiều hơn 5 và ít hơn 24";
-                return this.addnhanvien();
-            }
+            //else if (matkhau.ToString().Length >= 24 || matkhau.ToString().Length <= 5)
+            //{
+            //    ViewData["Error"] = "Độ dài mật khẩu nhiều hơn 5 và ít hơn 24";
+            //    return this.addnhanvien();
+            //}
             else
             {
 
