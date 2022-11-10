@@ -37,10 +37,10 @@
         </div>
         @*@Html.Action("TongSoLuong", "Cart")*@
         @*<div class="offcanvas__nav__option">
-            <a href="#" class="search-switch"><img src="~/Asset/img/icon/search.png" alt=""></a>
-            <a href="@Url.Action("Cart","Cart")"><img src="~/Asset/img/icon/cart.png" alt=""> <span>0</span></a>
-            <div class="price">$0.00</div>
-        </div>*@
+                <a href="#" class="search-switch"><img src="~/Asset/img/icon/search.png" alt=""></a>
+                <a href="@Url.Action("Cart","Cart")"><img src="~/Asset/img/icon/cart.png" alt=""> <span>0</span></a>
+                <div class="price">$0.00</div>
+            </div>*@
         <div id="mobile-menu-wrap"></div>
     </div>
     <!-- Offcanvas Menu End -->
@@ -52,7 +52,7 @@
                     <div class="col-lg-6 col-md-7"></div>
                     <div class="col-lg-6 col-md-5">
                         <div class="header__top__right">
-                            <div class="header__top__links" >
+                            <div class="header__top__links">
                                 @if (Session["user"] == null)
                                 {
                                     <a href="@Url.Action("SignIn","Users")">Đăng Nhập</a>
@@ -70,9 +70,9 @@
             </div>
         </div>
 
-    
-    <!-- Offcanvas Menu End -->
-    <!-- Header Section Begin -->
+
+        <!-- Offcanvas Menu End -->
+        <!-- Header Section Begin -->
 
         <div class="container">
             <div class="row">
@@ -103,7 +103,7 @@
     </header>
     <!-- Header Section End -->
     @RenderBody()
-    
+
     <!-- Footer Section Begin -->
     <footer class="footer">
         <div class="container">
@@ -137,7 +137,7 @@
                             <script>
                                 document.write(new Date().getFullYear());
                             </script>2022
-                            All rights reserved | This is the produc of <a style="font-weight:bold; color:red"href="@Url.Action("Index","Home")">VAT Shop</a> 
+                            All rights reserved | This is the produc of <a style="font-weight:bold; color:red" href="@Url.Action("Index","Home")">VAT Shop</a>
                         </p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </div>
@@ -147,26 +147,29 @@
     </footer>
     <!-- Footer Section End -->
     <!-- Search Begin -->
-    <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
-            </form>
+    @using (Html.BeginForm("SearchingProduct", "Category", FormMethod.Post))
+    {
+        <div class="search-model">
+            <div class="h-100 d-flex align-items-center justify-content-center">
+                <div class="search-close-switch">+</div>
+                <form class="search-model-form">
+                    <input type="text" name="txtTimKiem" placeholder="Search here.....">
+                </form>
+            </div>
         </div>
-    </div>
-    <!-- Search End -->
-    <!-- Js Plugins -->
-    <script src="~/Asset/js/jquery-3.3.1.min.js"></script>
-    <script src="~/Asset/js/bootstrap.min.js"></script>
-    <script src="~/Asset/js/jquery.nice-select.min.js"></script>
-    <script src="~/Asset/js/jquery.nicescroll.min.js"></script>
-    <script src="~/Asset/js/jquery.magnific-popup.min.js"></script>
-    <script src="~/Asset/js/jquery.countdown.min.js"></script>
-    <script src="~/Asset/js/jquery.slicknav.js"></script>
-    <script src="~/Asset/js/mixitup.min.js"></script>
-    <script src="~/Asset/js/owl.carousel.min.js"></script>
-    <script src="~/Asset/js/main.js"></script>
-</body>
+    }
+        <!-- Search End -->
+        <!-- Js Plugins -->
+        <script src="~/Asset/js/jquery-3.3.1.min.js"></script>
+        <script src="~/Asset/js/bootstrap.min.js"></script>
+        <script src="~/Asset/js/jquery.nice-select.min.js"></script>
+        <script src="~/Asset/js/jquery.nicescroll.min.js"></script>
+        <script src="~/Asset/js/jquery.magnific-popup.min.js"></script>
+        <script src="~/Asset/js/jquery.countdown.min.js"></script>
+        <script src="~/Asset/js/jquery.slicknav.js"></script>
+        <script src="~/Asset/js/mixitup.min.js"></script>
+        <script src="~/Asset/js/owl.carousel.min.js"></script>
+        <script src="~/Asset/js/main.js"></script>
+    </body>
 
 </html>

@@ -1,8 +1,34 @@
-﻿
+﻿@using PagedList.Mvc;
+@using DACN.Models;
+@model PagedList.PagedList<SAN_PHAM>
+
 @{
-    ViewBag.Title = "KetQuaTimKiem";
+    ViewBag.Title = "FilteredProductPriceListOver500";
     Layout = "~/Views/Shared/Shop_Layout.cshtml";
 }
+<h2 class=" text-center mb-4">@ViewBag.SapXepSanPham</h2>
+@foreach (var item in Model)
+{
+    @*<h2 class=" text-center mb-4">@ViewBag.SapXepSanPham</h2>*@
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="product__item">
+            <div class="product__item__pic set-bg" data-setbg="~/Asset/img/product/@item.HinhAnh">
+                <img src="~/Asset/img/product/@item.HinhAnh" />
+                <a herf="#"></a>
+            </div>
+            <div class="product__item__text">
+                <h6>@item.TenSP</h6>
+                <a href="#" class="add-cart">Thêm Vào Giỏ Hàng</a>
 
-<h2>KetQuaTimKiem</h2>
+                <h5>@item.Gia VNĐ</h5>
+                <form method="get" action="@Url.Action("ProductDetail","Home", new { id = item.MaSP })">
+                    <button type="submit">Xem Chi Tiết</button>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+<div class="page">
+    @Html.PagedListPager(Model, page => Url.Action("SearchingProduct", new { page = page, @sTuKhoa = Session["TuKhoa"] }))
+</div>
 
