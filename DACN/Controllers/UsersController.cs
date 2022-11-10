@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using DACN.Models;
+using Facebook;
+using System.Configuration;
 
 namespace DACN.Controllers
 {
@@ -15,6 +17,17 @@ namespace DACN.Controllers
     {
         DAChuyenNganhDataContext data = new DAChuyenNganhDataContext ();
         private static readonly int CHECK_EMAIL = 1;
+        private Uri RedirectUri
+        {
+            get
+            {
+                var uriBuilder = new UriBuilder(Request.Url);
+                uriBuilder.Query = null;
+                uriBuilder.Fragment = null;
+                uriBuilder.Path = Url.Action("FacebookCallback");
+                return uriBuilder.Uri;
+            }
+        }
         public static string MD5Hash(string input)
         {
             StringBuilder hash = new StringBuilder();
@@ -214,6 +227,59 @@ namespace DACN.Controllers
                 }
             }
             return this.AccountInformation();
+        }     
+
+        public ActionResult SignInFacebook()
+        {
+            var fb = new FacebookClient();
+            var loginUrl = fb.GetLoginUrl(new
+            {
+                client_id = ConfigurationManager.AppSettings["FbAppID"],
+                client_secret = ConfigurationManager.AppSettings["FbSecretID"],
+                redirect_uri = RedirectUri.AbsoluteUri,
+                response_type = "code",
+                scope = "email",
+
+            });
+            return Redirect(loginUrl.AbsoluteUri);
+        }
+        public ActionResult FacebookCallback(string code)
+        {
+            var fb = new FacebookClient();
+            dynamic result = fb.Post("oauth/access_token", new
+            {
+                client_id = ConfigurationManager.AppSettings["FbAppID"],
+                client_secret = ConfigurationManager.AppSettings["FbSecretID"],
+                redirect_uri = RedirectUri.AbsoluteUri,
+                response_type = "code"
+            });
+
+            var accessToken = result.access_token;
+            Session["AccessToken"] = accessToken;
+            if (!string.IsNullOrEmpty(accessToken))
+            {
+                fb.AccessToken = accessToken;
+                //Get the user's information, like email, first name, middle name etc
+                dynamic me = fb.Get("me?fields=first_name,middle_name,last_name,id,email");
+                string email = me.email;
+                string userName = me.email;
+                string firstName = me.first_name;
+                string middlename = me.middle_name;
+                string lastname = me.last_name;
+                FormsAuthentication.SetAuthCookie(email, false);
+                //neu chay dc hãy thử thêm sđt và địa chỉ
+
+                var khachhang = new KHACH_HANG();
+                khachhang.EmailKH = email;
+                khachhang.TaiKhoanKH = email;
+                khachhang.HoTenKH = firstName + " " + middlename + " " + lastname;
+                data.KHACH_HANGs.InsertOnSubmit(khachhang);
+                data.SubmitChanges();
+
+
+
+            }
+            return Redirect("/");
         }
     }
 }

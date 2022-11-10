@@ -204,12 +204,17 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="shop__product__option__right">
-                                <p>Sort by Price:</p>
-                                <select>
-                                    <option value="">Low To High</option>
+                                <p>Sort by Price: </p>
+                                <ul>
+                                    <li><a href="@Url.Action("SortProduct","Category",new { kieuSapXep = "tangdan"})">Low To High</a></li>
+                                    <li><a href="@Url.Action("SortProduct","Category",new { kieuSapXep = "giamdan"})">High To Low</a></li>
+                                </ul>
+                                @*<select>
+                                    <a href="@Url.Action("SapXepSanPham","Category",new { kieuSapXep = "tangdan"})">Low To High</a>
+                                    <option><a href="@Url.Action("SapXepSanPham","Category",new { kieuSapXep = "giamdan"})">High To Low</a></option>
                                     <option value="">$0 - $55</option>
                                     <option value="">$55 - $100</option>
-                                </select>
+                                </select>*@
                             </div>
                         </div>
                     </div>
