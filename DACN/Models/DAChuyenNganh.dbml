@@ -63,6 +63,7 @@
       <Column Name="DiaChiKH" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="SdtKH" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Association Name="KHACH_HANG_DON_HANG" Member="DON_HANGs" ThisKey="TaiKhoanKH" OtherKey="TaiKhoanKH" Type="DON_HANG" />
+      <Association Name="KHACH_HANG_ResetPass" Member="ResetPasses" ThisKey="TaiKhoanKH" OtherKey="TaiKhoanKH_KHACH_HANG" Type="ResetPass" />
     </Type>
   </Table>
   <Table Name="dbo.LOAI_SAN_PHAM" Member="LOAI_SAN_PHAMs">
@@ -110,6 +111,15 @@
       <Column Name="MaSize" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="TenSize" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
       <Association Name="SIZE_CT_SANPHAM" Member="CT_SANPHAMs" ThisKey="MaSize" OtherKey="MaSize" Type="CT_SANPHAM" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ResetPass" Member="ResetPasses">
+    <Type Name="ResetPass">
+      <Column Name="TaiKhoanKH" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="maRS" Type="System.String" DbType="VarChar(32) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TaiKhoanKH_KHACH_HANG" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ThoiHan" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Association Name="KHACH_HANG_ResetPass" Member="KHACH_HANG" ThisKey="TaiKhoanKH_KHACH_HANG" OtherKey="TaiKhoanKH" Type="KHACH_HANG" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

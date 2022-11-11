@@ -58,9 +58,9 @@ namespace DACN.Controllers
         }
         //Thêm sản phẩm vào giỏ hàng
         [HttpPost]
-        public ActionResult ThemGioHang(int? idProduct, string strURL)
+        public ActionResult ThemGioHang(int idProduct, string strURL)
         {
-            int? sizeid = null;
+            int sizeid = 0;
             //Lấy ra session    
             List<GioHang> listgiohang = LayGioHang();
             Session["Size"] = Request.Form["nameSize"];
@@ -87,7 +87,7 @@ namespace DACN.Controllers
             if (giohang == null)
             {
 
-                giohang = new GioHang(idProduct, sizeid, sl);
+                giohang = new GioHang(idProduct,sizeid, sl);
                 listgiohang.Add(giohang);
                 //SetAlert("Thêm vào giỏ hàng thành công", "success");
                 return Redirect(strURL);
@@ -130,10 +130,10 @@ namespace DACN.Controllers
             return RedirectToAction("Cart");
         }
         //Cập nhật lại số lượng trong giỏ hàng
-        public ActionResult UpdateItemInCart(int iProductId, int iSizeId, FormCollection collection)
+        public ActionResult UpdateItemInCart(int iProductId, FormCollection collection)
         {
             List<GioHang> listProductInCart = LayGioHang();
-            GioHang sp = listProductInCart.SingleOrDefault(n => n.iIdProduct == iProductId && n.iSize == iSizeId);
+            GioHang sp = listProductInCart.SingleOrDefault(n => n.iIdProduct == iProductId);
             if (sp != null)
             {
                 sp.iQuantityProduct = int.Parse(collection["quantity1"]);

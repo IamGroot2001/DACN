@@ -63,6 +63,9 @@ namespace DACN.Models
     partial void InsertSIZE(SIZE instance);
     partial void UpdateSIZE(SIZE instance);
     partial void DeleteSIZE(SIZE instance);
+    partial void InsertResetPass(ResetPass instance);
+    partial void UpdateResetPass(ResetPass instance);
+    partial void DeleteResetPass(ResetPass instance);
     #endregion
 		
 		public DAChuyenNganhDataContext() : 
@@ -180,6 +183,14 @@ namespace DACN.Models
 			get
 			{
 				return this.GetTable<SIZE>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ResetPass> ResetPasses
+		{
+			get
+			{
+				return this.GetTable<ResetPass>();
 			}
 		}
 	}
@@ -1330,6 +1341,8 @@ namespace DACN.Models
 		
 		private EntitySet<DON_HANG> _DON_HANGs;
 		
+		private EntitySet<ResetPass> _ResetPasses;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1351,6 +1364,7 @@ namespace DACN.Models
 		public KHACH_HANG()
 		{
 			this._DON_HANGs = new EntitySet<DON_HANG>(new Action<DON_HANG>(this.attach_DON_HANGs), new Action<DON_HANG>(this.detach_DON_HANGs));
+			this._ResetPasses = new EntitySet<ResetPass>(new Action<ResetPass>(this.attach_ResetPasses), new Action<ResetPass>(this.detach_ResetPasses));
 			OnCreated();
 		}
 		
@@ -1487,6 +1501,19 @@ namespace DACN.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KHACH_HANG_ResetPass", Storage="_ResetPasses", ThisKey="TaiKhoanKH", OtherKey="TaiKhoanKH_KHACH_HANG")]
+		public EntitySet<ResetPass> ResetPasses
+		{
+			get
+			{
+				return this._ResetPasses;
+			}
+			set
+			{
+				this._ResetPasses.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1514,6 +1541,18 @@ namespace DACN.Models
 		}
 		
 		private void detach_DON_HANGs(DON_HANG entity)
+		{
+			this.SendPropertyChanging();
+			entity.KHACH_HANG = null;
+		}
+		
+		private void attach_ResetPasses(ResetPass entity)
+		{
+			this.SendPropertyChanging();
+			entity.KHACH_HANG = this;
+		}
+		
+		private void detach_ResetPasses(ResetPass entity)
 		{
 			this.SendPropertyChanging();
 			entity.KHACH_HANG = null;
@@ -2409,6 +2448,181 @@ namespace DACN.Models
 		{
 			this.SendPropertyChanging();
 			entity.SIZE = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ResetPass")]
+	public partial class ResetPass : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _TaiKhoanKH;
+		
+		private string _maRS;
+		
+		private string _TaiKhoanKH_KHACH_HANG;
+		
+		private string _ThoiHan;
+		
+		private EntityRef<KHACH_HANG> _KHACH_HANG;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTaiKhoanKHChanging(int value);
+    partial void OnTaiKhoanKHChanged();
+    partial void OnmaRSChanging(string value);
+    partial void OnmaRSChanged();
+    partial void OnTaiKhoanKH_KHACH_HANGChanging(string value);
+    partial void OnTaiKhoanKH_KHACH_HANGChanged();
+    partial void OnThoiHanChanging(string value);
+    partial void OnThoiHanChanged();
+    #endregion
+		
+		public ResetPass()
+		{
+			this._KHACH_HANG = default(EntityRef<KHACH_HANG>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TaiKhoanKH", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int TaiKhoanKH
+		{
+			get
+			{
+				return this._TaiKhoanKH;
+			}
+			set
+			{
+				if ((this._TaiKhoanKH != value))
+				{
+					this.OnTaiKhoanKHChanging(value);
+					this.SendPropertyChanging();
+					this._TaiKhoanKH = value;
+					this.SendPropertyChanged("TaiKhoanKH");
+					this.OnTaiKhoanKHChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_maRS", DbType="VarChar(32) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string maRS
+		{
+			get
+			{
+				return this._maRS;
+			}
+			set
+			{
+				if ((this._maRS != value))
+				{
+					this.OnmaRSChanging(value);
+					this.SendPropertyChanging();
+					this._maRS = value;
+					this.SendPropertyChanged("maRS");
+					this.OnmaRSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TaiKhoanKH_KHACH_HANG", DbType="NVarChar(50)")]
+		public string TaiKhoanKH_KHACH_HANG
+		{
+			get
+			{
+				return this._TaiKhoanKH_KHACH_HANG;
+			}
+			set
+			{
+				if ((this._TaiKhoanKH_KHACH_HANG != value))
+				{
+					if (this._KHACH_HANG.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTaiKhoanKH_KHACH_HANGChanging(value);
+					this.SendPropertyChanging();
+					this._TaiKhoanKH_KHACH_HANG = value;
+					this.SendPropertyChanged("TaiKhoanKH_KHACH_HANG");
+					this.OnTaiKhoanKH_KHACH_HANGChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThoiHan", DbType="VarChar(20)")]
+		public string ThoiHan
+		{
+			get
+			{
+				return this._ThoiHan;
+			}
+			set
+			{
+				if ((this._ThoiHan != value))
+				{
+					this.OnThoiHanChanging(value);
+					this.SendPropertyChanging();
+					this._ThoiHan = value;
+					this.SendPropertyChanged("ThoiHan");
+					this.OnThoiHanChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KHACH_HANG_ResetPass", Storage="_KHACH_HANG", ThisKey="TaiKhoanKH_KHACH_HANG", OtherKey="TaiKhoanKH", IsForeignKey=true)]
+		public KHACH_HANG KHACH_HANG
+		{
+			get
+			{
+				return this._KHACH_HANG.Entity;
+			}
+			set
+			{
+				KHACH_HANG previousValue = this._KHACH_HANG.Entity;
+				if (((previousValue != value) 
+							|| (this._KHACH_HANG.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._KHACH_HANG.Entity = null;
+						previousValue.ResetPasses.Remove(this);
+					}
+					this._KHACH_HANG.Entity = value;
+					if ((value != null))
+					{
+						value.ResetPasses.Add(this);
+						this._TaiKhoanKH_KHACH_HANG = value.TaiKhoanKH;
+					}
+					else
+					{
+						this._TaiKhoanKH_KHACH_HANG = default(string);
+					}
+					this.SendPropertyChanged("KHACH_HANG");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

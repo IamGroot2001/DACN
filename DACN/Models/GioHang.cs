@@ -8,8 +8,8 @@ namespace DACN.Models
     public class GioHang
     {
         DAChuyenNganhDataContext dataContext = new DAChuyenNganhDataContext();
-        public int? iIdProduct { get; set; }
-        public int? iSize { get; set; }
+        public int iIdProduct { get; set; }
+        public int iSize { get; set; }
         public string iImageProduct { get; set; }
         public string iNameProduct { get; set; }
         public int iPriceProduct { get; set; }
@@ -21,7 +21,7 @@ namespace DACN.Models
             get { return (int)(iQuantityProduct * iPriceProduct); }
         }
         //Khởi tạo giỏ hành theo Mã sản phẩm truyền vào với số lượng mạc định là 1
-        public GioHang(int? idProduct, int? sizeProduct, int quantity)
+        public GioHang(int idProduct,int sizeProduct, int quantity)
         {
             iIdProduct = idProduct;
             iSize = sizeProduct;

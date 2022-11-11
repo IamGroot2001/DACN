@@ -553,6 +553,9 @@
     <Content Include="Views\Home\main.cshtml" />
     <Content Include="Views\Home\shop-details.cshtml" />
     <Content Include="Views\Shared\Shop_Layout.cshtml" />
+    <Content Include="Views\Users\Forget.cshtml" />
+    <Content Include="Views\Users\NotifForm.cshtml" />
+    <Content Include="Views\Users\ResetPass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

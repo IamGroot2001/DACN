@@ -13,6 +13,11 @@ using System.Configuration;
 using System.Net;
 using System.Net.Mail;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Collections.Specialized;
+using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
 
 namespace DACN.Controllers
 {
@@ -20,6 +25,8 @@ namespace DACN.Controllers
     {
         DAChuyenNganhDataContext data = new DAChuyenNganhDataContext ();
         private static readonly int CHECK_EMAIL = 1;
+        public const string clientId = "387158749082-18vn0u13tibgpo919n6ghv80act738kd.apps.googleusercontent.com";
+        public const string clientSecret = "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";
         private Uri RedirectUri
         {
             get
@@ -49,7 +56,7 @@ namespace DACN.Controllers
             if (new EmailAddressAttribute().IsValid(address)) // check có đúng mail khách hàng
             {
                 string email = "buivanty15@gmail.com";
-                var senderEmail = new MailAddress(email, "VAT Shop (tin nhắn tự động)");
+                var senderEmail = new MailAddress(email, "VAT Clother (tin nhắn tự động)");
                 var receiverEmail = new MailAddress(address, "Receiver");
                 var password = "dpukaghhwhgrokpo";
                 var sub = subject;
@@ -184,6 +191,10 @@ namespace DACN.Controllers
                 kh.MatKhauKH = MD5Hash(matkhau);
                 data.KHACH_HANGs.InsertOnSubmit(kh);
                 data.SubmitChanges();
+                //sentmail
+                string subject = "VAT Clother";
+                string mess = "Chào mừng " + kh.HoTenKH + " đến với The VAT Clother";
+                SendEmail(kh.EmailKH, subject, mess);
                 return RedirectToAction("SignIn", "Users");
             }
         }
@@ -324,6 +335,120 @@ namespace DACN.Controllers
 
             }
             return Redirect("/");
+        }
+
+        [HttpGet]
+        public ActionResult Forget()
+        {
+            return View();
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Forget(FormCollection form)
+        {
+
+            string email = form["Email"].ToString();
+            if (String.IsNullOrEmpty(email))
+            {
+                ViewBag.MatKhau = "! Email Không Được Để Trống";
+            }
+            else
+            {
+                KHACH_HANG nv = data.KHACH_HANGs.FirstOrDefault(p => p.EmailKH == email);
+                if (nv != null)
+                {
+                    string host = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, "");
+                    string thoiHan = DateTime.Now.AddMinutes(10).ToString("yyyyMMddHHmmss");
+                    string maRS = MD5Hash(thoiHan);
+                    ResetPass reset = new ResetPass();
+                    reset.maRS = maRS;
+                    reset.TaiKhoanKH_KHACH_HANG = nv.TaiKhoanKH;
+                    reset.ThoiHan = thoiHan;
+                    data.ResetPasses.InsertOnSubmit(reset);
+                    data.SubmitChanges();
+                    SendEmail(email, "Khôi Phục Mật Khẩu", "Link Khôi Phục Mật Khẩu Của Bạn Là: " + host + "/Users/ResetPass?token=" + maRS);
+                    return RedirectToAction("NotifForm", "Users", new { title = "Yêu Cầu Thành Công", msg = "Chúng tôi đã gửi link khôi phục về Email: " + email + " của bạn." });
+                }
+                else
+                {
+                    ViewBag.ThongBao = "Tài Khoản hoặc Email không hợp lệ!!";
+                }
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult NotifForm(string title, string msg)
+        {
+            ViewBag.TitleH = title;
+            ViewBag.Msg = msg;
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ResetPass(string token)
+        {
+            ResetPass reset = data.ResetPasses.FirstOrDefault(p => p.maRS == token);
+            if (reset == null)
+                return RedirectToAction("NotifForm", "Users", new { title = "Link Hết Hạn", msg = "Chúng tôi nhận thấy link của bạn đã hết hạn. Vui lòng tạo link quên mật khẩu mới!" });
+            long ThoiHan = long.Parse(reset.ThoiHan);
+            long Now = long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"));
+            if (Now >= ThoiHan)
+                return RedirectToAction("NotifForm", "Users", new { title = "Link Hết Hạn", msg = "Chúng tôi nhận thấy link của bạn đã hết hạn. Vui lòng tạo link quên mật khẩu mới!" });
+            if (ThoiHan == 1)
+                return RedirectToAction("NotifForm", "Users", new { title = "Link Không Hợp Lệ", msg = "Chúng tôi nhận thấy link của bạn không hợp lệ. Vui lòng tạo link quên mật khẩu mới!" });
+
+            return View();
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult ResetPass(FormCollection form)
+        {
+            Console.Write(form);
+            string maRS = form["token"];
+            string Pass = form["password"];
+            string rePass = form["repassword"];
+            if (String.IsNullOrEmpty(maRS))
+            {
+                return RedirectToAction("NotifForm", "Users", new { title = "Lỗi Link", msg = "Chúng tôi đã phát hiện lỗi." });
+            }
+            else if (String.IsNullOrEmpty(Pass))
+            {
+                ViewBag.Pass = "! Không Được Để Mật Khẩu Trống";
+            }
+            else if (String.IsNullOrEmpty(rePass))
+            {
+                ViewBag.RePass = "! Không Được Để Mật Khẩu Trống";
+            }
+            else if (Pass != rePass)
+            {
+                ViewBag.RePass = "! Mật Khẩu Không Khớp";
+            }
+            else
+            {
+                ResetPass rs = data.ResetPasses.FirstOrDefault(p => p.maRS == maRS);
+                if (rs != null)
+                {
+                    string email = rs.KHACH_HANG.EmailKH;
+                    rs.KHACH_HANG.MatKhauKH = MD5Hash(Pass);
+                    List<ResetPass> ListRS = data.ResetPasses.Where(p => p.TaiKhoanKH_KHACH_HANG == rs.TaiKhoanKH_KHACH_HANG).ToList();
+                    foreach (var item in ListRS)
+                    {
+                        if (item.ThoiHan != "1")
+                            data.ResetPasses.DeleteOnSubmit(item);
+                    }
+                    data.SubmitChanges();
+                    SendEmail(email, "Đổi Mật Khẩu Thành Công", "Mật Khẩu của " + email + " đã được đổi thành công lúc " + DateTime.Now.ToString("dd/MM/yyyy - HH:mm"));
+                    return RedirectToAction("NotifForm", "Users", new { title = "Yêu Cầu Thành Công", msg = "Mất Khẩu của bạn đã được đổi thành công!" });
+                }
+                else
+                {
+                    return RedirectToAction("NotifForm", "Users", new { title = "Link Hết Hạn", msg = "Chúng tôi nhận thấy link của bạn đã hết hạn. Vui lòng tạo link quên mật khẩu mới!" });
+                }
+            }
+            return View();
         }
     }
 }
