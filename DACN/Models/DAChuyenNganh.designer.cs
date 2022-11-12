@@ -66,7 +66,7 @@ namespace DACN.Models
     #endregion
 		
 		public DAChuyenNganhDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["DAChuyenNganhConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QLTTTH_29_10_2022_ConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}

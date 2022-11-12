@@ -59,7 +59,7 @@
                                     <a href="@Url.Action("SignUp","Users")">Đăng Ký</a>
                                 }@if (Session["user"] != null)
                                 {
-                                    <a href="@Url.Action("AccountInformation","Users")">Xin chào! , @Html.Action("_User", "Users")</a>
+                                    <a href="@Url.Action("AccountInformation","Users")">Xin chào! @Html.Action("_User", "Users")</a>
                                     <a href="@Url.Action("History","History")">History</a>
                                     <a href="@Url.Action("LogOut","Users")">Logout</a>
                                 }
