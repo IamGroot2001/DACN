@@ -538,6 +538,12 @@
     <Content Include="Views\Category\NewProduct.cshtml" />
     <Content Include="Views\Category\SanPhamCungLoai.cshtml" />
     <Content Include="Views\Category\SanPhamBanChay.cshtml" />
+    <Content Include="Views\Category\FilteredProductPriceList0To100.cshtml" />
+    <Content Include="Views\Category\FilteredProductPriceList100To250.cshtml" />
+    <Content Include="Views\Category\FilteredProductPriceList250To500.cshtml" />
+    <Content Include="Views\Category\FilteredProductPriceListOver500.cshtml" />
+    <Content Include="Views\Category\FilteredProductTypeList.cshtml" />
+    <Content Include="Views\Shared\Shop_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

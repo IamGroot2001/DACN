@@ -29,44 +29,54 @@ namespace DACN.Controllers
             return PartialView(dsSize);
         }
 
-        public ActionResult FilteredProductTypeList(int id)
+        public ActionResult FilteredProductTypeList(int id, int? page)
         {
+            int pageNumber = (page ?? 1);
+            int pageSize = 9;
             var product = from pd in dataContext.SAN_PHAMs where pd.MaLSP == id select pd;
-            return View(product);
+            return View(product.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult FilteredProductPriceList0To100()
+        public ActionResult FilteredProductPriceList0To100(int? page)
         {
+            int pageNumber = (page ?? 1);
+            int pageSize = 9;
             int gia = 100000;
             var product = from pd in dataContext.SAN_PHAMs where pd.Gia <= gia select pd;
-            return View(product);
+            return View(product.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult FilteredProductPriceList100To250()
+        public ActionResult FilteredProductPriceList100To250(int? page)
         {
+            int pageNumber = (page ?? 1);
+            int pageSize = 9;
             int giabatdau = 100000;
             int giaketthuc = 250000;
             var product = from pd in dataContext.SAN_PHAMs where pd.Gia > giabatdau && pd.Gia <= giaketthuc select pd;
-            return View(product);
+            return View(product.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult FilteredProductPriceList250To500()
+        public ActionResult FilteredProductPriceList250To500(int? page)
         {
+            int pageNumber = (page ?? 1);
+            int pageSize = 9;
             int giabatdau = 250000;
             int giaketthuc = 500000;
             var product = from pd in dataContext.SAN_PHAMs where pd.Gia > giabatdau && pd.Gia <= giaketthuc select pd;
-            return View(product);
+            return View(product.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult FilteredProductPriceListOver500()
+        public ActionResult FilteredProductPriceListOver500(int? page)
         {
+            int pageNumber = (page ?? 1);
+            int pageSize = 9;
             var product = from pd in dataContext.SAN_PHAMs where pd.Gia > 500000 select pd;
-            return View(product);
+            return View(product.ToPagedList(pageNumber, pageSize));
         }
         public ActionResult SortProduct(string kieuSapXep, int? page)
         {
             int pageNumber = (page ?? 1);
-            int pageSize = 8;
+            int pageSize = 9;
             if (kieuSapXep == null)
             {
                 kieuSapXep = Session["KieuSapXep"].ToString();
