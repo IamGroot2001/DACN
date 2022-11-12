@@ -172,6 +172,11 @@ namespace DACN.Controllers
             }
         }
 
+        public List<SAN_PHAM> getNewProduct(int count)
+        {
+            return dataContext.SAN_PHAMs.OrderByDescending(a => a.NgayThem).Take(count).ToList();
+        }
+
         public ActionResult NewProduct()
         {
             var newProduct = getNewProduct(4);
