@@ -4,19 +4,26 @@
     Layout = "~/Views/Shared/Login_Layout.cshtml";
 }
 
-<div class="row">
-    <div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
-    <div class="col-lg-6">
-        <div class="p-5">
-            <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-2">@ViewBag.TitleH</h1>
-                <p class="mb-4">
-                    @ViewBag.Msg
-                </p>
+<section class="signup">
+
+    <div class="container">
+        <div class="signup-content"></div>
+        <div class="signup-form">
+            <div class="p-5">
+                <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-2">@ViewBag.TitleH</h1>
+                    <p class="mb-4">
+                        @ViewBag.Msg
+                    </p>
+                </div>
+                <hr>
+                <div class="signup-image">
+                    <figure><img src="~/Asset/signin_signup/images/signup-image.jpg" alt="sing up image"></figure>
+                </div>
+                <a href="@Url.Action("SignIn","Users")" class="btn btn-primary btn-user btn-block">Quay Lại Trang Đăng Nhập</a>
+                <hr>
             </div>
-            <hr>
-            <a href="@Url.Action("SignIn","Users")" class="btn btn-primary btn-user btn-block">Quay Lại Trang Đăng Nhập</a>
-            <hr>
         </div>
+        
     </div>
-</div>
+</section>
