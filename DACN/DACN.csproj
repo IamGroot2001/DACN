@@ -256,8 +256,10 @@
     <Content Include="Asset\js\admin.js" />
     <Content Include="Asset\js\base.js" />
     <Content Include="Asset\js\bootstrap.min.js" />
+    <Content Include="Asset\js\Chart.min.js" />
     <Content Include="Asset\js\jquery-3.3.1.min.js" />
     <Content Include="Asset\js\jquery.countdown.min.js" />
+    <Content Include="Asset\js\jquery.easing.min.js" />
     <Content Include="Asset\js\jquery.magnific-popup.min.js" />
     <Content Include="Asset\js\jquery.nice-select.min.js" />
     <Content Include="Asset\js\jquery.nicescroll.min.js" />

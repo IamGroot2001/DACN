@@ -129,5 +129,90 @@ namespace DACN.Controllers
             //var count = db.Invoices.OrderByDescending(s => s.StatusInvoice = a).Count();
             return count;
         }
+        [HttpPost]
+        public ActionResult GetDoanhThuTheoThang()
+        {
+            long Thang1 = 0; long Thang2 = 0; long Thang3 = 0; long Thang4 = 0; long Thang5 = 0; long Thang6 = 0;
+            long Thang7 = 0; long Thang8 = 0; long Thang9 = 0; long Thang10 = 0; long Thang11 = 0; long Thang12 = 0;
+            List<DON_HANG> listHD = db.DON_HANGs.ToList();
+            foreach (var item in listHD)
+            {
+                if (item.NgayLap.GetValueOrDefault().Year == DateTime.Now.Year)
+                {
+                    if (item.TrangThaiDonHang == true)
+                    {
+                        switch (item.NgayLap.GetValueOrDefault().Month)
+                        {
+                            case 1:
+                                Thang1 += (long)db.CT_DONHANGs.Where(p => p.MaDH == item.MaDH).Sum(i => i.ThanhTien * i.SoLuong);
+                                break;
+                            case 2:
+                                Thang2 += (long)db.CT_DONHANGs.Where(p => p.MaDH == item.MaDH).Sum(i => i.ThanhTien * i.SoLuong);
+                                break;
+                            case 3:
+                                Thang3 += (long)db.CT_DONHANGs.Where(p => p.MaDH == item.MaDH).Sum(i => i.ThanhTien * i.SoLuong);
+                                break;
+                            case 4:
+                                Thang4 += (long)db.CT_DONHANGs.Where(p => p.MaDH == item.MaDH).Sum(i => i.ThanhTien * i.SoLuong);
+                                break;
+                            case 5:
+                                Thang5 += (long)db.CT_DONHANGs.Where(p => p.MaDH == item.MaDH).Sum(i => i.ThanhTien * i.SoLuong);
+                                break;
+                            case 6:
+                                Thang6 += (long)db.CT_DONHANGs.Where(p => p.MaDH == item.MaDH).Sum(i => i.ThanhTien * i.SoLuong);
+                                break;
+                            case 7:
+                                Thang7 += (long)db.CT_DONHANGs.Where(p => p.MaDH == item.MaDH).Sum(i => i.ThanhTien * i.SoLuong);
+                                break;
+                            case 8:
+                                Thang8 += (long)db.CT_DONHANGs.Where(p => p.MaDH == item.MaDH).Sum(i => i.ThanhTien * i.SoLuong);
+                                break;
+                            case 9:
+                                Thang9 += (long)db.CT_DONHANGs.Where(p => p.MaDH == item.MaDH).Sum(i => i.ThanhTien * i.SoLuong);
+                                break;
+                            case 10:
+                                Thang10 += (long)db.CT_DONHANGs.Where(p => p.MaDH == item.MaDH).Sum(i => i.ThanhTien * i.SoLuong);
+                                break;
+                            case 11:
+                                Thang11 += (long)db.CT_DONHANGs.Where(p => p.MaDH == item.MaDH).Sum(i => i.ThanhTien * i.SoLuong);
+                                break;
+                            case 12:
+                                Thang12 += (long)db.CT_DONHANGs.Where(p => p.MaDH == item.MaDH).Sum(i => i.ThanhTien * i.SoLuong);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+
+            }
+            return Json(new { Thang1, Thang2, Thang3, Thang4, Thang5, Thang6, Thang7, Thang8, Thang9, Thang10, Thang11, Thang12 });
+        }
+
+        [HttpPost]
+        public ActionResult GetPTShip()
+        {
+            long ShipCOD = 0;
+            float cod = 0;
+            long VNpay = 0;
+            float momo = 0;
+            List<DON_HANG> listHD = db.DON_HANGs.ToList();
+            foreach (var item in listHD)
+            {
+                if (item.MaPTTT == 1)
+                {
+                    ShipCOD++;
+                }
+                else if (item.MaPTTT == 2)
+                {
+                    VNpay++;
+                }
+
+            }
+            long tong = (ShipCOD + VNpay) == 0 ? 1 : (ShipCOD + VNpay);
+            cod = (ShipCOD * 100) / tong;
+            momo = (VNpay * 100) / tong;
+            return Json(new { cod, momo });
+        }
     }
 }
