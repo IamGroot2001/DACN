@@ -4,35 +4,32 @@
     Layout = "~/Views/Shared/Login_Layout.cshtml";
 }
 
-<section class="signup">
-    <div class="container">
-        <div class="signup-content">
-            <div class="signup-form">
-                <div class="p-5">
-                    <div class="text-center">
-                        <h1 class="h4 text-gray-900 mb-2">Bạn Đã Quên Mật Khẩu?</h1>
-                        <p class="mb-4">
-                            Chúng tôi sẽ gửi mail xác nhận về Mail của bạn!!!
-                        </p>
-                    </div>
-                    @using (Html.BeginForm("Forget", "Users", FormMethod.Post, htmlAttributes: new { @class = "user" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true)
-                        <div class="form-group">
-                            <input type="email" class="form-control form-control-user"
-                                   name="Email" aria-describedby="emailHelp"
-                                   placeholder="Địa Chỉ Email">
-                        </div>
-                        <input type="Submit" class="btn btn-primary btn-user btn-block" value="Reset Mật Khẩu" />
-                        <div style="color:red; font-size:0.87rem; padding-left:1rem; padding-top:0.2rem;text-align:center;">@ViewBag.ThongBao</div>
-                    }
-                    <hr>
+<div class="row">
+    <div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
+    <div class="col-lg-6">
+        <div class="p-5">
+            <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-2">Bạn Đã Quên Mật Khẩu?</h1>
+                <p class="mb-4">
+                    Chúng tôi sẽ gửi mail xác nhận về Mail của bạn!!!
+                </p>
+            </div>
+            @using (Html.BeginForm("Forget", "Users", FormMethod.Post, htmlAttributes: new { @class = "user" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    <input type="email" class="form-control form-control-user"
+                           name="Email" aria-describedby="emailHelp"
+                           placeholder="Địa Chỉ Email">
                 </div>
-                <div class="text-center">
-                    <a class="small" href="@Url.Action("SignIn","Accounts")">Bạn đã có tài khoản ?</a>
-                </div>
+                <input type="Submit" class="btn btn-primary btn-user btn-block" value="Reset Mật Khẩu" />
+                <div style="color:red; font-size:0.87rem; padding-left:1rem; padding-top:0.2rem;text-align:center;">@ViewBag.ThongBao</div>
+            }
+            <hr>
+            <div class="text-center">
+                <a class="small" href="@Url.Action("SignIn","Users")">Bạn đã có tài khoản ?</a>
             </div>
         </div>
     </div>
-</section>
+</div>
