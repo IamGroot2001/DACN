@@ -51,7 +51,7 @@
                                             <h5>@String.Format("{0:0,0}", item.iPriceProduct) VNĐ</h5>
                                         </div>
                                     </td>
-                                    @using (Html.BeginForm("UpdateItemInCart", "Cart", new { @id = item.iIdProduct, ids = item.iSize}))
+                                    @using (Html.BeginForm("UpdateItemInCart", "Cart", new { @id = item.iIdProduct}))
                                     {
                                         <td class="quantity__item">
                                             <div class="quantity">
