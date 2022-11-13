@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace DACN.Controllers
 {
@@ -46,10 +47,12 @@ namespace DACN.Controllers
             }
         }
 
-        public ActionResult Shop()
+        public ActionResult Shop(int? page)
         {
+            int pageNumber = (page ?? 1);
+            int pageSize = 9;
             var dsSanPham = from dssp in dataContext.SAN_PHAMs select dssp;
-            return View(dsSanPham);
+            return View(dsSanPham.ToPagedList(pageNumber, pageSize));
         }
         [HttpGet]
         public ActionResult ProductDetail(int id)

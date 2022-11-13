@@ -1,4 +1,6 @@
-﻿@model IEnumerable<DACN.Models.SAN_PHAM>
+﻿@using PagedList.Mvc;
+@using DACN.Models;
+@model PagedList.PagedList<SAN_PHAM>
 @{
     ViewBag.Title = "FilteredProductPriceList0To100";
     Layout = "~/Views/Shared/Shop_Layout.cshtml";
@@ -19,14 +21,17 @@
                 </form>
             </div>
             @*<div class="product__item__text">
-            <h6>@item.TenSP</h6>
-            <a href="#" class="add-cart">Thêm Vào Giỏ Hàng</a>
+                    <h6>@item.TenSP</h6>
+                    <a href="#" class="add-cart">Thêm Vào Giỏ Hàng</a>
 
-            <h5>@item.Gia VNĐ</h5>
-            <form method="get" action="@Url.Action("ProductDetail","Home", new { id = item.MaSP })">
-                <button type="submit">Xem Chi Tiết</button>
-            </form>
-        </div>*@
+                    <h5>@item.Gia VNĐ</h5>
+                    <form method="get" action="@Url.Action("ProductDetail","Home", new { id = item.MaSP })">
+                        <button type="submit">Xem Chi Tiết</button>
+                    </form>
+                </div>*@
         </div>
     </div>
 }
+<div class="page">
+    @Html.PagedListPager(Model, page => Url.Action("Shop", new { page = page }))
+</div>
