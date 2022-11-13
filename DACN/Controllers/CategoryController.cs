@@ -229,7 +229,7 @@ namespace DACN.Controllers
                               g = g.Key,
                           };*/
 
-            var product = (from p in dataContext.SAN_PHAMs
+            var product = (from p in .SAN_PHAMs
                            let totalQuantify = (from ctdh in dataContext.CT_DONHANGs
                                                 join dh in dataContext.DON_HANGs on ctdh.MaDH equals dh.MaDH
                                                 where ctdh.MaDH == dh.MaDH
@@ -237,6 +237,16 @@ namespace DACN.Controllers
                            where totalQuantify > 0
                            orderby totalQuantify descending
                            select p);
+
+            /*var product = from SP in dataContext.SAN_PHAMs
+                          join CTDH in dataContext.CT_DONHANGs on SP.MaSP equals CTDH.MaSP
+                       group CTDH by new { SP.MaSP, SP.TenSP } into g
+                       select new
+                       {
+                           g.Key.MaSP,
+                           g.Key.TenSP,
+                           SLBanDc = g.Sum(p => p.SoLuong)
+                       };*/
 
             return PartialView(product);
         }
