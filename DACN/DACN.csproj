@@ -259,6 +259,10 @@
     <Content Include="Asset\img\shopping-cart\cart-2.jpg" />
     <Content Include="Asset\img\shopping-cart\cart-3.jpg" />
     <Content Include="Asset\img\shopping-cart\cart-4.jpg" />
+<<<<<<< HEAD
+=======
+    <Content Include="Asset\img\unnamed.png" />
+>>>>>>> main
     <Content Include="Asset\js\admin.js" />
     <Content Include="Asset\js\base.js" />
     <Content Include="Asset\js\bootstrap.min.js" />

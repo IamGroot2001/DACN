@@ -11775,19 +11775,19 @@ a:focus {
 }
 
 .bg-login-image {
-    background: url(/Asset/img/unnamed.png);
+    background: url(/images/logo_600x800.png);
     background-position: center;
     background-size: cover;
 }
 
 .bg-register-image {
-    background: url(/Asset/img/unnamed.png);
+    background: url(/images/logo_600x800.png);
     background-position: center;
     background-size: cover;
 }
 
 .bg-password-image {
-    background: url(/Asset/img/unnamed.png);
+    background: url(/images/logo_600x800.png);
     background-position: center;
     background-size: cover;
 }
