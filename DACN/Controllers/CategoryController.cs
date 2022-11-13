@@ -186,11 +186,6 @@ namespace DACN.Controllers
             return dataContext.SAN_PHAMs.OrderByDescending(a => a.NgayThem).Take(count).ToList();
         }
 
-        public List<SAN_PHAM> getNewProduct(int count)
-        {
-            return dataContext.SAN_PHAMs.OrderByDescending(a => a.NgayThem).Take(count).ToList();
-        }
-
         public ActionResult NewProduct()
         {
             var newProduct = getNewProduct(4);
@@ -233,7 +228,7 @@ namespace DACN.Controllers
                               g = g.Key,
                           };*/
 
-            var product = (from p in .SAN_PHAMs
+            var product = (from p in dataContext.SAN_PHAMs
                            let totalQuantify = (from ctdh in dataContext.CT_DONHANGs
                                                 join dh in dataContext.DON_HANGs on ctdh.MaDH equals dh.MaDH
                                                 where ctdh.MaDH == dh.MaDH
