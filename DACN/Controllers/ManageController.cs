@@ -36,16 +36,35 @@ namespace DACN.Controllers
 
         public ActionResult Receipt()
         {
+            String tenn = Session["ten"].ToString();
+       
             if (Session["admin"] == null)
             {
                 return RedirectToAction("LogIn", "Account");
             }
-            var list = db.DON_HANGs.OrderByDescending(s => s.MaDH).ToList();
 
-            return View(list);
+            if (Session["admin1"] == null)
+            {
+                var list = (from s in db.DON_HANGs where s.NVXacNhan == tenn || s.NVXacNhan == " " select s).ToList();
+                return View(list);
+            }else if(Session["sale"] == null)
+            {
+                var list = (from s in db.DON_HANGs where s.NVXacNhan == tenn || s.NVXacNhan == " " select s).ToList();
+                return View(list);
+            }
+            else if (Session["quanly"] == null)
+            {
+                var list = (from s in db.DON_HANGs where s.NVXacNhan != "Admin" select s).ToList();
+                return View(list);
+            }
+            return View();
         }
         public ActionResult DetailReceipt(int id)
         {
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
             //InvoiceDetail ct = db.InvoiceDetails.Where(n => n.IdInvoice == id);
             ViewBag.ma = db.DON_HANGs.SingleOrDefault(n => n.MaDH == id);
             var ct = (from s in db.CT_DONHANGs where s.MaDH == id select s).ToList();
@@ -55,14 +74,20 @@ namespace DACN.Controllers
 
         public ActionResult ConfilmInvoice(int id, string TrangThai)
         {
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
             //bool a = true;
             string cv = Session["nv"].ToString();
+            string ten = Session["ten"].ToString();
             bool a = bool.Parse(TrangThai);
             var ct = db.DON_HANGs.SingleOrDefault(n => n.MaDH == id);
             //var ct = from c in db.Invoices where c.IdInvoice == id select c;
             int idp = (from i in db.CT_DONHANGs where i.MaDH == id select i.MaDH).FirstOrDefault();
             Session["idp"] = id;
             //ct.TaiKhoanNV =cv;
+            ct.NVXacNhan = ten;
             ct.TrangThaiDonHang = a;
             UpdateModel(ct);
             db.SubmitChanges();
@@ -70,6 +95,11 @@ namespace DACN.Controllers
         }
         public ActionResult CloseInvoice(int id, string TrangThai)
         {
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+            String te = " ";
             //bool a = true;
             //int? tencuanv;
             //String tencuanv = "null" ;
@@ -78,7 +108,7 @@ namespace DACN.Controllers
             //var ct = from c in db.Invoices where c.IdInvoice == id select c;
             int idp = (from i in db.CT_DONHANGs where i.MaDH == id select i.MaDH).FirstOrDefault();
             Session["idp"] = id;
-
+            ct.NVXacNhan = te;
             ct.TrangThaiDonHang = a;
             //ct.TaiKhoanNV = tencuanv;
             UpdateModel(ct);
@@ -117,6 +147,7 @@ namespace DACN.Controllers
 
         public ActionResult Customer()
         {
+
             if (Session["admin"] == null)
             {
                 return RedirectToAction("LogIn", "Account");
@@ -551,10 +582,10 @@ namespace DACN.Controllers
             var idsizeProduct = (from s in db.CT_SANPHAMs where s.MaSP == idpd select s).ToList();
             foreach (var item in idsizeProduct)
             {
-                if (idsize == 1 || idsize==2|| idsize == 3|| idsize == 4)
+                if (idsize == item.MaSize)
                 {
                     pr.MaSP = idpd;
-                    pr.MaSize = idsize;
+                    //pr.MaSize = idsize;
                     item.SoLuong += int.Parse(sl);
                     pr.SoLuong = item.SoLuong;
                     db.SubmitChanges();
@@ -562,7 +593,7 @@ namespace DACN.Controllers
                 }
             }
             pr.MaSP = idpd;
-            pr.MaSize= idsize;
+            pr.MaSize = idsize;
             pr.SoLuong = int.Parse(sl);
             db.CT_SANPHAMs.InsertOnSubmit(pr);
             db.SubmitChanges();

@@ -79,7 +79,7 @@
                                         <label for="billing_phone">
                                             Số điện thoại <span class="required">*</span>
                                         </label>
-                                        <input type="text" name="billing_phone" id="billing_phone" value="@Session["phone"]" required>
+                                        <input type="text" name="billing_phone" maxlength="10" id="billing_phone" value="@Session["phone"]" required>
                                     </div>
                                 </div>
                                 <!--Ghi chú cho đơn hàng-->
@@ -114,7 +114,6 @@
                                 <div style="padding:0 40px 10px"> <button type="submit" class="btn btn-light">Thanh toán </button></div>
                             </div>
                         </div>
-
                     </div>
                 </form>
             </div>

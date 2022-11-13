@@ -53,9 +53,6 @@
                                     </td>
                                     @using (Html.BeginForm("UpdateItemInCart", "Cart", new { @id = item.iIdProduct, ids = item.iSize}))
                                     {
-                                        @*<td class="product-quantity">
-                                    <input type="number" name="quantity1" class="quantity-input" value="@item.iQuantityProduct" min="1" max="@item.iMaxAmount">
-                                </td>*@
                                         <td class="quantity__item">
                                             <div class="quantity">
                                                 <div class="pro-qty-2">
@@ -67,16 +64,16 @@
                                             @item.iSizeProduct
                                         </td>
                                         <td class="cart__price">@String.Format("{0:0,0}", item.iThanhTien) VNĐ</td>
-                                        <td>
+                                        @*<td>
                                             <form action="@Url.Action("UpdateItemInCart","Cart", new {id = @item.iIdProduct, ids = item.iSize})">
                                                 <button style="border-radius: 12px; background-color: gray; border: 2px solid gray;" type="submit"><span style="color: white">Cập nhật</span></button>
                                             </form>
-                                        </td>
+                                        </td>*@
                                     }
                                     <td>
-                                        <form action="@Url.Action("RemoveItemInCart","Cart", new {id = @item.iIdProduct})">
+                                        @*<form action="@Url.Action("RemoveItemInCart","Cart", new {id = @item.iIdProduct})">
                                             <button style="border-radius: 12px; background-color: gray; border: 2px solid gray;" type="submit"><span style="color: white">Xóa</span></button>
-                                        </form>
+                                        </form>*@
                                     </td>
                                 </tr>
                             }

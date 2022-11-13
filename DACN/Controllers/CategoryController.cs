@@ -171,6 +171,10 @@ namespace DACN.Controllers
                 return View(lstKQTK.OrderBy(n => n.TenSP).ToPagedList(pageNumber, pageSize));
             }
         }
+        public List<SAN_PHAM> getNewProduct(int count)
+        {
+            return dataContext.SAN_PHAMs.OrderByDescending(a => a.NgayThem).Take(count).ToList();
+        }
 
         public ActionResult NewProduct()
         {

@@ -1,4 +1,5 @@
-﻿
+﻿@*@using DACN.Models
+@model List<GioHang>
 @{
     ViewBag.Title = "Thanks";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,6 +20,11 @@
             </a>
         </div>
     </div>
-</div>
+    <h6>Đánh giá sản phẩm!</h6>
+    @foreach (var item in Model)
+    {
+        <h6>@item.iNameProduct</h6>
+    }
+</div>*@
 
 

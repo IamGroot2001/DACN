@@ -151,6 +151,10 @@ namespace DACN.Controllers
         [HttpGet]
         public ActionResult Checkout()
         {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("SignIn", "Users");
+            }
             KHACH_HANG ac = (KHACH_HANG)Session["user"];
             if (ac != null)
             {
@@ -172,7 +176,7 @@ namespace DACN.Controllers
             Session["billing_phone"] = null;
             Session["billing_address"] = null;
             Session["billing_note"] = null;
-
+            String t = " ";
             Session["billing_name"] = collection["billing_name"];
             Session["billing_phone"] = collection["billing_phone"];
             Session["billing_address"] = collection["billing_address"];
@@ -195,6 +199,7 @@ namespace DACN.Controllers
                     ddh.NgayLap = DateTime.Now;
                     ddh.TongTien = TongTien();
                     ddh.MaPTTT = 1;
+                    ddh.NVXacNhan = t;
                     ddh.TrangThaiDonHang = false;
                     ddh.TrangThaiGiaoHang = false;
                     data.DON_HANGs.InsertOnSubmit(ddh);
@@ -238,6 +243,7 @@ namespace DACN.Controllers
                     ddh.NgayLap = DateTime.Now;
                     ddh.TongTien = TongTien();
                     ddh.MaPTTT = 1;
+                    ddh.NVXacNhan = t;
                     ddh.TrangThaiDonHang = false;
                     ddh.TrangThaiGiaoHang = false;
                     data.DON_HANGs.InsertOnSubmit(ddh);
@@ -381,6 +387,7 @@ namespace DACN.Controllers
                         ddh.NgayLap = DateTime.Now;
                         ddh.TongTien = TongTien();
                         ddh.MaPTTT = 1;
+                        ddh.NVXacNhan = t;
                         ddh.TrangThaiDonHang = false;
                         ddh.TrangThaiGiaoHang = false;
                         data.DON_HANGs.InsertOnSubmit(ddh);
@@ -434,6 +441,7 @@ namespace DACN.Controllers
                     ddh.NgayLap = DateTime.Now;
                     ddh.TongTien = TongTien();
                     ddh.MaPTTT = 2;
+                    ddh.NVXacNhan = t;
                     ddh.TrangThaiDonHang = false;
                     ddh.TrangThaiGiaoHang = false;
                     data.DON_HANGs.InsertOnSubmit(ddh);

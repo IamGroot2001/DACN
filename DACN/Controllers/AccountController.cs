@@ -39,6 +39,7 @@ namespace DACN.Controllers
             var matkhau = collection["password"];
             var user = db.NHAN_VIENs.SingleOrDefault(p => p.TaiKhoanNV == tendangnhap);
             NHAN_VIEN sp = db.NHAN_VIENs.Where(n => n.TaiKhoanNV == tendangnhap && n.MaCV == 4).SingleOrDefault();
+            NHAN_VIEN spa = db.NHAN_VIENs.Where(n => n.TaiKhoanNV == tendangnhap && n.MaCV == 2 && n.MaCV == 3).SingleOrDefault();
 
             if (String.IsNullOrEmpty(tendangnhap) || String.IsNullOrEmpty(matkhau))
             {
@@ -50,6 +51,11 @@ namespace DACN.Controllers
                 ViewData["1"] = "Tài khoản đã bị xóa";
                 return this.LogIn();
             }
+            else if (spa != null)
+            {
+                ViewData["1"] = "Tài khoản không tồn tại!";
+                return this.LogIn();
+            }
             else if (!String.Equals(MD5Hash(matkhau), user.MatKhau))
             {
                 ViewData["2"] = "Sai mật khẩu";
@@ -57,7 +63,7 @@ namespace DACN.Controllers
             }
             else if (tendangnhap == null)
             {
-                ViewData["2"] = "taif ";
+                ViewData["2"] = "Chưa có tài khoản ";
                 return this.LogIn();
             }
             else
