@@ -58,9 +58,9 @@ namespace DACN.Controllers
         }
         //Thêm sản phẩm vào giỏ hàng
         [HttpPost]
-        public ActionResult ThemGioHang(int? idProduct, string strURL)
+        public ActionResult ThemGioHang(int idProduct, string strURL)
         {
-            int? sizeid = null;
+            int sizeid = 0;
             //Lấy ra session    
             List<GioHang> listgiohang = LayGioHang();
             Session["Size"] = Request.Form["nameSize"];
@@ -87,7 +87,7 @@ namespace DACN.Controllers
             if (giohang == null)
             {
 
-                giohang = new GioHang(idProduct, sizeid, sl);
+                giohang = new GioHang(idProduct,sizeid, sl);
                 listgiohang.Add(giohang);
                 //SetAlert("Thêm vào giỏ hàng thành công", "success");
                 return Redirect(strURL);
@@ -114,10 +114,10 @@ namespace DACN.Controllers
             return View(listgiohang);
         }
         //Xóa 1 món hàng ra khỏi giỏ hàng
-        public ActionResult RemoveItemInCart(int iProductId, int iSizeId)
+        public ActionResult RemoveItemInCart(int id, string size)
         {
             List<GioHang> listProductInCart = LayGioHang();
-            GioHang sp = listProductInCart.SingleOrDefault(n => n.iIdProduct == iProductId && n.iSize == iSizeId);
+            GioHang sp = listProductInCart.SingleOrDefault(n => n.iIdProduct == id && n.iSizeProduct == size);
             if (sp != null)
             {
                 listProductInCart.Remove(sp);
@@ -130,10 +130,10 @@ namespace DACN.Controllers
             return RedirectToAction("Cart");
         }
         //Cập nhật lại số lượng trong giỏ hàng
-        public ActionResult UpdateItemInCart(int iProductId, int iSizeId, FormCollection collection)
+        public ActionResult UpdateItemInCart(int iProductId, FormCollection collection)
         {
             List<GioHang> listProductInCart = LayGioHang();
-            GioHang sp = listProductInCart.SingleOrDefault(n => n.iIdProduct == iProductId && n.iSize == iSizeId);
+            GioHang sp = listProductInCart.SingleOrDefault(n => n.iIdProduct == iProductId);
             if (sp != null)
             {
                 sp.iQuantityProduct = int.Parse(collection["quantity1"]);
@@ -151,10 +151,6 @@ namespace DACN.Controllers
         [HttpGet]
         public ActionResult Checkout()
         {
-            if (Session["user"] == null)
-            {
-                return RedirectToAction("SignIn", "Users");
-            }
             KHACH_HANG ac = (KHACH_HANG)Session["user"];
             if (ac != null)
             {
@@ -176,7 +172,7 @@ namespace DACN.Controllers
             Session["billing_phone"] = null;
             Session["billing_address"] = null;
             Session["billing_note"] = null;
-            String t = " ";
+
             Session["billing_name"] = collection["billing_name"];
             Session["billing_phone"] = collection["billing_phone"];
             Session["billing_address"] = collection["billing_address"];
@@ -199,7 +195,6 @@ namespace DACN.Controllers
                     ddh.NgayLap = DateTime.Now;
                     ddh.TongTien = TongTien();
                     ddh.MaPTTT = 1;
-                    ddh.NVXacNhan = t;
                     ddh.TrangThaiDonHang = false;
                     ddh.TrangThaiGiaoHang = false;
                     data.DON_HANGs.InsertOnSubmit(ddh);
@@ -243,7 +238,6 @@ namespace DACN.Controllers
                     ddh.NgayLap = DateTime.Now;
                     ddh.TongTien = TongTien();
                     ddh.MaPTTT = 1;
-                    ddh.NVXacNhan = t;
                     ddh.TrangThaiDonHang = false;
                     ddh.TrangThaiGiaoHang = false;
                     data.DON_HANGs.InsertOnSubmit(ddh);
@@ -387,7 +381,6 @@ namespace DACN.Controllers
                         ddh.NgayLap = DateTime.Now;
                         ddh.TongTien = TongTien();
                         ddh.MaPTTT = 1;
-                        ddh.NVXacNhan = t;
                         ddh.TrangThaiDonHang = false;
                         ddh.TrangThaiGiaoHang = false;
                         data.DON_HANGs.InsertOnSubmit(ddh);
@@ -441,7 +434,6 @@ namespace DACN.Controllers
                     ddh.NgayLap = DateTime.Now;
                     ddh.TongTien = TongTien();
                     ddh.MaPTTT = 2;
-                    ddh.NVXacNhan = t;
                     ddh.TrangThaiDonHang = false;
                     ddh.TrangThaiGiaoHang = false;
                     data.DON_HANGs.InsertOnSubmit(ddh);

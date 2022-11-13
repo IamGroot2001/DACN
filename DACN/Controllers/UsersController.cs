@@ -10,6 +10,15 @@ using System.Web.Security;
 using DACN.Models;
 using Facebook;
 using System.Configuration;
+using System.Net;
+using System.Net.Mail;
+using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Collections.Specialized;
+using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
+using ASPSnippets.GoogleAPI;
 
 namespace DACN.Controllers
 {
@@ -17,6 +26,8 @@ namespace DACN.Controllers
     {
         DAChuyenNganhDataContext data = new DAChuyenNganhDataContext ();
         private static readonly int CHECK_EMAIL = 1;
+        public const string clientId = "387158749082-18vn0u13tibgpo919n6ghv80act738kd.apps.googleusercontent.com";
+        public const string clientSecret = "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";
         private Uri RedirectUri
         {
             get
@@ -39,6 +50,47 @@ namespace DACN.Controllers
                 hash.Append(bytes[i].ToString("x2"));
             }
             return hash.ToString();
+        }
+        //Gửi Mail
+        public static void SendEmail(string address, string subject, string message)
+        {
+            if (new EmailAddressAttribute().IsValid(address)) // check có đúng mail khách hàng
+            {
+                string email = "buivanty15@gmail.com";
+                var senderEmail = new MailAddress(email, "VAT Clother (tin nhắn tự động)");
+                var receiverEmail = new MailAddress(address, "Receiver");
+                var password = "dpukaghhwhgrokpo";
+                var sub = subject;
+                var body = message;
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(senderEmail.Address, password)
+                };
+                using (var mess = new MailMessage(senderEmail, receiverEmail)
+                {
+                    Subject = sub,
+                    Body = body
+                })
+                {
+                    smtp.Send(mess);
+                }
+            }
+        }
+        private string CreatePassword(int length)
+        {
+            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            StringBuilder res = new StringBuilder();
+            Random rnd = new Random();
+            while (0 < length--)
+            {
+                res.Append(valid[rnd.Next(valid.Length)]);
+            }
+            return res.ToString();
         }
         // GET: Users
         [HttpGet]
@@ -140,6 +192,10 @@ namespace DACN.Controllers
                 kh.MatKhauKH = MD5Hash(matkhau);
                 data.KHACH_HANGs.InsertOnSubmit(kh);
                 data.SubmitChanges();
+                //sentmail
+                string subject = "VAT Clother";
+                string mess = "Chào mừng " + kh.HoTenKH + " đến với The VAT Clother";
+                SendEmail(kh.EmailKH, subject, mess);
                 return RedirectToAction("SignIn", "Users");
             }
         }
@@ -280,6 +336,205 @@ namespace DACN.Controllers
 
             }
             return Redirect("/");
+        }
+
+        [HttpGet]
+        public ActionResult Forget()
+        {
+            return View();
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Forget(FormCollection form)
+        {
+
+            string email = form["Email"].ToString();
+            if (String.IsNullOrEmpty(email))
+            {
+                ViewBag.MatKhau = "! Email Không Được Để Trống";
+            }
+            else
+            {
+                KHACH_HANG nv = data.KHACH_HANGs.FirstOrDefault(p => p.EmailKH == email);
+                if (nv != null)
+                {
+                    string host = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, "");
+                    string thoiHan = DateTime.Now.AddMinutes(10).ToString("yyyyMMddHHmmss");
+                    string maRS = MD5Hash(thoiHan);
+                    ResetPass reset = new ResetPass();
+                    reset.maRS = maRS;
+                    reset.TaiKhoanKH_KHACH_HANG = nv.TaiKhoanKH;
+                    reset.ThoiHan = thoiHan;
+                    data.ResetPasses.InsertOnSubmit(reset);
+                    data.SubmitChanges();
+                    SendEmail(email, "Khôi Phục Mật Khẩu", "Link Khôi Phục Mật Khẩu Của Bạn Là: " + host + "/Users/ResetPass?token=" + maRS);
+                    return RedirectToAction("NotifForm", "Users", new { title = "Yêu Cầu Thành Công", msg = "Chúng tôi đã gửi link khôi phục về Email: " + email + " của bạn." });
+                }
+                else
+                {
+                    ViewBag.ThongBao = "Tài Khoản hoặc Email không hợp lệ!!";
+                }
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult NotifForm(string title, string msg)
+        {
+            ViewBag.TitleH = title;
+            ViewBag.Msg = msg;
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ResetPass(string token)
+        {
+            ResetPass reset = data.ResetPasses.FirstOrDefault(p => p.maRS == token);
+            if (reset == null)
+                return RedirectToAction("NotifForm", "Users", new { title = "Link Hết Hạn", msg = "Chúng tôi nhận thấy link của bạn đã hết hạn. Vui lòng tạo link quên mật khẩu mới!" });
+            long ThoiHan = long.Parse(reset.ThoiHan);
+            long Now = long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"));
+            if (Now >= ThoiHan)
+                return RedirectToAction("NotifForm", "Users", new { title = "Link Hết Hạn", msg = "Chúng tôi nhận thấy link của bạn đã hết hạn. Vui lòng tạo link quên mật khẩu mới!" });
+            if (ThoiHan == 1)
+                return RedirectToAction("NotifForm", "Users", new { title = "Link Không Hợp Lệ", msg = "Chúng tôi nhận thấy link của bạn không hợp lệ. Vui lòng tạo link quên mật khẩu mới!" });
+
+            return View();
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult ResetPass(FormCollection form)
+        {
+            Console.Write(form);
+            string maRS = form["token"];
+            string Pass = form["password"];
+            string rePass = form["repassword"];
+            if (String.IsNullOrEmpty(maRS))
+            {
+                return RedirectToAction("NotifForm", "Users", new { title = "Lỗi Link", msg = "Chúng tôi đã phát hiện lỗi." });
+            }
+            else if (String.IsNullOrEmpty(Pass))
+            {
+                ViewBag.Pass = "! Không Được Để Mật Khẩu Trống";
+            }
+            else if (String.IsNullOrEmpty(rePass))
+            {
+                ViewBag.RePass = "! Không Được Để Mật Khẩu Trống";
+            }
+            else if (Pass != rePass)
+            {
+                ViewBag.RePass = "! Mật Khẩu Không Khớp";
+            }
+            else
+            {
+                ResetPass rs = data.ResetPasses.FirstOrDefault(p => p.maRS == maRS);
+                if (rs != null)
+                {
+                    string email = rs.KHACH_HANG.EmailKH;
+                    rs.KHACH_HANG.MatKhauKH = MD5Hash(Pass);
+                    List<ResetPass> ListRS = data.ResetPasses.Where(p => p.TaiKhoanKH_KHACH_HANG == rs.TaiKhoanKH_KHACH_HANG).ToList();
+                    foreach (var item in ListRS)
+                    {
+                        if (item.ThoiHan != "1")
+                            data.ResetPasses.DeleteOnSubmit(item);
+                    }
+                    data.SubmitChanges();
+                    SendEmail(email, "Đổi Mật Khẩu Thành Công", "Mật Khẩu của " + email + " đã được đổi thành công lúc " + DateTime.Now.ToString("dd/MM/yyyy - HH:mm"));
+                    return RedirectToAction("NotifForm", "Users", new { title = "Yêu Cầu Thành Công", msg = "Mất Khẩu của bạn đã được đổi thành công!" });
+                }
+                else
+                {
+                    return RedirectToAction("NotifForm", "Users", new { title = "Link Hết Hạn", msg = "Chúng tôi nhận thấy link của bạn đã hết hạn. Vui lòng tạo link quên mật khẩu mới!" });
+                }
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult LoginWithGoogle()
+        {
+            string host = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, "");
+            GoogleConnect.ClientId = clientId;
+            GoogleConnect.ClientSecret = clientSecret;
+            GoogleConnect.RedirectUri = (host.Contains("localhost") ? host : host.Replace("http", "https")) + "/Users/LoginGoogleCallBack";
+            GoogleConnect.Authorize("profile", "email");
+            return RedirectToAction("SignIn", "Users");
+        }
+        [HttpGet]
+        public ActionResult LoginGoogleCallBack(string code)
+        {
+            if (code == null || String.IsNullOrEmpty(code))
+                return RedirectToAction("SignIn", "Users");
+            string token = null;
+            string host = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, "");
+            using (var wb = new WebClient())
+            {
+                try
+                {
+                    var data = new NameValueCollection();
+                    data["code"] = code;
+                    data["client_id"] = clientId;
+                    data["client_secret"] = clientSecret;
+                    data["redirect_uri"] = (host.Contains("localhost") ? host : host.Replace("http", "https")) + "/Users/LoginGoogleCallBack";
+                    data["grant_type"] = "authorization_code";
+                    var response = wb.UploadValues("https://oauth2.googleapis.com/token", "POST", data);
+                    string responseInString = Encoding.UTF8.GetString(response);
+                    token = responseInString;
+                }
+                catch
+                {
+                    token = "error";
+                }
+            }
+            if (token == "error")
+                return RedirectToAction("NotifForm", "Users", new { title = "Lỗi Đăng Nhập", msg = "Chúng tôi nhận thấy có lỗi khi đăng nhập. Hãy đăng nhập bằng cách khác!" });
+            token = JsonConvert.DeserializeObject<JObject>(token)["access_token"].ToString();
+            using (var wb = new WebClient())
+            {
+                try
+                {
+                    wb.Encoding = Encoding.UTF8;
+                    string data = wb.DownloadString("https://www.googleapis.com/oauth2/v2/userinfo?access_token=" + token);
+                    if (data.Contains("error"))
+                    {
+                        return RedirectToAction("NotifForm", "Users", new { title = "Lỗi Đăng Nhập", msg = "Chúng tôi nhận thấy có lỗi khi đăng nhập. Hãy đăng nhập bằng cách khác!" });
+                    }
+                    else
+                    {
+                        ViewBag.Info = data;
+                    }
+                }
+                catch { }
+            }
+            var Info = JsonConvert.DeserializeObject<JObject>(ViewBag.Info);
+            string Email = Info["email"].ToString();
+            string Name = Info["name"].ToString();
+            KHACH_HANG nd = data.KHACH_HANGs.FirstOrDefault(p => p.EmailKH == Email);
+            if (nd == null)
+            {
+                // ĐĂNG KÝ
+                KHACH_HANG user = new KHACH_HANG();
+                user.EmailKH = Email;
+                user.HoTenKH = Name;
+                user.TaiKhoanKH = Email;
+                data.KHACH_HANGs.InsertOnSubmit(user);
+                data.SubmitChanges();
+                Session["user"] = user;
+                Session["name"] = user.HoTenKH;
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                Session["user"] = nd;
+                Session["name"] = nd.HoTenKH;
+                if (String.IsNullOrEmpty(nd.MatKhauKH) || String.IsNullOrEmpty(nd.SdtKH) || String.IsNullOrEmpty(nd.DiaChiKH))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

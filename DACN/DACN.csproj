@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ASPSnippets.GoogleAPI">
+      <HintPath>..\..\..\..\..\Downloads\ASPSnippets.GoogleAPI.dll</HintPath>
+    </Reference>
     <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
       <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
     </Reference>
@@ -146,6 +149,8 @@
     <Compile Include="Models\GioHang.cs" />
     <Compile Include="MOMO\MoMoSecurity.cs" />
     <Compile Include="MOMO\PaymentRequest.cs" />
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
+    <Compile Include="obj\Release\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VNPAY\ChuyenDoi.cs" />
     <Compile Include="VNPAY\SoSanh.cs" />
@@ -295,6 +300,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\sb-admin.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\css\font-awesome.css" />
@@ -303,6 +310,13 @@
     <Content Include="font\font-awesome-4.7.0\font-awesome-4.7.0\HELP-US-OUT.txt" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="obj\Debug\DACN.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\DACN.dll" />
+    <Content Include="obj\Debug\DACN.pdb" />
+    <Content Include="obj\Debug\TempPE\Models.DAChuyenNganh.designer.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Models.DataClasses1.designer.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Models.dbDAChuyenNganh.designer.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Models.dbDAChuyenNganhDataContext.designer.cs.dll" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Asset\css\style.css.map" />
@@ -496,6 +510,14 @@
     <None Include="Models\DAChuyenNganh.dbml.layout">
       <DependentUpon>DAChuyenNganh.dbml</DependentUpon>
     </None>
+    <Content Include="obj\Debug\DACN.csproj.AssemblyReference.cache" />
+    <Content Include="obj\Debug\DACN.csproj.CopyComplete" />
+    <Content Include="obj\Debug\DACN.csproj.CoreCompileInputs.cache" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Release\DACN.csproj.AssemblyReference.cache" />
+    <Content Include="obj\Release\DesignTimeResolveAssemblyReferences.cache" />
+    <Content Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -558,6 +580,9 @@
     <Content Include="Views\Home\checkout.cshtml" />
     <Content Include="Views\Home\main.cshtml" />
     <Content Include="Views\Home\shop-details.cshtml" />
+    <Content Include="Views\Users\Forget.cshtml" />
+    <Content Include="Views\Users\NotifForm.cshtml" />
+    <Content Include="Views\Users\ResetPass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

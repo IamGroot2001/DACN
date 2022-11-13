@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Male-Fashion | Template</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
@@ -23,8 +22,6 @@
     <link rel="stylesheet" href="~/Asset/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="~/Asset/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="~/Asset/css/style.css" type="text/css">
-
-
 </head>
 
 <body>
@@ -40,10 +37,10 @@
         </div>
         @*@Html.Action("TongSoLuong", "Cart")*@
         @*<div class="offcanvas__nav__option">
-            <a href="#" class="search-switch"><img src="~/Asset/img/icon/search.png" alt=""></a>
-            <a href="@Url.Action("Cart","Cart")"><img src="~/Asset/img/icon/cart.png" alt=""> <span>0</span></a>
-            <div class="price">$0.00</div>
-        </div>*@
+                <a href="#" class="search-switch"><img src="~/Asset/img/icon/search.png" alt=""></a>
+                <a href="@Url.Action("Cart","Cart")"><img src="~/Asset/img/icon/cart.png" alt=""> <span>0</span></a>
+                <div class="price">$0.00</div>
+            </div>*@
         <div id="mobile-menu-wrap"></div>
     </div>
     <!-- Offcanvas Menu End -->
@@ -55,7 +52,7 @@
                     <div class="col-lg-6 col-md-7"></div>
                     <div class="col-lg-6 col-md-5">
                         <div class="header__top__right">
-                            <div class="header__top__links" >
+                            <div class="header__top__links">
                                 @if (Session["user"] == null)
                                 {
                                     <a href="@Url.Action("SignIn","Users")">Đăng Nhập</a>
@@ -73,15 +70,15 @@
             </div>
         </div>
 
-    
-    <!-- Offcanvas Menu End -->
-    <!-- Header Section Begin -->
+
+        <!-- Offcanvas Menu End -->
+        <!-- Header Section Begin -->
 
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-3">
                     <div class="header__logo">
-                        <a href="@Url.Action("Index","Home")"><h3 style="font-weight:bold">VTA Shop</h3></a>
+                        <a href="@Url.Action("Index","Home")"><h3 style="font-weight:bold">VTA Clother</h3></a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
@@ -106,7 +103,7 @@
     </header>
     <!-- Header Section End -->
     @RenderBody()
-    
+
     <!-- Footer Section Begin -->
     <footer class="footer">
         <div class="container">
@@ -114,7 +111,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__logo">
-                            <h3 style="color: white;font-weight:bold">VTA Shop</h3>
+                            <h3 style="color: white;font-weight:bold">VTA Clother</h3>
                         </div>
                         <p>The customer is at the heart of our unique business model, which includes design.</p>
 
@@ -140,7 +137,7 @@
                             <script>
                                 document.write(new Date().getFullYear());
                             </script>2022
-                            All rights reserved | This is the produc of <a style="font-weight:bold; color:red"href="@Url.Action("Index","Home")">VAT Shop</a> 
+                            All rights reserved | This is the produc of <a style="font-weight:bold; color:red" href="@Url.Action("Index","Home")">VAT Shop</a>
                         </p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </div>
@@ -150,26 +147,29 @@
     </footer>
     <!-- Footer Section End -->
     <!-- Search Begin -->
-    <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
-            </form>
+    @using (Html.BeginForm("SearchingProduct", "Category", FormMethod.Post))
+    {
+        <div class="search-model">
+            <div class="h-100 d-flex align-items-center justify-content-center">
+                <div class="search-close-switch">+</div>
+                <form class="search-model-form">
+                    <input type="text" name="txtTimKiem" placeholder="Search here.....">
+                </form>
+            </div>
         </div>
-    </div>
-    <!-- Search End -->
-    <!-- Js Plugins -->
-    <script src="~/Asset/js/jquery-3.3.1.min.js"></script>
-    <script src="~/Asset/js/bootstrap.min.js"></script>
-    <script src="~/Asset/js/jquery.nice-select.min.js"></script>
-    <script src="~/Asset/js/jquery.nicescroll.min.js"></script>
-    <script src="~/Asset/js/jquery.magnific-popup.min.js"></script>
-    <script src="~/Asset/js/jquery.countdown.min.js"></script>
-    <script src="~/Asset/js/jquery.slicknav.js"></script>
-    <script src="~/Asset/js/mixitup.min.js"></script>
-    <script src="~/Asset/js/owl.carousel.min.js"></script>
-    <script src="~/Asset/js/main.js"></script>
-</body>
+    }
+        <!-- Search End -->
+        <!-- Js Plugins -->
+        <script src="~/Asset/js/jquery-3.3.1.min.js"></script>
+        <script src="~/Asset/js/bootstrap.min.js"></script>
+        <script src="~/Asset/js/jquery.nice-select.min.js"></script>
+        <script src="~/Asset/js/jquery.nicescroll.min.js"></script>
+        <script src="~/Asset/js/jquery.magnific-popup.min.js"></script>
+        <script src="~/Asset/js/jquery.countdown.min.js"></script>
+        <script src="~/Asset/js/jquery.slicknav.js"></script>
+        <script src="~/Asset/js/mixitup.min.js"></script>
+        <script src="~/Asset/js/owl.carousel.min.js"></script>
+        <script src="~/Asset/js/main.js"></script>
+    </body>
 
 </html>
