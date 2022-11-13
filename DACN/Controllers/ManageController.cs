@@ -312,6 +312,7 @@ namespace DACN.Controllers
             else
             {
                 LOAI_SAN_PHAM type = db.LOAI_SAN_PHAMs.SingleOrDefault(n => n.MaLSP == id);
+                
                 if (type == null)
                 {
                     Response.StatusCode = 404;
@@ -419,9 +420,9 @@ namespace DACN.Controllers
             db.SAN_PHAMs.InsertOnSubmit(pr);
             db.SubmitChanges();
 
-            dt.MaSize = Int32.Parse(size);
             dt.MaSP = pr.MaSP;
             dt.SoLuong = int.Parse(sl);
+            dt.SIZE = db.SIZEs.Single(p=> p.MaSize == int.Parse(size));
             db.CT_SANPHAMs.InsertOnSubmit(dt);
             db.SubmitChanges();
             return RedirectToAction("Product", "Manage");

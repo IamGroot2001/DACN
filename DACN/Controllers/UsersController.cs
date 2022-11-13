@@ -18,6 +18,7 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
+using ASPSnippets.GoogleAPI;
 
 namespace DACN.Controllers
 {
@@ -26,7 +27,7 @@ namespace DACN.Controllers
         DAChuyenNganhDataContext data = new DAChuyenNganhDataContext ();
         private static readonly int CHECK_EMAIL = 1;
         public const string clientId = "387158749082-18vn0u13tibgpo919n6ghv80act738kd.apps.googleusercontent.com";
-        public const string clientSecret = "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";
+        public const string clientSecret = "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";
         private Uri RedirectUri
         {
             get
@@ -449,6 +450,91 @@ namespace DACN.Controllers
                 }
             }
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult LoginWithGoogle()
+        {
+            string host = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, "");
+            GoogleConnect.ClientId = clientId;
+            GoogleConnect.ClientSecret = clientSecret;
+            GoogleConnect.RedirectUri = (host.Contains("localhost") ? host : host.Replace("http", "https")) + "/Users/LoginGoogleCallBack";
+            GoogleConnect.Authorize("profile", "email");
+            return RedirectToAction("SignIn", "Users");
+        }
+        [HttpGet]
+        public ActionResult LoginGoogleCallBack(string code)
+        {
+            if (code == null || String.IsNullOrEmpty(code))
+                return RedirectToAction("SignIn", "Users");
+            string token = null;
+            string host = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, "");
+            using (var wb = new WebClient())
+            {
+                try
+                {
+                    var data = new NameValueCollection();
+                    data["code"] = code;
+                    data["client_id"] = clientId;
+                    data["client_secret"] = clientSecret;
+                    data["redirect_uri"] = (host.Contains("localhost") ? host : host.Replace("http", "https")) + "/Users/LoginGoogleCallBack";
+                    data["grant_type"] = "authorization_code";
+                    var response = wb.UploadValues("https://oauth2.googleapis.com/token", "POST", data);
+                    string responseInString = Encoding.UTF8.GetString(response);
+                    token = responseInString;
+                }
+                catch
+                {
+                    token = "error";
+                }
+            }
+            if (token == "error")
+                return RedirectToAction("NotifForm", "Users", new { title = "Lỗi Đăng Nhập", msg = "Chúng tôi nhận thấy có lỗi khi đăng nhập. Hãy đăng nhập bằng cách khác!" });
+            token = JsonConvert.DeserializeObject<JObject>(token)["access_token"].ToString();
+            using (var wb = new WebClient())
+            {
+                try
+                {
+                    wb.Encoding = Encoding.UTF8;
+                    string data = wb.DownloadString("https://www.googleapis.com/oauth2/v2/userinfo?access_token=" + token);
+                    if (data.Contains("error"))
+                    {
+                        return RedirectToAction("NotifForm", "Users", new { title = "Lỗi Đăng Nhập", msg = "Chúng tôi nhận thấy có lỗi khi đăng nhập. Hãy đăng nhập bằng cách khác!" });
+                    }
+                    else
+                    {
+                        ViewBag.Info = data;
+                    }
+                }
+                catch { }
+            }
+            var Info = JsonConvert.DeserializeObject<JObject>(ViewBag.Info);
+            string Email = Info["email"].ToString();
+            string Name = Info["name"].ToString();
+            KHACH_HANG nd = data.KHACH_HANGs.FirstOrDefault(p => p.EmailKH == Email);
+            if (nd == null)
+            {
+                // ĐĂNG KÝ
+                KHACH_HANG user = new KHACH_HANG();
+                user.EmailKH = Email;
+                user.HoTenKH = Name;
+                user.TaiKhoanKH = Email;
+                data.KHACH_HANGs.InsertOnSubmit(user);
+                data.SubmitChanges();
+                Session["user"] = user;
+                Session["name"] = user.HoTenKH;
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                Session["user"] = nd;
+                Session["name"] = nd.HoTenKH;
+                if (String.IsNullOrEmpty(nd.MatKhauKH) || String.IsNullOrEmpty(nd.SdtKH) || String.IsNullOrEmpty(nd.DiaChiKH))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

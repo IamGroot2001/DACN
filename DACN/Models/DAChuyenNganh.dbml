@@ -24,8 +24,8 @@
       <Column Name="MaSize" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="SoLuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="CT_SANPHAM_CT_DONHANG" Member="CT_DONHANGs" ThisKey="MaSP,MaSize" OtherKey="MaSP,MaSize" Type="CT_DONHANG" />
-      <Association Name="SAN_PHAM_CT_SANPHAM" Member="SAN_PHAM" ThisKey="MaSP" OtherKey="MaSP" Type="SAN_PHAM" IsForeignKey="true" />
       <Association Name="SIZE_CT_SANPHAM" Member="SIZE" ThisKey="MaSize" OtherKey="MaSize" Type="SIZE" IsForeignKey="true" />
+      <Association Name="SAN_PHAM_CT_SANPHAM" Member="SAN_PHAM" ThisKey="MaSP" OtherKey="MaSP" Type="SAN_PHAM" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.DON_HANG" Member="DON_HANGs">
@@ -84,21 +84,6 @@
       <Association Name="CHUC_VU_NHAN_VIEN" Member="CHUC_VU" ThisKey="MaCV" OtherKey="MaCV" Type="CHUC_VU" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.SAN_PHAM" Member="SAN_PHAMs">
-    <Type Name="SAN_PHAM">
-      <Column Name="MaSP" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="TenSP" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="TrangThai" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="NgayThem" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="NgayCapNhat" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="MoTa" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="Gia" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="HinhAnh" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="MaLSP" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="SAN_PHAM_CT_SANPHAM" Member="CT_SANPHAMs" ThisKey="MaSP" OtherKey="MaSP" Type="CT_SANPHAM" />
-      <Association Name="LOAI_SAN_PHAM_SAN_PHAM" Member="LOAI_SAN_PHAM" ThisKey="MaLSP" OtherKey="MaLSP" Type="LOAI_SAN_PHAM" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.PHUONG_THUC_THANH_TOAN" Member="PHUONG_THUC_THANH_TOANs">
     <Type Name="PHUONG_THUC_THANH_TOAN">
       <Column Name="MaPTTT" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -120,6 +105,21 @@
       <Column Name="TaiKhoanKH_KHACH_HANG" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="ThoiHan" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Association Name="KHACH_HANG_ResetPass" Member="KHACH_HANG" ThisKey="TaiKhoanKH_KHACH_HANG" OtherKey="TaiKhoanKH" Type="KHACH_HANG" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SAN_PHAM" Member="SAN_PHAMs">
+    <Type Name="SAN_PHAM">
+      <Column Name="MaSP" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenSP" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="TrangThai" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="NgayThem" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NgayCapNhat" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="MoTa" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Gia" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HinhAnh" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="MaLSP" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="SAN_PHAM_CT_SANPHAM" Member="CT_SANPHAMs" ThisKey="MaSP" OtherKey="MaSP" Type="CT_SANPHAM" />
+      <Association Name="LOAI_SAN_PHAM_SAN_PHAM" Member="LOAI_SAN_PHAM" ThisKey="MaLSP" OtherKey="MaLSP" Type="LOAI_SAN_PHAM" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

@@ -5,43 +5,43 @@
 }
 
 
-<div class="row">
-    <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-    <div class="col-lg-6">
-        <div class="p-5">
-            <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Đổi Mật Khẩu Thành Viên</h1>
+<section class="signup">
+    <div class="container">
+        <div class="signup-content">
+            <div class="signup-form">
+                <h2 class="form-title">Account Information</h2>
+                @using (Html.BeginForm("ResetPass", "Users", FormMethod.Post, htmlAttributes: new { @class = "user" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <br />
+                    <div class="form-group">
+                        <input type="password" class="form-control form-control-user"
+                               name="token" hidden>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                        <input type="password" name="password" placeholder="Mật khẩu mới" />
+                    </div>
+                    <div style="color:red; font-size:0.87rem; padding-left:1rem; padding-top:0.2rem;text-align:center;">@ViewBag.Pass</div>
+                    <div class="form-group">
+                        <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                        <input type="password" name="repassword" placeholder="Nhập lại mật khẩu mới" />
+                    </div>
+                    <div style="color:red; font-size:0.87rem; padding-left:1rem; padding-top:0.2rem;text-align:center;">@ViewBag.RePass</div>
+                    <div class="form-group form-button">
+                        <input type="submit" class="form-submit" value="Sumbit" />
+                    </div>
+                }
             </div>
-            @using (Html.BeginForm("ResetPass", "Users", FormMethod.Post, htmlAttributes: new { @class = "user" }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true)
-                <div class="form-group">
-                    <input type="password" class="form-control form-control-user"
-                           name="token" hidden>
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control form-control-user"
-                           name="password" placeholder="Mật Khẩu">
-                </div>
-                <div style="color:red; font-size:0.87rem; padding-left:1rem; padding-top:0.2rem;text-align:center;">@ViewBag.Pass</div>
-                <div class="form-group">
-                    <input type="password" class="form-control form-control-user"
-                           name="repassword" placeholder="Nhập Lại Mật Khẩu">
-                </div>
-                <div style="color:red; font-size:0.87rem; padding-left:1rem; padding-top:0.2rem;text-align:center;">@ViewBag.RePass</div>
-                <input type="Submit" class="btn btn-primary btn-user btn-block" value="Xác Nhận" />
-            }
-            <hr>
-            <div class="text-center">
-                <a class="small" href="@Url.Action("SignUp","Users")">Tạo Tài Khoản !</a>
-            </div>
-            <div class="text-center">
-                <a class="small" href="@Url.Action("Forget","Users")">Quên Mật Khẩu ?</a>
+            <div class="signup-image">
+                <figure><img src="~/Asset/signin_signup/images/signup-image.jpg" alt="sing up image"></figure>
+                <a href="@Url.Action("Index","Home")" class="signup-image-link">Home</a>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 @section Scripts{
     <script>

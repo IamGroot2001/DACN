@@ -114,10 +114,10 @@ namespace DACN.Controllers
             return View(listgiohang);
         }
         //Xóa 1 món hàng ra khỏi giỏ hàng
-        public ActionResult RemoveItemInCart(int iProductId, int iSizeId)
+        public ActionResult RemoveItemInCart(int id, string size)
         {
             List<GioHang> listProductInCart = LayGioHang();
-            GioHang sp = listProductInCart.SingleOrDefault(n => n.iIdProduct == iProductId && n.iSize == iSizeId);
+            GioHang sp = listProductInCart.SingleOrDefault(n => n.iIdProduct == id && n.iSizeProduct == size);
             if (sp != null)
             {
                 listProductInCart.Remove(sp);
