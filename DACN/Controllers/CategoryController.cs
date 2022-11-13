@@ -186,11 +186,6 @@ namespace DACN.Controllers
             return dataContext.SAN_PHAMs.OrderByDescending(a => a.NgayThem).Take(count).ToList();
         }
 
-        public List<SAN_PHAM> getNewProduct(int count)
-        {
-            return dataContext.SAN_PHAMs.OrderByDescending(a => a.NgayThem).Take(count).ToList();
-        }
-
         public ActionResult NewProduct()
         {
             var newProduct = getNewProduct(4);
@@ -205,55 +200,55 @@ namespace DACN.Controllers
             return PartialView(product);
         }
 
-        public ActionResult SanPhamBanChay()
-        {
-            /*var product = (from sp in dataContext.SAN_PHAMs
-                           join ctdh in dataContext.CT_DONHANGs on sp.MaSP equals ctdh.MaSP
-                           where sp.MaSP == ctdh.MaSP 
-                           select sp);*/
+        //public ActionResult SanPhamBanChay()
+        //{
+        //    /*var product = (from sp in dataContext.SAN_PHAMs
+        //                   join ctdh in dataContext.CT_DONHANGs on sp.MaSP equals ctdh.MaSP
+        //                   where sp.MaSP == ctdh.MaSP 
+        //                   select sp);*/
 
-            /*var product = (from sp in dataContext.SAN_PHAMs
-                           join ctdh in dataContext.CT_DONHANGs on sp.MaSP equals ctdh.MaSP
-                           group sp by sp.MaSP into g
-                           orderby g descending
-                           select g).Take(8).Distinct().Count();*/
+        //    /*var product = (from sp in dataContext.SAN_PHAMs
+        //                   join ctdh in dataContext.CT_DONHANGs on sp.MaSP equals ctdh.MaSP
+        //                   group sp by sp.MaSP into g
+        //                   orderby g descending
+        //                   select g).Take(8).Distinct().Count();*/
 
-            /*var product = dataContext.SAN_PHAMs
-                .Join(dataContext.CT_DONHANGs, 
-                sanpham => sanpham.MaSP,
-                ctdh => ctdh.MaSP,
-                (sanpham, ctdh) => new {Sanpham = sanpham, Ctdh = ctdh})
-                .Where(sp => sp.Sanpham.MaSP == )*/
+        //    /*var product = dataContext.SAN_PHAMs
+        //        .Join(dataContext.CT_DONHANGs, 
+        //        sanpham => sanpham.MaSP,
+        //        ctdh => ctdh.MaSP,
+        //        (sanpham, ctdh) => new {Sanpham = sanpham, Ctdh = ctdh})
+        //        .Where(sp => sp.Sanpham.MaSP == )*/
 
-            /*var product = from sp in dataContext.SAN_PHAMs
-                          join ctdh in dataContext.CT_DONHANGs on sp.MaSP equals ctdh.MaSP
-                          group sp by ctdh.MaSP into g
-                          select new
-                          {
-                              g = g.Key,
-                          };*/
+        //    /*var product = from sp in dataContext.SAN_PHAMs
+        //                  join ctdh in dataContext.CT_DONHANGs on sp.MaSP equals ctdh.MaSP
+        //                  group sp by ctdh.MaSP into g
+        //                  select new
+        //                  {
+        //                      g = g.Key,
+        //                  };*/
 
-            var product = (from p in .SAN_PHAMs
-                           let totalQuantify = (from ctdh in dataContext.CT_DONHANGs
-                                                join dh in dataContext.DON_HANGs on ctdh.MaDH equals dh.MaDH
-                                                where ctdh.MaDH == dh.MaDH
-                                                select ctdh.SoLuong).Sum()
-                           where totalQuantify > 0
-                           orderby totalQuantify descending
-                           select p);
+        //    var product = (from p in .SAN_PHAMs
+        //                   let totalQuantify = (from ctdh in dataContext.CT_DONHANGs
+        //                                        join dh in dataContext.DON_HANGs on ctdh.MaDH equals dh.MaDH
+        //                                        where ctdh.MaDH == dh.MaDH
+        //                                        select ctdh.SoLuong).Sum()
+        //                   where totalQuantify > 0
+        //                   orderby totalQuantify descending
+        //                   select p);
 
-            /*var product = from SP in dataContext.SAN_PHAMs
-                          join CTDH in dataContext.CT_DONHANGs on SP.MaSP equals CTDH.MaSP
-                       group CTDH by new { SP.MaSP, SP.TenSP } into g
-                       select new
-                       {
-                           g.Key.MaSP,
-                           g.Key.TenSP,
-                           SLBanDc = g.Sum(p => p.SoLuong)
-                       };*/
+        //    /*var product = from SP in dataContext.SAN_PHAMs
+        //                  join CTDH in dataContext.CT_DONHANGs on SP.MaSP equals CTDH.MaSP
+        //               group CTDH by new { SP.MaSP, SP.TenSP } into g
+        //               select new
+        //               {
+        //                   g.Key.MaSP,
+        //                   g.Key.TenSP,
+        //                   SLBanDc = g.Sum(p => p.SoLuong)
+        //               };*/
 
-            return PartialView(product);
-        }
+        //    return PartialView(product);
+        //}
 
         /*public ActionResult ProductCount()
         {
