@@ -550,20 +550,25 @@ namespace DACN.Controllers
             int idpd = (int)Session["idp"];
             int idsize = Int32.Parse(size);
             var idsizeProduct = (from s in db.CT_SANPHAMs where s.MaSP == idpd select s).ToList();
-            foreach (var item in idsizeProduct)
-            {
-                if (idsize == 1 || idsize==2|| idsize == 3|| idsize == 4)
-                {
-                    pr.MaSP = idpd;
-                    pr.MaSize = idsize;
-                    item.SoLuong += int.Parse(sl);
-                    pr.SoLuong = item.SoLuong;
-                    db.SubmitChanges();
-                    return RedirectToAction("DetailProduct", new { id = idpd });
-                }
-            }
+            //nếu có rồi sẽ chạy vòng for để tăng số lượng size đó lên
+            //foreach (var item in idsizeProduct)
+            //{
+            //    if (idsize == 1 || idsize == 2 || idsize == 3 || idsize == 4)
+            //    {
+            //        pr.MaSP = idpd;
+            //        pr.SIZE = db.SIZEs.SingleOrDefault(p => p.MaSize == int.Parse(size));
+            //        pr.masize = idsize;
+            //        item.SoLuong += int.Parse(sl);
+            //        pr.SoLuong = item.SoLuong;
+            //        db.CT_SANPHAMs.InsertOnSubmit(pr);
+            //        db.SubmitChanges();
+            //        return RedirectToAction("DetailProduct", new { id = idpd });
+            //    }
+            //}
+            //nếu chưa có size và số lượng đó sẽ tạo mới
             pr.MaSP = idpd;
-            pr.MaSize= idsize;
+            pr.SIZE = db.SIZEs.Single(p => p.MaSize == int.Parse(size));
+            //pr.MaSize= idsize;
             pr.SoLuong = int.Parse(sl);
             db.CT_SANPHAMs.InsertOnSubmit(pr);
             db.SubmitChanges();
