@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using DACN.Asset.csharp;
 using DACN.VNPAY;
 
+
 namespace DACN.Controllers
 {
     public class CartController : Controller
@@ -178,6 +179,7 @@ namespace DACN.Controllers
             Session["billing_address"] = collection["billing_address"];
             Session["billing_note"] = collection["billing_note"];
             string httt = collection["Payment"];
+
             if (httt == "Thanh toán khi nhận hàng")
             {
                 KHACH_HANG ac = (KHACH_HANG)Session["user"];
@@ -270,15 +272,16 @@ namespace DACN.Controllers
             }
             else if (httt == "Momo")
             {
+
                 List<GioHang> gh = Session["GioHang"] as List<GioHang>;
                 //request params need to request to MoMo system
                 string endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
-                string partnerCode = "MOMO_ATM_DEV";
-                string accessKey = "w9gEg8bjA2AM2Cvr";
-                string serectkey = "mD9QAVi4cm9N844jh5Y2tqjWaaJoGVFM";
+                string partnerCode = "MOMOHFYY20220624";
+                string accessKey = "WnATmOxM3j81MiWC";
+                string serectkey = "abJUbwX6vQRQx55Tj1HZccoJqMMIuyaz";
                 string orderInfo = "Thanh toán qua Ví MoMo";
                 string returnUrl = "https://localhost:44359/Cart/ConfirmPaymentClient";
-                string notifyurl = "https://53d0-123-21-167-207.ap.ngrok.io/GioHang/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
+                string notifyurl = "https://53d0-123-21-167-207.ap.ngrok.io/Cart/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
 
                 string amount = gh.Sum(n => n.iThanhTien).ToString();//sửa lại giá để lấi giá đơn hàng
                 string orderid = DateTime.Now.Ticks.ToString();
@@ -321,104 +324,96 @@ namespace DACN.Controllers
                 string responseFromMomo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
                 JObject jmessage = JObject.Parse(responseFromMomo);
                 //luu database
-               
-               
-                    KHACH_HANG ac = (KHACH_HANG)Session["user"];
-                    DON_HANG ddh = new DON_HANG();
-                    //List<GioHang> gh = LayGioHang();
-                    //List<InfoCustomerBill> info = null;
-
-                    if (Session["user"] != null)
+                KHACH_HANG ac = (KHACH_HANG)Session["user"];
+                DON_HANG ddh = new DON_HANG();
+                //List<GioHang> gh = LayGioHang();
+                //List<InfoCustomerBill> info = null;
+                if (Session["user"] != null)
+                {
+                    ddh.TaiKhoanKH = ac.TaiKhoanKH;
+                    ddh.TenNguoiNhan = collection["billing_name"];
+                    ddh.SdtNguoiNhan = collection["billing_phone"];
+                    ddh.DiaChiNhanHang = collection["billing_address"];
+                    ddh.GhiChu = collection["billing_note"];
+                    ddh.NgayLap = DateTime.Now;
+                    ddh.TongTien = TongTien();
+                    ddh.MaPTTT = 3;
+                    ddh.TrangThaiDonHang = false;
+                    ddh.TrangThaiGiaoHang = false;
+                    data.DON_HANGs.InsertOnSubmit(ddh);
+                    data.SubmitChanges();
+                    Session["idInvoice"] = ddh.MaDH;
+                    foreach (var item in gh)
                     {
-                        ddh.TaiKhoanKH = ac.TaiKhoanKH;
-                        ddh.TenNguoiNhan = collection["billing_name"];
-                        ddh.SdtNguoiNhan = collection["billing_phone"];
-                        ddh.DiaChiNhanHang = collection["billing_address"];
-                        ddh.GhiChu = collection["billing_note"];
-                        ddh.NgayLap = DateTime.Now;
-                        ddh.TongTien = TongTien();
-                        ddh.MaPTTT = 1;
-                        ddh.TrangThaiDonHang = false;
-                        ddh.TrangThaiGiaoHang = false;
-                        data.DON_HANGs.InsertOnSubmit(ddh);
-                        data.SubmitChanges();
-                        Session["idInvoice"] = ddh.MaDH;
-                        foreach (var item in gh)
+                        CT_DONHANG ctdh = new CT_DONHANG();
+                        ctdh.MaSize = (int)item.iSize;
+                        ctdh.MaSP = (int)item.iIdProduct;
+                        ctdh.MaDH = ddh.MaDH;
+                        ctdh.SoLuong = item.iQuantityProduct;
+                        ctdh.ThanhTien = item.iPriceProduct;
+                        int soLuongTon = data.CT_SANPHAMs.SingleOrDefault(p => p.MaSP == item.iIdProduct && p.MaSize == item.iSize).SoLuong.Value;
+                        if (soLuongTon < ctdh.SoLuong)
                         {
-                            CT_DONHANG ctdh = new CT_DONHANG();
-                            ctdh.MaSize = (int)item.iSize;
-                            ctdh.MaSP = (int)item.iIdProduct;
-                            ctdh.MaDH = ddh.MaDH;
-                            ctdh.SoLuong = item.iQuantityProduct;
-                            ctdh.ThanhTien = item.iPriceProduct;
-                            int soLuongTon = data.CT_SANPHAMs.SingleOrDefault(p => p.MaSP == item.iIdProduct && p.MaSize == item.iSize).SoLuong.Value;
-                            if (soLuongTon < ctdh.SoLuong)
-                            {
-                                ViewBag.SoLuongTon = "Sản phẩm hết hàng hoặc quá số lượng tồn, sản phẩm hết hàng sẽ được xóa khỏi gio hàng!";
-                                List<GioHang> listProductInCart = LayGioHang();
-                                GioHang sp = listProductInCart.SingleOrDefault(n => n.iIdProduct == item.iIdProduct && n.iSize == item.iSize);
-                                listProductInCart.Remove(sp);
-                                return this.Checkout();
-                            }
-                            updateSoLuong(ctdh);
-                            data.CT_DONHANGs.InsertOnSubmit(ctdh);
-                            data.SubmitChanges();
-                            Session["Giohang"] = null;
+                            ViewBag.SoLuongTon = "Sản phẩm hết hàng hoặc quá số lượng tồn, sản phẩm hết hàng sẽ được xóa khỏi gio hàng!";
+                            List<GioHang> listProductInCart = LayGioHang();
+                            GioHang sp = listProductInCart.SingleOrDefault(n => n.iIdProduct == item.iIdProduct && n.iSize == item.iSize);
+                            listProductInCart.Remove(sp);
+                            return this.Checkout();
                         }
+                        updateSoLuong(ctdh);
+                        data.CT_DONHANGs.InsertOnSubmit(ctdh);
+                        data.SubmitChanges();
+                        Session["Giohang"] = null;
                     }
-                    else
+                }
+                else
+                {
+                    var ten = collection["ten"];
+                    var diachi = collection["diachi"];
+                    var sdt = collection["sdt"];
+                    var ghichu = collection["ghichu"];
+                    String a = "khachhangvanglai";
+                    ddh.TaiKhoanKH = a;
+                    ddh.TenNguoiNhan = ten;
+                    ddh.SdtNguoiNhan = diachi;
+                    ddh.DiaChiNhanHang = sdt;
+                    ddh.GhiChu = ghichu;
+                    ddh.NgayLap = DateTime.Now;
+                    ddh.TongTien = TongTien();
+                    ddh.MaPTTT = 1;
+                    ddh.TrangThaiDonHang = false;
+                    ddh.TrangThaiGiaoHang = false;
+                    data.DON_HANGs.InsertOnSubmit(ddh);
+                    data.SubmitChanges();
+                    Session["idInvoice"] = ddh.MaDH;
+                    foreach (var item in gh)
                     {
-                        var ten = collection["ten"];
-                        var diachi = collection["diachi"];
-                        var sdt = collection["sdt"];
-                        var ghichu = collection["ghichu"];
-                        String a = "khachhangvanglai";
-                        ddh.TaiKhoanKH = a;
-                        ddh.TenNguoiNhan = ten;
-                        ddh.SdtNguoiNhan = diachi;
-                        ddh.DiaChiNhanHang = sdt;
-                        ddh.GhiChu = ghichu;
-                        ddh.NgayLap = DateTime.Now;
-                        ddh.TongTien = TongTien();
-                        ddh.MaPTTT = 1;
-                        ddh.TrangThaiDonHang = false;
-                        ddh.TrangThaiGiaoHang = false;
-                        data.DON_HANGs.InsertOnSubmit(ddh);
-                        data.SubmitChanges();
-                        Session["idInvoice"] = ddh.MaDH;
-                        foreach (var item in gh)
+                        CT_DONHANG ctdh = new CT_DONHANG();
+                        ctdh.MaSize = (int)item.iSize;
+                        ctdh.MaSP = (int)item.iIdProduct;
+                        ctdh.MaDH = ddh.MaDH;
+                        ctdh.SoLuong = item.iQuantityProduct;
+                        ctdh.ThanhTien = item.iPriceProduct;
+                        int soLuongTon = data.CT_SANPHAMs.SingleOrDefault(p => p.MaSP == item.iIdProduct && p.MaSize == item.iSize).SoLuong.Value;
+                        if (soLuongTon < ctdh.SoLuong)
                         {
-                            CT_DONHANG ctdh = new CT_DONHANG();
-                            ctdh.MaSize = (int)item.iSize;
-                            ctdh.MaSP = (int)item.iIdProduct;
-                            ctdh.MaDH = ddh.MaDH;
-                            ctdh.SoLuong = item.iQuantityProduct;
-                            ctdh.ThanhTien = item.iPriceProduct;
-                            int soLuongTon = data.CT_SANPHAMs.SingleOrDefault(p => p.MaSP == item.iIdProduct && p.MaSize == item.iSize).SoLuong.Value;
-                            if (soLuongTon < ctdh.SoLuong)
-                            {
-                                ViewBag.SoLuongTon = "Sản phẩm hết hàng hoặc quá số lượng tồn, sản phẩm hết hàng sẽ được xóa khỏi gio hàng!";
-                                List<GioHang> listProductInCart = LayGioHang();
-                                GioHang sp = listProductInCart.SingleOrDefault(n => n.iIdProduct == item.iIdProduct && n.iSize == item.iSize);
-                                listProductInCart.Remove(sp);
-                                return this.Checkout();
-                            }
-                            updateSoLuong(ctdh);
-                            data.CT_DONHANGs.InsertOnSubmit(ctdh);
-                            data.SubmitChanges();
-                            Session["Giohang"] = null;
-                            return Redirect(jmessage.GetValue("payUrl").ToString());
-
+                            ViewBag.SoLuongTon = "Sản phẩm hết hàng hoặc quá số lượng tồn, sản phẩm hết hàng sẽ được xóa khỏi gio hàng!";
+                            List<GioHang> listProductInCart = LayGioHang();
+                            GioHang sp = listProductInCart.SingleOrDefault(n => n.iIdProduct == item.iIdProduct && n.iSize == item.iSize);
+                            listProductInCart.Remove(sp);
+                            return this.Checkout();
                         }
-
+                        updateSoLuong(ctdh);
+                        data.CT_DONHANGs.InsertOnSubmit(ctdh);
+                        data.SubmitChanges();
                     }
-                return RedirectToAction("ConfirmPaymentClient", "Cart");
+                }
+                 Session["GioHang"] = null;
+                return Redirect(jmessage.GetValue("payUrl").ToString());
             }
             else if(httt=="Ví VNPAY")
             {
                 List<GioHang> gioHangs = Session["GioHang"] as List<GioHang>;
-
-                
                 KHACH_HANG ac = (KHACH_HANG)Session["user"];
                 DON_HANG ddh = new DON_HANG();
                 List<GioHang> gh = LayGioHang();
@@ -608,168 +603,12 @@ namespace DACN.Controllers
             }
             return RedirectToAction("Thanks", "Cart");
         }
+
         public ActionResult Thanks()
         {
             return View();
         }
-        public ActionResult Payment(FormCollection collection)
-        {
-            List<GioHang> gh = Session["GioHang"] as List<GioHang>;
-            //request params need to request to MoMo system
-            string endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
-            string partnerCode = "MOMOHFYY20220624";
-            string accessKey = "WnATmOxM3j81MiWC";
-            string serectkey = "abJUbwX6vQRQx55Tj1HZccoJqMMIuyaz";
-            string orderInfo = "test";
-            string returnUrl = "https://localhost:44359/Cart/ConfirmPaymentClient";
-            string notifyurl = "https://53d0-123-21-167-207.ap.ngrok.io/GioHang/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
-
-            string amount = gh.Sum(n => n.iThanhTien).ToString();//sửa lại giá để lấi giá đơn hàng
-            string orderid = DateTime.Now.Ticks.ToString();
-            string requestId = DateTime.Now.Ticks.ToString();
-            string extraData = "";
-
-            //Before sign HMAC SHA256 signature
-            string rawHash = "partnerCode=" +
-                partnerCode + "&accessKey=" +
-                accessKey + "&requestId=" +
-                requestId + "&amount=" +
-                amount + "&orderId=" +
-                orderid + "&orderInfo=" +
-                orderInfo + "&returnUrl=" +
-                returnUrl + "&notifyUrl=" +
-                notifyurl + "&extraData=" +
-                extraData;
-
-            MoMoSecurity crypto = new MoMoSecurity();
-            //sign signature SHA256
-            string signature = crypto.signSHA256(rawHash, serectkey);
-
-            //build body json request
-            JObject message = new JObject
-            {
-                { "partnerCode", partnerCode },
-                { "accessKey", accessKey },
-                { "requestId", requestId },
-                { "amount", amount },
-                { "orderId", orderid },
-                { "orderInfo", orderInfo },
-                { "returnUrl", returnUrl },
-                { "notifyUrl", notifyurl },
-                { "extraData", extraData },
-                { "requestType", "captureMoMoWallet" },
-                { "signature", signature }
-
-            };
-
-            string responseFromMomo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
-            JObject jmessage = JObject.Parse(responseFromMomo);
-            //luu database
-            Session["billing_name"] = null;
-            Session["billing_phone"] = null;
-            Session["billing_address"] = null;
-            Session["billing_note"] = null;
-
-            Session["billing_name"] = collection["billing_name"];
-            Session["billing_phone"] = collection["billing_phone"];
-            Session["billing_address"] = collection["billing_address"];
-            Session["billing_note"] = collection["billing_note"];
-            string httt = collection["Payment"];
-            if (httt == "Momo")
-            {
-                KHACH_HANG ac = (KHACH_HANG)Session["user"];
-                DON_HANG ddh = new DON_HANG();
-                //List<GioHang> gh = LayGioHang();
-                //List<InfoCustomerBill> info = null;
-
-                if (Session["user"] != null)
-                {
-                    ddh.TaiKhoanKH = ac.TaiKhoanKH;
-                    ddh.TenNguoiNhan = collection["billing_name"];
-                    ddh.SdtNguoiNhan = collection["billing_phone"];
-                    ddh.DiaChiNhanHang = collection["billing_address"];
-                    ddh.GhiChu = collection["billing_note"];
-                    ddh.NgayLap = DateTime.Now;
-                    ddh.TongTien = TongTien();
-                    ddh.MaPTTT = 1;
-                    ddh.TrangThaiDonHang = false;
-                    ddh.TrangThaiGiaoHang = false;
-                    data.DON_HANGs.InsertOnSubmit(ddh);
-                    data.SubmitChanges();
-                    Session["idInvoice"] = ddh.MaDH;
-                    foreach (var item in gh)
-                    {
-                        CT_DONHANG ctdh = new CT_DONHANG();
-                        ctdh.MaSize = (int)item.iSize;
-                        ctdh.MaSP = (int)item.iIdProduct;
-                        ctdh.MaDH = ddh.MaDH;
-                        ctdh.SoLuong = item.iQuantityProduct;
-                        ctdh.ThanhTien = item.iPriceProduct;
-                        int soLuongTon = data.CT_SANPHAMs.SingleOrDefault(p => p.MaSP == item.iIdProduct && p.MaSize == item.iSize).SoLuong.Value;
-                        if (soLuongTon < ctdh.SoLuong)
-                        {
-                            ViewBag.SoLuongTon = "Sản phẩm hết hàng hoặc quá số lượng tồn, sản phẩm hết hàng sẽ được xóa khỏi gio hàng!";
-                            List<GioHang> listProductInCart = LayGioHang();
-                            GioHang sp = listProductInCart.SingleOrDefault(n => n.iIdProduct == item.iIdProduct && n.iSize == item.iSize);
-                            listProductInCart.Remove(sp);
-                            return this.Checkout();
-                        }
-                        updateSoLuong(ctdh);
-                        data.CT_DONHANGs.InsertOnSubmit(ctdh);
-                        data.SubmitChanges();
-                        Session["Giohang"] = null;
-                    }
-                }
-                else
-                {
-                    var ten = collection["ten"];
-                    var diachi = collection["diachi"];
-                    var sdt = collection["sdt"];
-                    var ghichu = collection["ghichu"];
-                    String a = "khachhangvanglai";
-                    ddh.TaiKhoanKH = a;
-                    ddh.TenNguoiNhan = ten;
-                    ddh.SdtNguoiNhan = diachi;
-                    ddh.DiaChiNhanHang = sdt;
-                    ddh.GhiChu = ghichu;
-                    ddh.NgayLap = DateTime.Now;
-                    ddh.TongTien = TongTien();
-                    ddh.MaPTTT = 1;
-                    ddh.TrangThaiDonHang = false;
-                    ddh.TrangThaiGiaoHang = false;
-                    data.DON_HANGs.InsertOnSubmit(ddh);
-                    data.SubmitChanges();
-                    Session["idInvoice"] = ddh.MaDH;
-                    foreach (var item in gh)
-                    {
-                        CT_DONHANG ctdh = new CT_DONHANG();
-                        ctdh.MaSize = (int)item.iSize;
-                        ctdh.MaSP = (int)item.iIdProduct;
-                        ctdh.MaDH = ddh.MaDH;
-                        ctdh.SoLuong = item.iQuantityProduct;
-                        ctdh.ThanhTien = item.iPriceProduct;
-                        int soLuongTon = data.CT_SANPHAMs.SingleOrDefault(p => p.MaSP == item.iIdProduct && p.MaSize == item.iSize).SoLuong.Value;
-                        if (soLuongTon < ctdh.SoLuong)
-                        {
-                            ViewBag.SoLuongTon = "Sản phẩm hết hàng hoặc quá số lượng tồn, sản phẩm hết hàng sẽ được xóa khỏi gio hàng!";
-                            List<GioHang> listProductInCart = LayGioHang();
-                            GioHang sp = listProductInCart.SingleOrDefault(n => n.iIdProduct == item.iIdProduct && n.iSize == item.iSize);
-                            listProductInCart.Remove(sp);
-                            return this.Checkout();
-                        }
-                        updateSoLuong(ctdh);
-                        data.CT_DONHANGs.InsertOnSubmit(ctdh);
-                        data.SubmitChanges();
-                        Session["Giohang"] = null;
-                        //return Redirect(jmessage.GetValue("payUrl").ToString());
-
-                    }
-                }
-               // return RedirectToAction("Thanks", "Cart");
-            }
-            //return RedirectToAction("Thanks", "Cart");
-            return Redirect(jmessage.GetValue("payUrl").ToString());
-        }
+        
         public ActionResult ConfirmPaymentClient()
         {
             return PartialView();
