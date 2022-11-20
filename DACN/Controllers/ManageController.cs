@@ -52,6 +52,34 @@ namespace DACN.Controllers
             return View(ct);
         }
 
+        public ActionResult DeleteDetail(int id)
+        {
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("Product", "Manage");
+            }
+            else
+            {
+                DON_HANG sp = db.DON_HANGs.SingleOrDefault(n => n.MaDH == id);
+                if (sp == null)
+                {
+                    Response.StatusCode = 404;
+                    return null;
+                }
+                try
+                {
+                    db.DON_HANGs.DeleteOnSubmit(sp);
+                    db.SubmitChanges();
+                    SetAlert("Xóa Đơn Hàng thành công", "success");
+                }
+                catch
+                {
+                    SetAlert("Không xóa được Đơn Hàng", "error");
+                }
+
+                return RedirectToAction("Receipt");
+            }
+        }
 
         public ActionResult ConfilmInvoice(int id, string TrangThai)
         {

@@ -60,6 +60,7 @@
                             <td>@Html.DisplayFor(modelItem => item.GhiChu)</td>
                             <td>
                                 @Html.ActionLink("Detail", "DetailReceipt", new { id = item.MaDH }, new { @class = "btn btn-info" })
+                                @Html.ActionLink("Delete", "DeleteDetail", new { id = item.MaDH }, new {@class= "mybtn btn btn-warning" })
                             </td>
                         </tr>
                     }
