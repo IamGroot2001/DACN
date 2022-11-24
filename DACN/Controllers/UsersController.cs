@@ -16,8 +16,6 @@ using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Specialized;
-using System.ComponentModel.DataAnnotations;
-using System.Security.Cryptography;
 using ASPSnippets.GoogleAPI;
 
 namespace DACN.Controllers

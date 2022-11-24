@@ -163,6 +163,7 @@
     <Content Include="Asset\css\all.css" />
     <Content Include="Asset\css\base.css" />
     <Content Include="Asset\css\bootstrap.min.css" />
+    <Content Include="Asset\css\drop.css" />
     <Content Include="Asset\css\elegant-icons.css" />
     <Content Include="Asset\css\font-awesome.min.css" />
     <Content Include="Asset\css\magnific-popup.css" />
@@ -207,13 +208,22 @@
     <Content Include="Asset\img\hero\hero-1.jpg" />
     <Content Include="Asset\img\hero\hero-2.jpg" />
     <Content Include="Asset\img\hero\idex.jpg" />
+    <Content Include="Asset\img\icon\account.png" />
     <Content Include="Asset\img\icon\anh.jpg" />
     <Content Include="Asset\img\icon\calendar.png" />
     <Content Include="Asset\img\icon\cart.png" />
+    <Content Include="Asset\img\icon\chart.png" />
     <Content Include="Asset\img\icon\compare.png" />
+    <Content Include="Asset\img\icon\donw.png" />
     <Content Include="Asset\img\icon\heart.png" />
+    <Content Include="Asset\img\icon\khach.png" />
+    <Content Include="Asset\img\icon\list.png" />
     <Content Include="Asset\img\icon\me.jpg" />
+    <Content Include="Asset\img\icon\note.png" />
+    <Content Include="Asset\img\icon\produt.png" />
+    <Content Include="Asset\img\icon\repict.png" />
     <Content Include="Asset\img\icon\search.png" />
+    <Content Include="Asset\img\icon\star.png" />
     <Content Include="Asset\img\icon\vinh.jpg" />
     <Content Include="Asset\img\instagram\instagram-1.jpg" />
     <Content Include="Asset\img\instagram\instagram-2.jpg" />
@@ -347,22 +357,6 @@
     <Content Include="Asset\Source\Magnific-Popup-master.zip" />
     <Content Include="Asset\Source\OwlCarousel2-2.3.4.zip" />
     <Content Include="Asset\Source\SlickNav-master.zip" />
-    <Content Include="Asset\signin_signup\.sass-cache\21880c0ffe15753a53f8402e9f64e1077e071510\style.scssc" />
-    <Content Include="Asset\signin_signup\.sass-cache\2866be86c578bb583fbf023501bb9fd24cc3bf22\extend.scssc" />
-    <Content Include="Asset\signin_signup\.sass-cache\2866be86c578bb583fbf023501bb9fd24cc3bf22\fonts.scssc" />
-    <Content Include="Asset\signin_signup\.sass-cache\2866be86c578bb583fbf023501bb9fd24cc3bf22\global.scssc" />
-    <Content Include="Asset\signin_signup\.sass-cache\2866be86c578bb583fbf023501bb9fd24cc3bf22\minxi.scssc" />
-    <Content Include="Asset\signin_signup\.sass-cache\2866be86c578bb583fbf023501bb9fd24cc3bf22\variables.scssc" />
-    <Content Include="Asset\signin_signup\.sass-cache\3948936f84e1a30385e73a9be140b58b48c82e15\style.scssc" />
-    <Content Include="Asset\signin_signup\.sass-cache\643489b018602f15119d8f44aeb7fc79468873a9\main.scssc" />
-    <Content Include="Asset\signin_signup\.sass-cache\643489b018602f15119d8f44aeb7fc79468873a9\responsive.scssc" />
-    <Content Include="Asset\signin_signup\.sass-cache\7643c8aa2e335ff5e104bc47d8dd7f1a0693bb39\extend.scssc" />
-    <Content Include="Asset\signin_signup\.sass-cache\7643c8aa2e335ff5e104bc47d8dd7f1a0693bb39\fonts.scssc" />
-    <Content Include="Asset\signin_signup\.sass-cache\7643c8aa2e335ff5e104bc47d8dd7f1a0693bb39\global.scssc" />
-    <Content Include="Asset\signin_signup\.sass-cache\7643c8aa2e335ff5e104bc47d8dd7f1a0693bb39\minxi.scssc" />
-    <Content Include="Asset\signin_signup\.sass-cache\7643c8aa2e335ff5e104bc47d8dd7f1a0693bb39\variables.scssc" />
-    <Content Include="Asset\signin_signup\.sass-cache\9dc767a56f3dc2f8a933300255cd2265f13191d4\main.scssc" />
-    <Content Include="Asset\signin_signup\.sass-cache\9dc767a56f3dc2f8a933300255cd2265f13191d4\responsive.scssc" />
     <Content Include="Asset\signin_signup\css\style.css.map" />
     <Content Include="Asset\signin_signup\fonts\material-icon\fonts\Material-Design-Iconic-Font.eot" />
     <Content Include="Asset\signin_signup\fonts\material-icon\fonts\Material-Design-Iconic-Font.ttf" />
@@ -502,6 +496,8 @@
     <None Include="Models\DAChuyenNganh.dbml.layout">
       <DependentUpon>DAChuyenNganh.dbml</DependentUpon>
     </None>
+    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

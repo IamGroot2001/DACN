@@ -99,6 +99,7 @@
                 </div>
             </div>
             <div class="canvas__open"><i class="fa fa-bars"></i></div>
+
         </div>
     </header>
     <!-- Header Section End -->
@@ -127,22 +128,37 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="footer__copyright__text">
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        <p>
-                            Copyright ©
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script>2022
-                            All rights reserved | This is the produc of <a style="font-weight:bold; color:red" href="@Url.Action("Index","Home")">VAT Shop</a>
-                        </p>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
+                    <div class="footer__widget">
+                        <div class="footer__newslatter">
+                            <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100088141711510&width=450&layout=standard&action=like&size=small&share=true&height=35&appId=624674496112173"
+                                    width="450" height="35" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                            </iframe>
+                        </div>
+                        <div class="footer__newslatter">
+                            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100088141711510&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=624674496112173"
+                                    width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="footer__copyright__text">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            <p>
+                                Copyright ©
+                                <script>
+                                    document.write(new Date().getFullYear());
+                                </script>2022
+                                All rights reserved | This is the produc of <a style="font-weight:bold; color:red" href="@Url.Action("Index","Home")">VAT Shop</a>
+                            </p>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </footer>
     <!-- Footer Section End -->
@@ -158,18 +174,49 @@
             </div>
         </div>
     }
-        <!-- Search End -->
-        <!-- Js Plugins -->
-        <script src="~/Asset/js/jquery-3.3.1.min.js"></script>
-        <script src="~/Asset/js/bootstrap.min.js"></script>
-        <script src="~/Asset/js/jquery.nice-select.min.js"></script>
-        <script src="~/Asset/js/jquery.nicescroll.min.js"></script>
-        <script src="~/Asset/js/jquery.magnific-popup.min.js"></script>
-        <script src="~/Asset/js/jquery.countdown.min.js"></script>
-        <script src="~/Asset/js/jquery.slicknav.js"></script>
-        <script src="~/Asset/js/mixitup.min.js"></script>
-        <script src="~/Asset/js/owl.carousel.min.js"></script>
-        <script src="~/Asset/js/main.js"></script>
-    </body>
+    <!-- Search End -->
+    <!-- Js Plugins -->
+    <script src="~/Asset/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Asset/js/bootstrap.min.js"></script>
+    <script src="~/Asset/js/jquery.nice-select.min.js"></script>
+    <script src="~/Asset/js/jquery.nicescroll.min.js"></script>
+    <script src="~/Asset/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/Asset/js/jquery.countdown.min.js"></script>
+    <script src="~/Asset/js/jquery.slicknav.js"></script>
+    <script src="~/Asset/js/mixitup.min.js"></script>
+    <script src="~/Asset/js/owl.carousel.min.js"></script>
+    <script src="~/Asset/js/main.js"></script>
+    <!---------------------------------------------------- Messenger Plugin chat Code ----------------------------------------------------->
+    <div id="fb-root"></div>
+
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+        var chatbox = document.getElementById('fb-customer-chat');
+        chatbox.setAttribute("page_id", "104954239110524");
+        chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+
+    <!-- Your SDK code -->
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                xfbml: true,
+                version: 'v15.0'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!------------------------------------------------- Kết Thúc Messenger Plugin chat Code --------------------------------------------------->
+</body>
 
 </html>

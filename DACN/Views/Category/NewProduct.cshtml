@@ -9,7 +9,7 @@
         </div>
         <div class="product__item">
             <h6><span style="color: lightslategray"><b>@item.TenSP</b></span></h6>
-            <h5>@item.Gia <span style="color: lightsalmon">VNĐ</span></h5>
+            <h5>@String.Format("{0:0,0}", item.Gia) <span style="color: lightsalmon">VNĐ</span></h5>
             <form method="get" action="@Url.Action("ProductDetail","Home", new { id = item.MaSP })">
                 <button style="border-radius: 12px; background-color: gray; border: 2px solid gray;" type="submit"><span style="color: white">Xem Chi Tiết</span></button>
             </form>

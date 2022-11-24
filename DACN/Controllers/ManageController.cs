@@ -36,18 +36,36 @@ namespace DACN.Controllers
 
         public ActionResult Receipt()
         {
+            String tenn = Session["ten"].ToString();
             if (Session["admin"] == null)
             {
                 return RedirectToAction("LogIn", "Account");
             }
-            var list = db.DON_HANGs.OrderByDescending(s => s.MaDH).ToList();
-
-            return View(list);
+            if (Session["admin1"] == null)
+            {
+                var list = (from s in db.DON_HANGs where s.NVXacNhan == tenn || s.NVXacNhan == " " select s).ToList();
+                return View(list);
+            }
+            else if (Session["sale"] == null)
+            {
+                var list = (from s in db.DON_HANGs where s.NVXacNhan == tenn || s.NVXacNhan == " " select s).ToList();
+                return View(list);
+            }
+            else if (Session["quanly"] == null)
+            {
+                var list = (from s in db.DON_HANGs where s.NVXacNhan != "Admin" select s).ToList();
+                return View(list);
+            }
+            return View();
         }
         public ActionResult DetailReceipt(int id)
         {
             //InvoiceDetail ct = db.InvoiceDetails.Where(n => n.IdInvoice == id);
             ViewBag.ma = db.DON_HANGs.SingleOrDefault(n => n.MaDH == id);
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
             var ct = (from s in db.CT_DONHANGs where s.MaDH == id select s).ToList();
             return View(ct);
         }
@@ -83,8 +101,13 @@ namespace DACN.Controllers
 
         public ActionResult ConfilmInvoice(int id, string TrangThai)
         {
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
             //bool a = true;
             string cv = Session["nv"].ToString();
+            string ten = Session["ten"].ToString();
             bool a = bool.Parse(TrangThai);
             var ct = db.DON_HANGs.SingleOrDefault(n => n.MaDH == id);
             //var ct = from c in db.Invoices where c.IdInvoice == id select c;
@@ -92,6 +115,7 @@ namespace DACN.Controllers
             Session["idp"] = id;
             //ct.TaiKhoanNV =cv;
             ct.TrangThaiDonHang = a;
+            ct.NVXacNhan = ten;
             UpdateModel(ct);
             db.SubmitChanges();
             return RedirectToAction("DetailReceipt", "Manage", new { id = idp });
@@ -101,6 +125,11 @@ namespace DACN.Controllers
             //bool a = true;
             //int? tencuanv;
             //String tencuanv = "null" ;
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+            String te = " ";
             bool a = bool.Parse(TrangThai);
             var ct = db.DON_HANGs.SingleOrDefault(n => n.MaDH == id);
             //var ct = from c in db.Invoices where c.IdInvoice == id select c;
@@ -108,6 +137,7 @@ namespace DACN.Controllers
             Session["idp"] = id;
 
             ct.TrangThaiDonHang = a;
+            ct.NVXacNhan = te;
             //ct.TaiKhoanNV = tencuanv;
             UpdateModel(ct);
             db.SubmitChanges();

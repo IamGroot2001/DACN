@@ -12,61 +12,127 @@
             <i class="fas fa-table"></i>
             Hóa đơn
         </div>
-        <div class="card-body">
-            <table id="datatablesInvoice" class="table-responsive">
-                <thead>
-                    <tr>
-                        <th>Mã hóa đơn</th>
-                        <th>Khách hàng</th>
-                        <th>Địa chỉ nhận hàng</th>
-                        <th>Số điện thoại người nhận</th>
-                        <th>Ngày lập</th>
-                        <th>Tổng hóa đơn</th>
-                        <th>Phương thức thanh toán</th>
-                        <th>Trạng thái hóa đơn</th>
-                        <th>Trạng thái thanh toán</th>
-                        <th>Lưu ý</th>
-                        <th>&nbsp;</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+        @if (@Session["admin1"] == null || @Session["sale"] == null)
+        {<div class="card-body">
+                <table id="datatablesInvoice" class="table-responsive">
+                    <thead>
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => item.MaDH)</td>
-                            <td>@Html.DisplayFor(modelItem => item.KHACH_HANG.HoTenKH)</td>
-                            <td>@Html.DisplayFor(modelItem => item.DiaChiNhanHang)</td>
-                            <td>@Html.DisplayFor(modelItem => item.TenNguoiNhan)</td>
-                            <td>@String.Format("{0:dd/MM/yyyy}", item.NgayLap)</td>
-                            <td>@String.Format("{0:0,0 }", item.TongTien)<span>VNĐ</span></td>
-                            <td>@Html.DisplayFor(modelItem => item.PHUONG_THUC_THANH_TOAN.TenPTTT)</td>
-                            @if (item.TrangThaiDonHang == true)
-                            {
-                                <td>Đã xác nhận</td>
-                            }
-                            else
-                            {
-                                <td>Chưa xác nhận</td>
-                            }
-                            @if (@item.TrangThaiGiaoHang == true)
-                            {
-                                <td>Đã thanh toán</td>
-                            }
-                            else
-                            {
-                                <td>Chưa thanh toán</td>
-                            }
-                            <td>@Html.DisplayFor(modelItem => item.GhiChu)</td>
-                            <td>
-                                @Html.ActionLink("Detail", "DetailReceipt", new { id = item.MaDH }, new { @class = "btn btn-info" })
-                                @Html.ActionLink("Delete", "DeleteDetail", new { id = item.MaDH }, new {@class= "mybtn btn btn-warning" })
-                            </td>
+                            <th>Mã hóa đơn</th>
+                            <th>Khách hàng</th>
+                            <th>Địa chỉ nhận hàng</th>
+                            <th>Số điện thoại người nhận</th>
+                            <th>Ngày lập</th>
+                            <th>Tổng hóa đơn</th>
+                            <th>Phương thức thanh toán</th>
+                            <th>Trạng thái hóa đơn</th>
+                            <th>Nhân viên thực hiện</th>
+                            <th>Trạng thái thanh toán</th>
+                            <th>Lưu ý</th>
+                            <th>&nbsp;</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.MaDH)</td>
+                                <td>@Html.DisplayFor(modelItem => item.KHACH_HANG.HoTenKH)</td>
+                                <td>@Html.DisplayFor(modelItem => item.DiaChiNhanHang)</td>
+                                <td>@Html.DisplayFor(modelItem => item.TenNguoiNhan)</td>
+                                <td>@String.Format("{0:dd/MM/yyyy}", item.NgayLap)</td>
+                                <td>@String.Format("{0:0,0 }", item.TongTien)<span>VNĐ</span></td>
+                                <td>@Html.DisplayFor(modelItem => item.PHUONG_THUC_THANH_TOAN.TenPTTT)</td>
+                                @if (item.TrangThaiDonHang == true)
+                                {
+                                    <td>Đã xác nhận</td>
+                                }
+                                else
+                                {
+                                    <td>Chưa xác nhận</td>
+                                }
+                                <td>@Html.DisplayFor(modelItem => item.NVXacNhan)</td>
+                                @if (@item.TrangThaiGiaoHang == true)
+                                {
+                                    <td>Đã thanh toán</td>
+                                }
+                                else
+                                {
+                                    <td>Chưa thanh toán</td>
+                                }
+                                <td>@Html.DisplayFor(modelItem => item.GhiChu)</td>
+                                <td>
+                                    @Html.ActionLink("Detail", "DetailReceipt", new { id = item.MaDH }, new { @class = "btn btn-info" })
+                                </td>
+
+                            </tr>
+                        }
+
+
+
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="card-body">
+                <table id="datatablesInvoice" class="table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Mã hóa đơn</th>
+                            <th>Khách hàng</th>
+                            <th>Địa chỉ nhận hàng</th>
+                            <th>Số điện thoại người nhận</th>
+                            <th>Ngày lập</th>
+                            <th>Tổng hóa đơn</th>
+                            <th>Phương thức thanh toán</th>
+                            <th>Trạng thái hóa đơn</th>
+                            <th>Nhân viên thực hiện</th>
+                            <th>Trạng thái thanh toán</th>
+                            <th>Lưu ý</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.MaDH)</td>
+                                <td>@Html.DisplayFor(modelItem => item.KHACH_HANG.HoTenKH)</td>
+                                <td>@Html.DisplayFor(modelItem => item.DiaChiNhanHang)</td>
+                                <td>@Html.DisplayFor(modelItem => item.TenNguoiNhan)</td>
+                                <td>@String.Format("{0:dd/MM/yyyy}", item.NgayLap)</td>
+                                <td>@String.Format("{0:0,0 }", item.TongTien)<span>VNĐ</span></td>
+                                <td>@Html.DisplayFor(modelItem => item.PHUONG_THUC_THANH_TOAN.TenPTTT)</td>
+                                @if (item.TrangThaiDonHang == true)
+                                {
+                                    <td>Đã xác nhận</td>
+ }
+                                else
+                                {
+                                    <td>Chưa xác nhận</td>
+}
+                                <td>@Html.DisplayFor(modelItem => item.NVXacNhan)</td>
+                                @if (@item.TrangThaiGiaoHang == true)
+                                {
+                                    <td>Đã thanh toán</td>
+ }
+                                else
+                                {
+                                    <td>Chưa thanh toán</td>
+}
+                                <td>@Html.DisplayFor(modelItem => item.GhiChu)</td>
+                            </tr>
+                        }
+
+
+
+                    </tbody>
+                </table>
+            </div>
+        }
+
     </div>
 </div>
 

@@ -14,26 +14,8 @@
       <Column Name="MaSize" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="SoLuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ThanhTien" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="DON_HANG_CT_DONHANG" Member="DON_HANG" ThisKey="MaDH" OtherKey="MaDH" Type="DON_HANG" IsForeignKey="true" />
       <Association Name="CT_SANPHAM_CT_DONHANG" Member="CT_SANPHAM" ThisKey="MaSP,MaSize" OtherKey="MaSP,MaSize" Type="CT_SANPHAM" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.DON_HANG" Member="DON_HANGs">
-    <Type Name="DON_HANG">
-      <Column Name="MaDH" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="NgayLap" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="TenNguoiNhan" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="SdtNguoiNhan" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
-      <Column Name="DiaChiNhanHang" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="TrangThaiDonHang" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="TrangThaiGiaoHang" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="GhiChu" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="TongTien" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TaiKhoanKH" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="MaPTTT" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="DON_HANG_CT_DONHANG" Member="CT_DONHANGs" ThisKey="MaDH" OtherKey="MaDH" Type="CT_DONHANG" />
-      <Association Name="KHACH_HANG_DON_HANG" Member="KHACH_HANG" ThisKey="TaiKhoanKH" OtherKey="TaiKhoanKH" Type="KHACH_HANG" IsForeignKey="true" />
-      <Association Name="PHUONG_THUC_THANH_TOAN_DON_HANG" Member="PHUONG_THUC_THANH_TOAN" ThisKey="MaPTTT" OtherKey="MaPTTT" Type="PHUONG_THUC_THANH_TOAN" IsForeignKey="true" />
+      <Association Name="DON_HANG_CT_DONHANG" Member="DON_HANG" ThisKey="MaDH" OtherKey="MaDH" Type="DON_HANG" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.FEEDBACK" Member="FEEDBACKs">
@@ -52,8 +34,8 @@
       <Column Name="EmailKH" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="DiaChiKH" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="SdtKH" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="KHACH_HANG_DON_HANG" Member="DON_HANGs" ThisKey="TaiKhoanKH" OtherKey="TaiKhoanKH" Type="DON_HANG" />
       <Association Name="KHACH_HANG_ResetPass" Member="ResetPasses" ThisKey="TaiKhoanKH" OtherKey="TaiKhoanKH_KHACH_HANG" Type="ResetPass" />
+      <Association Name="KHACH_HANG_DON_HANG" Member="DON_HANGs" ThisKey="TaiKhoanKH" OtherKey="TaiKhoanKH" Type="DON_HANG" />
     </Type>
   </Table>
   <Table Name="dbo.LOAI_SAN_PHAM" Member="LOAI_SAN_PHAMs">
@@ -120,6 +102,25 @@
       <Association Name="CT_SANPHAM_CT_DONHANG" Member="CT_DONHANGs" ThisKey="MaSP,MaSize" OtherKey="MaSP,MaSize" Type="CT_DONHANG" />
       <Association Name="SIZE_CT_SANPHAM" Member="SIZE" ThisKey="MaSize" OtherKey="MaSize" Type="SIZE" IsForeignKey="true" />
       <Association Name="SAN_PHAM_CT_SANPHAM" Member="SAN_PHAM" ThisKey="MaSP" OtherKey="MaSP" Type="SAN_PHAM" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DON_HANG" Member="DON_HANGs">
+    <Type Name="DON_HANG">
+      <Column Name="MaDH" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NgayLap" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TenNguoiNhan" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SdtNguoiNhan" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="DiaChiNhanHang" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="TrangThaiDonHang" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="TrangThaiGiaoHang" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="GhiChu" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="TongTien" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TaiKhoanKH" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MaPTTT" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NVXacNhan" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="DON_HANG_CT_DONHANG" Member="CT_DONHANGs" ThisKey="MaDH" OtherKey="MaDH" Type="CT_DONHANG" />
+      <Association Name="PHUONG_THUC_THANH_TOAN_DON_HANG" Member="PHUONG_THUC_THANH_TOAN" ThisKey="MaPTTT" OtherKey="MaPTTT" Type="PHUONG_THUC_THANH_TOAN" IsForeignKey="true" />
+      <Association Name="KHACH_HANG_DON_HANG" Member="KHACH_HANG" ThisKey="TaiKhoanKH" OtherKey="TaiKhoanKH" Type="KHACH_HANG" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

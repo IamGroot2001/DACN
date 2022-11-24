@@ -172,6 +172,7 @@ namespace DACN.Controllers
                 //phan trang
                 int pageNumber = (page ?? 1);
                 int pageSize = 8;
+
                 if (lstKQTK.Count == 0)
                 {
                     ViewBag.ThongBao = "Không tìm thấy sản phẩm nào cả";
