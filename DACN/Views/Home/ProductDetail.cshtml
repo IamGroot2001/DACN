@@ -225,7 +225,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="related-title">Hàng Cùng Loại</h3>
+                <h3 class="related-title">Sản Phẩm Cùng Loại</h3>
             </div>
         </div>
         <div class="row">
@@ -234,20 +234,19 @@
     </div>
 </section>
 <!-- Related Section End -->
-
 <!-- Related Section Begin -->
 @*<section class="related spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h3 class="related-title">Bán Chạy</h3>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="related-title">Bán Chạy</h3>
+                </div>
+            </div>
+            <div class="row">
+                @Html.Action("SanPhamBanChay", "Category")
             </div>
         </div>
-        <div class="row">
-            @Html.Action("SanPhamBanChay", "Category")
-        </div>
-    </div>
-</section>*@
+    </section>*@
 <!-- Related Section End -->
 
 <!-- Related Section Begin -->
@@ -255,7 +254,22 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="related-title">Hàng Mới Về</h3>
+                <h3 class="related-title">Sản Phẩm Bán Chạy</h3>
+            </div>
+        </div>
+        <div class="row">
+            @Html.Action("SanPhamBanChay", "Category")
+        </div>
+    </div>
+</section>
+<!-- Related Section End -->
+
+<!-- Related Section Begin -->
+<section class="related spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="related-title">Sản Phẩm Mới Về</h3>
             </div>
         </div>
         <div class="row">
