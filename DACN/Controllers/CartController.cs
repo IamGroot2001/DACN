@@ -9,7 +9,9 @@ using System.Web;
 using System.Web.Mvc;
 using DACN.Asset.csharp;
 using DACN.VNPAY;
-
+using System.ComponentModel.DataAnnotations;
+using System.Net.Mail;
+using System.Net;
 
 namespace DACN.Controllers
 {
@@ -223,6 +225,17 @@ namespace DACN.Controllers
                         updateSoLuong(ctdh);
                         data.CT_DONHANGs.InsertOnSubmit(ctdh);
                         data.SubmitChanges();
+                        //Mail xác nhận đặt hàng
+                        string subject = "Biên nhận";
+                        string mess = "Cảm ơn " + ac.HoTenKH + " đã đặt hàng!\n" +
+                                        "Mã đơn hàng: " + ddh.MaDH + "\n" +
+                                        "Ngày đặt hàng: " + String.Format("{0:dd/MM/yyyy}", ddh.NgayLap) + "\n" +
+                                       
+                                        "Tổng tiền: " + String.Format("{0:0,0}", ddh.TongTien) + " vnđ" + "\n" +
+                                        "Địa chỉ: " + ddh.DiaChiNhanHang + "\n" +
+                                        "Phương thức thanh toán: " + ddh.PHUONG_THUC_THANH_TOAN.TenPTTT + "\n";
+
+                       SendEmail(ac.EmailKH, subject, mess);
                         Session["Giohang"] = null;
                     }
                 }
@@ -267,6 +280,17 @@ namespace DACN.Controllers
                         updateSoLuong(ctdh);
                         data.CT_DONHANGs.InsertOnSubmit(ctdh);
                         data.SubmitChanges();
+                        //Mail xác nhận đặt hàng
+                        string subject = "Biên nhận";
+                        string mess = "Cảm ơn " + ac.HoTenKH + " đã đặt hàng!\n" +
+                                        "Mã đơn hàng: " + ddh.MaDH + "\n" +
+                                        "Ngày đặt hàng: " + String.Format("{0:dd/MM/yyyy}", ddh.NgayLap) + "\n" +
+
+                                        "Tổng tiền: " + String.Format("{0:0,0}", ddh.TongTien) + " vnđ" + "\n" +
+                                        "Địa chỉ: " + ddh.DiaChiNhanHang + "\n" +
+                                        "Phương thức thanh toán: " + ddh.PHUONG_THUC_THANH_TOAN.TenPTTT + "\n";
+
+                        SendEmail(ac.EmailKH, subject, mess);
                         Session["Giohang"] = null;
                     }
                 }
@@ -341,7 +365,7 @@ namespace DACN.Controllers
                     ddh.TongTien = TongTien();
                     ddh.MaPTTT = 3;
                     ddh.TrangThaiDonHang = false;
-                    ddh.TrangThaiGiaoHang = false;
+                    ddh.TrangThaiGiaoHang = true;
                     data.DON_HANGs.InsertOnSubmit(ddh);
                     data.SubmitChanges();
                     Session["idInvoice"] = ddh.MaDH;
@@ -365,6 +389,17 @@ namespace DACN.Controllers
                         updateSoLuong(ctdh);
                         data.CT_DONHANGs.InsertOnSubmit(ctdh);
                         data.SubmitChanges();
+                        //Mail xác nhận đặt hàng
+                        string subject = "Biên nhận";
+                        string mess = "Cảm ơn " + ac.HoTenKH + " đã đặt hàng!\n" +
+                                        "Mã đơn hàng: " + ddh.MaDH + "\n" +
+                                        "Ngày đặt hàng: " + String.Format("{0:dd/MM/yyyy}", ddh.NgayLap) + "\n" +
+
+                                        "Tổng tiền: " + String.Format("{0:0,0}", ddh.TongTien) + " vnđ" + "\n" +
+                                        "Địa chỉ: " + ddh.DiaChiNhanHang + "\n" +
+                                        "Phương thức thanh toán: " + ddh.PHUONG_THUC_THANH_TOAN.TenPTTT + "\n";
+
+                        SendEmail(ac.EmailKH, subject, mess);
                         Session["Giohang"] = null;
                     }
                 }
@@ -385,7 +420,7 @@ namespace DACN.Controllers
                     ddh.MaPTTT = 1;
                     ddh.NVXacNhan = t;
                     ddh.TrangThaiDonHang = false;
-                    ddh.TrangThaiGiaoHang = false;
+                    ddh.TrangThaiGiaoHang = true;
                     data.DON_HANGs.InsertOnSubmit(ddh);
                     data.SubmitChanges();
                     Session["idInvoice"] = ddh.MaDH;
@@ -433,10 +468,20 @@ namespace DACN.Controllers
                     ddh.TongTien = TongTien();
                     ddh.MaPTTT = 2;
                     ddh.TrangThaiDonHang = false;
-                    ddh.TrangThaiGiaoHang = false;
+                    ddh.TrangThaiGiaoHang = true;
                     ddh.NVXacNhan = t;
                     data.DON_HANGs.InsertOnSubmit(ddh);
                     data.SubmitChanges();
+                    //Mail xác nhận đặt hàng
+                    string subject = "Biên nhận";
+                    string mess = "Cảm ơn " + ac.HoTenKH + " đã đặt hàng!\n" +
+                                    "Mã đơn hàng: " + ddh.MaDH + "\n" +
+                                    "Ngày đặt hàng: " + String.Format("{0:dd/MM/yyyy}", ddh.NgayLap) + "\n" +
+                                    "Tổng tiền: " + String.Format("{0:0,0}", ddh.TongTien) + " vnđ" + "\n" +
+                                    "Địa chỉ: " + ddh.DiaChiNhanHang + "\n" +
+                                    "Phương thức thanh toán: " + ddh.PHUONG_THUC_THANH_TOAN.TenPTTT + "\n";
+
+                    SendEmail(ac.EmailKH, subject, mess);
                     Session["idInvoice"] = ddh.MaDH;
                     string url = ConfigurationManager.AppSettings["Url"];
                     string returnUrl = ConfigurationManager.AppSettings["ReturnUrl"];
@@ -505,6 +550,9 @@ namespace DACN.Controllers
                         updateSoLuong(ctdh);
                         data.CT_DONHANGs.InsertOnSubmit(ctdh);
                         data.SubmitChanges();
+                       
+
+                        SendEmail(ac.EmailKH, subject, mess);
                         Session["Giohang"] = null;
                     }
                     return Redirect(paymentUrl);
@@ -525,7 +573,7 @@ namespace DACN.Controllers
                     ddh.TongTien = TongTien();
                     ddh.MaPTTT = 2;
                     ddh.TrangThaiDonHang = false;
-                    ddh.TrangThaiGiaoHang = false;
+                    ddh.TrangThaiGiaoHang = true;
                     data.DON_HANGs.InsertOnSubmit(ddh);
                     data.SubmitChanges();
                     Session["idInvoice"] = ddh.MaDH;
@@ -606,6 +654,37 @@ namespace DACN.Controllers
                
             }
             return RedirectToAction("Thanks", "Cart");
+        }
+
+        //Gửi Mail
+        public static void SendEmail(string address, string subject, string message)
+        {
+            if (new EmailAddressAttribute().IsValid(address)) // check có đúng mail khách hàng
+            {
+                string email = "buivanty15@gmail.com";
+                var senderEmail = new MailAddress(email, "VAT Clother (tin nhắn tự động)");
+                var receiverEmail = new MailAddress(address, "Receiver");
+                var password = "dpukaghhwhgrokpo";
+                var sub = subject;
+                var body = message;
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(senderEmail.Address, password)
+                };
+                using (var mess = new MailMessage(senderEmail, receiverEmail)
+                {
+                    Subject = sub,
+                    Body = body
+                })
+                {
+                    smtp.Send(mess);
+                }
+            }
         }
 
         public ActionResult Thanks()

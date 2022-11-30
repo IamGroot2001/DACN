@@ -453,7 +453,8 @@ namespace DACN.Controllers
         [HttpGet]
         public ActionResult LoginWithGoogle()
         {
-            string host = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, "");
+            //string host = "http://licenserev03-001-site1.atempurl.com";
+           string host = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, "");
             GoogleConnect.ClientId = clientId;
             GoogleConnect.ClientSecret = clientSecret;
             GoogleConnect.RedirectUri = (host.Contains("localhost") ? host : host.Replace("http", "https")) + "/Users/LoginGoogleCallBack";
@@ -466,6 +467,7 @@ namespace DACN.Controllers
             if (code == null || String.IsNullOrEmpty(code))
                 return RedirectToAction("SignIn", "Users");
             string token = null;
+            //string host = "http://licenserev03-001-site1.atempurl.com";
             string host = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, "");
             using (var wb = new WebClient())
             {
